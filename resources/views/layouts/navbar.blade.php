@@ -1,110 +1,183 @@
-<!-- Navbar -->
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
-    <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-            </ol>
-            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
-        </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 float-right" id="navbar">
-            <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Sign In</span>
+<div class="navbar-custom">
+    <div class="container-fluid">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+            <li class="dropdown d-inline-block d-lg-none">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-search noti-icon"></i>
+                </a>
+                <div class="dropdown-menu dropdown-lg dropdown-menu-right p-0">
+                    <form class="p-3">
+                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                    </form>
+                </div>
+            </li>
+
+            <li class="dropdown d-none d-lg-inline-block">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
+                    <i class="fe-maximize noti-icon"></i>
+                </a>
+            </li>
+            <li class="dropdown notification-list topbar-dropdown">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-bell noti-icon"></i>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            <span class="float-right">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="noti-scroll" data-simplebar>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                            <div class="notify-icon">
+                                <img src="{{ asset('assets/images/users/user-1.jpg') }}" class="img-fluid rounded-circle" alt="" /> </div>
+                            <p class="notify-details">Cristina Pride</p>
+                            <p class="text-muted mb-0 user-msg">
+                                <small>Hi, How are you? What about our next meeting</small>
+                            </p>
+                        </a>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-primary">
+                                <i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                <small class="text-muted">1 min ago</small>
+                            </p>
+                        </a>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon">
+                                <img src="{{ asset('assets/images/users/user-4.jpg') }}" class="img-fluid rounded-circle" alt="" /> </div>
+                            <p class="notify-details">Karen Robinson</p>
+                            <p class="text-muted mb-0 user-msg">
+                                <small>Wow ! this admin looks good and awesome design</small>
+                            </p>
+                        </a>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-warning">
+                                <i class="mdi mdi-account-plus"></i>
+                            </div>
+                            <p class="notify-details">New user registered.
+                                <small class="text-muted">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-info">
+                                <i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                <small class="text-muted">4 days ago</small>
+                            </p>
+                        </a>
+
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-secondary">
+                                <i class="mdi mdi-heart"></i>
+                            </div>
+                            <p class="notify-details">Carlos Crouch liked
+                                <b>Admin</b>
+                                <small class="text-muted">13 days ago</small>
+                            </p>
+                        </a>
+                    </div>
+
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        View all
+                        <i class="fe-arrow-right"></i>
                     </a>
-                </li>
-                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                        <div class="sidenav-toggler-inner">
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
-                        </div>
+
+                </div>
+            </li>
+
+            <li class="dropdown notification-list topbar-dropdown">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="{{ asset('assets/images/users/user-1.jpg') }}" alt="user-image" class="rounded-circle">
+                    <span class="pro-user-name ml-1">
+                        Selamat datang, {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome !</h6>
+                    </div>
+
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-user"></i>
+                        <span>My Account</span>
                     </a>
-                </li>
-                <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0">
-                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-settings"></i>
+                        <span>Settings</span>
                     </a>
-                </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer"></i>
+
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="fe-lock"></i>
+                        <span>Lock Screen</span>
                     </a>
-                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New message</span> from Laur
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            13 minutes ago
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New album</span> by Travis Scott
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            1 day
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                            <title>credit-card</title>
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                        <g transform="translate(453.000000, 454.000000)">
-                                                            <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                                            <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                        Payment successfully completed
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                        <i class="fa fa-clock me-1"></i>
-                                        2 days
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+
+                    <div class="dropdown-divider"></div>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fe-log-out"></i>
+                            <span>Logout</span>
+                        </a>
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+
+        <div class="logo-box">
+            {{-- <a href="index.html" class="logo logo-dark text-center">
+                <span class="logo-sm">
+                    <img src="{{ asset('assets/images/logo-sm.png')}}" alt="" height="22">
+                </span>
+                <span class="logo-lg">
+                    <img src="{{ asset('assets/images/logo-dark.png')}}" alt="" height="20">
+                </span>
+            </a>
+
+            <a href="index.html" class="logo logo-light text-center">
+                <span class="logo-sm">
+                    <img src="{{ asset('assets/images/logo-sm.png')}}" alt="" height="22">
+                </span>
+                <span class="logo-lg">
+                    <img src="{{ asset('assets/images/logo-light.png')}}" alt="" height="20">
+                </span>
+            </a> --}}
         </div>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li>
+                <a class="navbar-toggle nav-link" data-toggle="collapse" data-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
     </div>
-</nav>
-<!-- End Navbar -->
+</div>

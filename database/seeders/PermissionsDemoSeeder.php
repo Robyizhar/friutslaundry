@@ -54,25 +54,19 @@ class PermissionsDemoSeeder extends Seeder
         } while ($index_menus < sizeOf($menus));
 
         // buat role
-        $guru = Role::create(['name' => 'Operator']);
-        $admin = Role::create(['name' => 'Admin']);
+        $owner = Role::create(['name' => 'Owner']);
+        $owner->givePermissionTo(Permission::all());
         $dev = Role::create(['name' => 'Maintener']);
         $dev->givePermissionTo(Permission::all());
 
         // buat user
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Operator',
-            'email' => 'op@example.com',
-            'password' => Hash::make('operator1234')
-        ]);
-        $user->assignRole($guru);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'name' => 'Owner',
+            'email' => 'owner@fruitslaundry.com',
             'password' => Hash::make('admin1234')
         ]);
-        $user->assignRole($admin);
+        $user->assignRole($owner);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Maintener',
