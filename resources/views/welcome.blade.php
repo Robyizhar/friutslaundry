@@ -24,7 +24,8 @@
     <title>Login</title>
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="Content-Security-Policy" content="default-src *; img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
@@ -145,11 +146,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <p class="text-white-50">Back to <a href="auth-login.html" class="text-white ml-1"><b>Sign In</b></a></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -219,10 +215,7 @@
             $('#reader').css("width", "auto");
             $('#reader').css("border", "none");
             $('#reader__scan_region').html('<br> <i class="fas fa-qrcode fa-10x"></i>');
-            $('#reader__camera_permission_button').addClass("btn btn-xs btn-pink width-md waves-effect waves-light text-light mt-2");
-            $('#reader__dashboard_section_swaplink').addClass("btn btn-xs btn-info width-md waves-effect waves-light text-light mt-2");
-            $('#reader__dashboard_section_csr').find('button').addClass("btn btn-xs btn-info width-md waves-effect waves-light text-light mt-2")
-            $('#reader__dashboard_section_swaplink').css("text-decoration", "auto");
+            $('#reader__dashboard_section_swaplink').css("display", "none");
         });
 
     </script>

@@ -31,7 +31,7 @@
                 {!! QrCode::size(300)->generate($accounts); !!}
             </div>
             <div class="col mt-3">
-                <button type="button" style="width: 300px;" id="save-qr" class="btn btn-block btn-sm btn-success waves-effect waves-light">
+                <button type="button" style="width: 300px;" id="downloadPNG" class="btn btn-block btn-sm btn-success waves-effect waves-light">
                     <i class="fas fa-cloud-download-alt"></i>
                     Download QR Code
                 </button>
@@ -44,35 +44,43 @@
 @endsection
 @push('script')
 <script>
-var div = document.getElementById('image-qr');
-svg = div.querySelector('svg');
-document.getElementById('save-qr').addEventListener('click', function () {
-    var canvas = document.getElementById('canvas-image-qr');
-    svg.setAttribute('width', 300);
-    svg.setAttribute('height', 300);
-    canvas.width = 300;
-    canvas.height = 300;
-    var data = new XMLSerializer().serializeToString(svg);
-    var win = window.URL || window.webkitURL || window;
-    var img = new Image();
-    img.style = 'border: 3px solid #FFF';
-    var blob = new Blob([data], { type: 'image/svg+xml' });
-    var url = win.createObjectURL(blob);
-    img.onload = function () {
-        canvas.getContext('2d').drawImage(img, 0, 0);
-        win.revokeObjectURL(url);
-        var uri = canvas.toDataURL('image/png').replace('image/png', 'octet/stream');
-        var a = document.createElement('a');
-        document.body.appendChild(a);
-        a.style = 'display: none';
-        a.href = uri
-        a.download = ('login-qr') + '.png';
-        a.click();
-        window.URL.revokeObjectURL(uri);
-        document.body.removeChild(a);
-    };
-    // console.log(img);
-    img.src = url;
-});
+
+function downloadSVGAsPNG(e) {
+
+    let name = `{{ $data['detail']->name }}`;
+
+    const canvas = document.createElement("canvas");
+    const svg = document.querySelector('svg');
+    const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
+    const w = parseInt(svg.getAttribute('width'));
+    const h = parseInt(svg.getAttribute('height'));
+    const img_to_download = document.createElement('img');
+    img_to_download.src = 'data:image/svg+xml;base64,' + base64doc;
+    console.log(w, h);
+    img_to_download.onload = function () {
+        console.log('img loaded');
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+        const context = canvas.getContext("2d");
+        //context.clearRect(0, 0, w, h);
+        context.drawImage(img_to_download,0,0,w,h);
+        const dataURL = canvas.toDataURL('image/png');
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
+            e.preventDefault();
+        } else {
+            const a = document.createElement('a');
+            const my_evt = new MouseEvent('click');
+            a.download = name+'.png';
+            a.href = dataURL;
+            a.dispatchEvent(my_evt);
+        }
+        //canvas.parentNode.removeChild(canvas);
+    }  
+}
+
+const downloadPNG = document.querySelector('#downloadPNG');
+downloadPNG.addEventListener('click', downloadSVGAsPNG);
+
 </script>
 @endpush

@@ -32,57 +32,57 @@
                 <li class="menu-title">Navigation</li>
                 <li>
                     <a href="#" data-toggle="collapse">
-                        <i data-feather="airplay"></i>
-                        <span class="badge badge-success badge-pill float-right">4</span>
+                        <i class="fas fa-tv"></i>
+                        {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Infogram</span>
                     </a>
                 </li>
                 <li class="menu-title mt-2">Apps</li>
                 <li>
                     <a href="#">
-                        <i data-feather="book-open"></i>
+                        <i class="fas fa-book-open"></i>
                         <span>Kasir</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="check-square"></i>
+                        <i class="fas fa-check-double"></i>
                         <span>QC</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="cloud-drizzle"></i>
+                        <i class="fas fa-water"></i>
                         <span>Cuci</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="cloud-snow"></i>
+                        <i class="fas fa-wind"></i>
                         <span>Pengeringan</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="shield"></i>
+                        <i class="fas fa-shield-alt"></i>
                         <span>Setrika</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="truck"></i>
+                        <i class="fas fa-shipping-fast"></i>
                         <span>Expedisi</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i data-feather="activity"></i>
+                        <i class="fas fa-chart-bar"></i>
                         <span>Laporan</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('master-data') }}">
-                        <i data-feather="database"></i>
+                        <i class="fas fa-database"></i>
                         <span>Master Data</span>
                     </a>
                 </li>

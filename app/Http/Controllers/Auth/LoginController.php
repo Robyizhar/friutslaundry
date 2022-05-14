@@ -41,8 +41,8 @@ class LoginController extends Controller
 
     public function loginQR(Request $request) {
         if($request->ajax()){
-            $data = json_decode($request->user);
             try {
+                $data = json_decode($request->user);
                 $user = User::where('email', $data->email)->first();
                 if($user != null){
                     if ($data->password == $user->qr_code) {
