@@ -164,7 +164,7 @@
             }
         });
     </script>
-    <script src="{{ asset('assets/js/scanqr.js')}}"></script>
+    <script src="{{ asset('assets/js/scan-qr-code.js')}}"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
             $('.form-process').css('display', 'block');
