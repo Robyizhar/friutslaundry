@@ -64,7 +64,10 @@ body {
   position: fixed;
   transition: all .1s ease-out;
   top: 70px;
-  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15); }
+  box-shadow: 0 0 35px 0 rgba(255, 0, 0, 0.15);
+  border-radius: 15px 15px 15px 15px;
+  border-color: #00acc1;
+}
 
 #sidebar-menu > ul {
   list-style: none;
@@ -550,7 +553,7 @@ body[data-sidebar-icon="twotones"] #sidebar-menu > ul > li > a svg {
   display: none; }
 
 .navbar-custom {
-  background-color: #38414a;
+  background-color: #0ec4cb;
   box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
   padding: 0 10px 0 0;
   position: fixed;
@@ -558,6 +561,7 @@ body[data-sidebar-icon="twotones"] #sidebar-menu > ul > li > a svg {
   right: 0;
   height: 70px;
   z-index: 1001;
+  border-radius: 0px 0px 25px 25px;
   /* Search */ }
   .navbar-custom .topnav-menu > li {
     float: left; }

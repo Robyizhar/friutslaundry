@@ -3418,7 +3418,8 @@ input[type="button"].btn-block {
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.5rem; }
+  padding: 1.5rem; 
+}
 
 .card-title {
   margin-bottom: 1rem; }
@@ -8045,7 +8046,8 @@ a.text-blue:hover, a.text-blue:focus {
   padding: 1.5rem;
   box-shadow: 0 0.75rem 6rem rgba(56, 65, 74, 0.03);
   margin-bottom: 24px;
-  border-radius: 0.25rem; }
+  border-radius: 25px; 
+}
 
 .header-title {
   font-size: 1rem;
