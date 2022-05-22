@@ -1,20 +1,3 @@
-{{-- @extends('layouts.main')
-@section('content')
-<div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-    <div class="grid grid-cols-1 md:grid-cols-2">
-        @php
-            $account = [
-                'email' => 'owner@fruitslaundry.com',
-                'password' => 'admin1234'
-            ];
-            $accounts = json_encode($account);
-        @endphp
-        {!! QrCode::size(500)->generate($accounts); !!}
-        <p>Scan me to return to the original page.</p>
-    </div>
-</div>
-@endsection --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,9 +101,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-pattern">
-
                         <div class="card-body p-4">
-
                             <div class="text-center w-75 m-auto">
                                 <div class="auth-logo">
                                     <a href="index.html" class="logo logo-dark text-center">
@@ -128,7 +109,6 @@
                                             {{-- <img src="../assets/images/logo-dark.png" alt="" height="22"> --}}
                                         </span>
                                     </a>
-
                                     <a href="index.html" class="logo logo-light text-center">
                                         <span class="logo-lg">
                                             {{-- <img src="../assets/images/logo-light.png" alt="" height="22"> --}}
@@ -136,7 +116,6 @@
                                     </a>
                                 </div>
                             </div>
-
                             <div class="text-center">
                                 <div class="mt-4">
                                     <div style="width: 500px; display: none;" id="reader"></div>
