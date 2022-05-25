@@ -11,6 +11,7 @@ use App\Http\Controllers\MasterData\RoleController;
 use App\Http\Controllers\MasterData\OutletController;
 use App\Http\Controllers\MasterData\HargaController;
 use App\Http\Controllers\MasterData\LayananController;
+use App\Http\Controllers\MasterData\MemberController;
 
 Route::get('/', [Home::class, 'index']);
 Route::post('login-qr', [LoginController::class, 'loginQR'])->name('login-qr');
@@ -75,6 +76,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', [LayananController::class, 'edit'])->name('layanan.edit');
             Route::put('/update', [LayananController::class, 'update'])->name('layanan.update');
             Route::get('/destroy/{id}', [LayananController::class, 'destroy'])->name('layanan.destroy');
+        });
+
+        Route::prefix('member')->group(function () {
+            Route::get('/', [MemberController::class, 'index'])->name('member');
+            Route::post('/get-data', [MemberController::class, 'getData'])->name('member.get-data');
+            Route::get('/create', [MemberController::class, 'create'])->name('member.create');
+            Route::post('/store', [MemberController::class, 'store'])->name('member.store');
+            Route::get('/detail/{id}', [MemberController::class, 'detail'])->name('member.detail');
+            Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
+            Route::put('/update', [MemberController::class, 'update'])->name('member.update');
+            Route::get('/destroy/{id}', [MemberController::class, 'destroy'])->name('member.destroy');
         });
 
     });

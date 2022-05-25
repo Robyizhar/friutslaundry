@@ -56,9 +56,9 @@ class OutletController extends Controller {
     public function store(Request $request) {
         try {
             $data = $request->except(['_token', '_method', 'id']);
-            
+
             $outlet = $this->model->store($data);
-            $outlet->syncRoles($request->role);
+            // $outlet->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('outlet');
         } catch (\Throwable $e) {
@@ -80,7 +80,7 @@ class OutletController extends Controller {
     public function detail($id) {
         try {
             $data['detail'] = $this->model->find($id);
-            
+
             return view('master-data.outlet.detail', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
@@ -92,7 +92,7 @@ class OutletController extends Controller {
         try {
             $data = $request->except(['_token', '_method', 'id']);
             $user = $this->model->update($request->id, $data);
-            $user->syncRoles($request->role);
+            // $user->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('outlet');
         } catch (\Throwable $e) {

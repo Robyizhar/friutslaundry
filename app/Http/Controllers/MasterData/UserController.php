@@ -27,7 +27,7 @@ class UserController extends Controller {
     }
 
     public function getData() {
-        $data = User::where('name', '!=', 'Maintener')->orderBy('id', 'ASC');
+        $data = User::where('name', '!=', 'Maintener')->where('is_member', '=', '0')->orderBy('id', 'DESC');
         return DataTables::of($data)
         ->addColumn('roles', function($data){
             $roles = $data->getRoleNames()->toArray();

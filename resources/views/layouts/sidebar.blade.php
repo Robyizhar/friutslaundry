@@ -86,6 +86,12 @@
                         <span>Master Data</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('member') }}">
+                        <i class="fas fa-address-card"></i>
+                        <span>Member</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="clearfix"></div>

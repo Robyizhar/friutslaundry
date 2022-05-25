@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="mt-1"><span data-plugin="counterup">89</span></h3>
+                                        <h3 class="mt-1"><span data-plugin="counterup">{{ $data['user'] }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">User</p>
                                     </div>
                                 </div>
