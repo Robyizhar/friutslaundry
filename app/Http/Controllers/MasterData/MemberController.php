@@ -5,6 +5,8 @@ namespace App\Http\Controllers\MasterData;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\MemberRequest;
+use App\Http\Requests\MemberRequestUpdate;
 use App\Models\User;
 use App\Models\Member;
 use App\Repositories\BaseRepository;
@@ -53,11 +55,11 @@ class MemberController extends Controller
             return view('master-data.member.form', compact('roles'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('member');
+            return redirect()->route('user-member');
         }
     }
 
-    public function store(Request $request) {
+    public function store(MemberRequest $request) {
         DB::beginTransaction();
         try {
             $user = $request->except(['_token', '_method', 'id', 'phone', 'address', 'balance']);
@@ -74,7 +76,7 @@ class MemberController extends Controller
 
             DB::commit();
             Alert::toast($request->name.' Berhasil Disimpan', 'success');
-            return redirect()->route('member');
+            return redirect()->route('user-member');
         } catch (\Throwable $e) {
             DB::rollback();
             Alert::toast($e->getMessage(), 'error');
@@ -85,26 +87,32 @@ class MemberController extends Controller
     public function edit($id) {
         try {
             $data['detail'] = Member::with('user')->find($id);
-            // return $data['detail'];
+            if(empty($data['detail'])){
+                Alert::toast('User Tidak Ditemukan', 'error');
+                return redirect()->route('user-member');
+            }
             return view('master-data.member.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('member');
+            return redirect()->route('user-member');
         }
     }
 
     public function detail($id) {
         try {
             $data['detail'] = $this->model->find($id);
-
+            if(empty($data['detail'])){
+                Alert::toast('User Tidak Ditemukan', 'error');
+                return redirect()->route('user-member');
+            }
             return view('master-data.member.detail', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('member');
+            return redirect()->route('user-member');
         }
     }
 
-    public function update(Request $request) {
+    public function update(MemberRequestUpdate $request) {
         DB::beginTransaction();
         try {
             $user = $request->except(['_token', '_method', 'id', 'password']);
@@ -122,11 +130,11 @@ class MemberController extends Controller
 
             DB::commit();
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
-            return redirect()->route('member');
+            return redirect()->route('user-member');
         } catch (\Throwable $e) {
             DB::rollback();
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('member');
+            return back();
         }
     }
 

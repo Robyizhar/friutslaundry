@@ -4,7 +4,8 @@ namespace App\Http\Controllers\MasterData;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserRequestUpdate;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -63,7 +64,7 @@ class UserController extends Controller {
         }
     }
 
-    public function store(Request $request) {
+    public function store(UserRequest $request) {
         try {
             $data = $request->except(['_token', '_method', 'id', 'password_confirm', 'role']);
             $data['password'] = Hash::make($request->password);
@@ -103,7 +104,7 @@ class UserController extends Controller {
         }
     }
 
-    public function update(Request $request) {
+    public function update(UserRequestUpdate $request) {
         try {
             $data = $request->except(['_token', '_method', 'id', 'password']);
             if ($request['password'] != '') {

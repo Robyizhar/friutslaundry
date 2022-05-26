@@ -55,9 +55,9 @@
     </div>
     <div class="form-group mb-3">
         <label class="{{ !isset($data['detail']) ? 'required' : '' }}">Konfirmasi Password</label>
-        <input autocomplete="off" type="password" name="password_confirm" class="form-control mb-2" placeholder="konfirmasi password" />
-        @if($errors->has('password_confirm'))
-            <div class="text-danger"> {{ $errors->first('password_confirm')}} </div>
+        <input autocomplete="off" type="password" name="password_confirmation" class="form-control mb-2" placeholder="konfirmasi password" />
+        @if($errors->has('password_confirmation'))
+            <div class="text-danger"> {{ $errors->first('password_confirmation')}} </div>
         @endif
     </div>
 
