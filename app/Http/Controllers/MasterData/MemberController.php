@@ -37,9 +37,9 @@ class MemberController extends Controller
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                'url_edit' => route('member.edit', $data->id),
-                'url_detail' => route('member.detail', $data->id),
-                'url_destroy' => route('member.destroy', $data->id)
+                'url_edit' => route('user-member.edit', $data->id),
+                'url_detail' => route('user-member.detail', $data->id),
+                'url_destroy' => route('user-member.destroy', $data->id)
             ]);
         })
         ->addIndexColumn()

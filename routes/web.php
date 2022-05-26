@@ -79,14 +79,14 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('member')->group(function () {
-            Route::get('/', [MemberController::class, 'index'])->name('member');
-            Route::post('/get-data', [MemberController::class, 'getData'])->name('member.get-data');
-            Route::get('/create', [MemberController::class, 'create'])->name('member.create');
-            Route::post('/store', [MemberController::class, 'store'])->name('member.store');
-            Route::get('/detail/{id}', [MemberController::class, 'detail'])->name('member.detail');
-            Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('member.edit');
-            Route::put('/update', [MemberController::class, 'update'])->name('member.update');
-            Route::get('/destroy/{id}', [MemberController::class, 'destroy'])->name('member.destroy');
+            Route::get('/', [MemberController::class, 'index'])->name('user-member');
+            Route::post('/get-data', [MemberController::class, 'getData'])->name('user-member.get-data');
+            Route::get('/create', [MemberController::class, 'create'])->name('user-member.create');
+            Route::post('/store', [MemberController::class, 'store'])->name('user-member.store');
+            Route::get('/detail/{id}', [MemberController::class, 'detail'])->name('user-member.detail');
+            Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('user-member.edit');
+            Route::put('/update', [MemberController::class, 'update'])->name('user-member.update');
+            Route::get('/destroy/{id}', [MemberController::class, 'destroy'])->name('user-member.destroy');
         });
 
     });

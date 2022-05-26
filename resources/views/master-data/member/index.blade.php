@@ -9,7 +9,7 @@
             @include('component.breadcrumb')
             <div class="row">
                 <div class="col-12">
-                    <a href="{{ route('member.create') }}" class="btn btn-primary waves-effect waves-light mb-3">Add</a>
+                    <a href="{{ route('user-member.create') }}" class="btn btn-primary waves-effect waves-light mb-3">Add</a>
                 </div>
             </div>
             <div class="row">
@@ -47,7 +47,7 @@
             method: "POST",
             scrollX: true,
             ajax: {
-                url: "{!! route('member.get-data') !!}",
+                url: "{!! route('user-member.get-data') !!}",
                 type: "POST",
                 dataType: "JSON"
             },

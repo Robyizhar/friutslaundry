@@ -87,7 +87,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('member') }}">
+                    <a href="{{ route('user-member') }}">
                         <i class="fas fa-address-card"></i>
                         <span>Member</span>
                     </a>

@@ -4,7 +4,7 @@
 @endpush
 @section('content')
 @component('component.form')
-    @slot('action', !isset($data['detail']) ? route('member.store') : route('member.update'))
+    @slot('action', !isset($data['detail']) ? route('user-member.store') : route('user-member.update'))
     @isset ($data['detail'])
         @slot('method','PUT')
     @else
