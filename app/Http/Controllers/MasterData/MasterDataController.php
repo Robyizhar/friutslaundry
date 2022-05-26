@@ -8,15 +8,17 @@ use App\Models\Harga;
 use App\Models\Layanan;
 use App\Models\Outlet;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class MasterDataController extends Controller {
 
     public function index() {
         $data = [
-            // 'harga' => Harga::count(),
-            // 'layanan' => Layanan::count(),
-            // 'outlet' => Outlet::count(),
-            'user' => User::count()
+            'harga' => Harga::count(),
+            'layanan' => Layanan::count(),
+            'outlet' => Outlet::count(),
+            'user' => User::count(),
+            'role' => Role::count()
         ];
         // return $data;
         return view('master-data.index', compact('data'));

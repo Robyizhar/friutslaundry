@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="mt-1"><span data-plugin="counterup">{{ $data['user'] }}</span></h3>
+                                        <h3 class="mt-1"><span data-plugin="counterup">{{ $data['user'] - 1 }}</span></h3>
                                         <p class="text-muted mb-1 text-truncate">User</p>
                                     </div>
                                 </div>
@@ -48,30 +48,13 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
-                                        <p class="text-muted mb-1 text-truncate">Akses User</p>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $data['role'] }}</span></h3>
+                                        <p class="text-muted mb-1 text-truncate">Golongan</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card-box">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="avatar-lg rounded-circle border-info border">
-                                    <i class="fe-layers font-22 avatar-title text-info"></i>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <h3 class="text-dark mt-1"><span data-plugin="counterup">58</span></h3>
-                                    <p class="text-muted mb-1 text-truncate">List Barang</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <a href="{{ route('outlet') }}">
@@ -84,7 +67,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">41</h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $data['outlet'] }}</h3>
                                         <p class="text-muted mb-1 text-truncate">List Outlet</p>
                                     </div>
                                 </div>
@@ -103,7 +86,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">2</h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $data['layanan'] }}</h3>
                                         <p class="text-muted mb-1 text-truncate">List Jenis Layanan</p>
                                     </div>
                                 </div>
@@ -122,7 +105,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">521</h3>
+                                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $data['harga'] }}</h3>
                                         <p class="text-muted mb-1 text-truncate">List Harga Layanan</p>
                                     </div>
                                 </div>

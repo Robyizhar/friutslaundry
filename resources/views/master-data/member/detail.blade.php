@@ -12,23 +12,80 @@
     @endisset
     @slot('content')
     <div class="form-group mb-3">
-        <label class="required">Kode</label>
-        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('kode') : old('kode', $data['detail']->kode) }}" type="text"  class="form-control mb-2" />
-    </div>
-    <div class="form-group mb-3">
         <label class="required">Nama</label>
-        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('nama') : old('nama', $data['detail']->nama) }}" type="text"  class="form-control mb-2" />
+        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('name') : old('name', $data['detail']->user->name) }}" type="text"  class="form-control mb-2" />
     </div>
     <div class="form-group mb-3">
-        <label class="required">Harga</label>
-        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('harga') : old('harga', $data['detail']->harga) }}" type="text" class="form-control mb-2" />
+        <label class="required">Email</label>
+        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('email') : old('email', $data['detail']->user->email) }}" type="text"  class="form-control mb-2" />
     </div>
     <div class="form-group mb-3">
-        <label class="required">Harga Member</label>
-        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('harga_member') : old('harga_member', $data['detail']->harga_member) }}" type="text" class="form-control mb-2" />
+        <label class="required">Telephone/Whatsapp</label>
+        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('phone') : old('phone', $data['detail']->phone) }}" type="text" class="form-control mb-2" />
     </div>
-    
+    <div class="form-group mb-3">
+        <label class="required">Alamat</label>
+        <input disabled style="background-color: #e5e5e5;" value="{{ !isset($data['detail']) ? old('address') : old('address', $data['detail']->address) }}" type="text" class="form-control mb-2" />
+    </div>
+    <div class="form-group mb-3">
+        <label class="required">QR Login</label>
+        @php $accounts = json_encode([ 'email' => $data['detail']->email, 'password' => $data['detail']->qr_code ]); @endphp
+        <div class="row mb-2">
+            <div class="col-12" id="image-qr">
+                {!! QrCode::size(300)->generate($accounts); !!}
+            </div>
+            <div class="col mt-3">
+                <button type="button" style="width: 300px;" id="downloadPNG" class="btn btn-block btn-sm btn-success waves-effect waves-light">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    Download QR Code
+                </button>
+            </div>
+            <canvas style="display: none;" id="canvas-image-qr"></canvas>
+        </div>
+    </div>
 
     @endslot
 @endcomponent
 @endsection
+@push('script')
+<script>
+
+function downloadSVGAsPNG(e) {
+
+    let name = `{{ $data['detail']->user->name }}`;
+
+    const canvas = document.createElement("canvas");
+    const svg = document.querySelector('svg');
+    const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
+    const w = parseInt(svg.getAttribute('width'));
+    const h = parseInt(svg.getAttribute('height'));
+    const img_to_download = document.createElement('img');
+    img_to_download.src = 'data:image/svg+xml;base64,' + base64doc;
+    console.log(w, h);
+    img_to_download.onload = function () {
+        console.log('img loaded');
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+        const context = canvas.getContext("2d");
+        //context.clearRect(0, 0, w, h);
+        context.drawImage(img_to_download,0,0,w,h);
+        const dataURL = canvas.toDataURL('image/png');
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(canvas.msToBlob(), "download.png");
+            e.preventDefault();
+        } else {
+            const a = document.createElement('a');
+            const my_evt = new MouseEvent('click');
+            a.download = name+'.png';
+            a.href = dataURL;
+            a.dispatchEvent(my_evt);
+        }
+        //canvas.parentNode.removeChild(canvas);
+    }
+}
+
+const downloadPNG = document.querySelector('#downloadPNG');
+downloadPNG.addEventListener('click', downloadSVGAsPNG);
+
+</script>
+@endpush

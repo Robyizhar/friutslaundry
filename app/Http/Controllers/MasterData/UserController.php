@@ -105,9 +105,11 @@ class UserController extends Controller {
 
     public function update(Request $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id']);
-            $data['password'] = Hash::make($request->password);
-            $data['qr_code'] = Hash::make($request->password);
+            $data = $request->except(['_token', '_method', 'id', 'password']);
+            if ($request['password'] != '') {
+                $data['password'] = Hash::make($request->password);
+                $data['qr_code'] = Hash::make($request->password);
+            }
             $user = $this->model->update($request->id, $data);
             $user->syncRoles($request->role);
             Alert::toast($request->name.' Berhasil Disimpan', 'success');

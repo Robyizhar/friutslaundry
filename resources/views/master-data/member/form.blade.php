@@ -14,8 +14,9 @@
 
     <div class="form-group mb-3">
         <label class="required">Nama</label>
-        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail']->id }}" name="id">
-        <input value="{{ !isset($data['detail']) ? old('name') : old('name', $data['detail']->name) }}" type="text" name="name" class="form-control mb-2 @error('name') is-invalid @enderror" placeholder="name" autocomplete="off" />
+        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail']->id }}" name="member_id">
+        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail']->user->id }}" name="id">
+        <input value="{{ !isset($data['detail']) ? old('name') : old('name', $data['detail']->user->name) }}" type="text" name="name" class="form-control mb-2 @error('name') is-invalid @enderror" placeholder="name" autocomplete="off" />
         @if($errors->has('name'))
             <div class="text-danger"> {{ $errors->first('name')}} </div>
         @endif
@@ -23,7 +24,7 @@
 
     <div class="form-group mb-3">
         <label class="required">Email</label>
-        <input value="{{ !isset($data['detail']) ? old('email') : old('email', $data['detail']->email) }}" type="email" name="email" class="form-control mb-2 @error('email') is-invalid @enderror" placeholder="email" autocomplete="off" />
+        <input value="{{ !isset($data['detail']) ? old('email') : old('email', $data['detail']->user->email) }}" type="email" name="email" class="form-control mb-2 @error('email') is-invalid @enderror" placeholder="email" autocomplete="off" />
         @if($errors->has('email'))
             <div class="text-danger"> {{ $errors->first('email')}} </div>
         @endif

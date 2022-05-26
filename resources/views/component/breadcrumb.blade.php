@@ -18,7 +18,7 @@
                     @endif
                 </ol>
             </div>
-            <h4 class="page-title">{{ ucwords(str_replace("-"," ",Request::segment(count(request()->segments())))) }}</h4>
+            {{-- <h4 class="page-title">{{ ucwords(str_replace("-"," ",Request::segment(count(request()->segments())))) }}</h4> --}}
         </div>
     </div>
 </div>

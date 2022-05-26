@@ -38,7 +38,7 @@ class MemberController extends Controller
             return view('component.action', [
                 'model' => $data,
                 'url_edit' => route('member.edit', $data->id),
-                // 'url_detail' => route('member.detail', $data->id),
+                'url_detail' => route('member.detail', $data->id),
                 'url_destroy' => route('member.destroy', $data->id)
             ]);
         })
@@ -84,7 +84,8 @@ class MemberController extends Controller
 
     public function edit($id) {
         try {
-            $data['detail'] = $this->model->find($id);
+            $data['detail'] = Member::with('user')->find($id);
+            // return $data['detail'];
             return view('master-data.member.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
@@ -104,12 +105,26 @@ class MemberController extends Controller
     }
 
     public function update(Request $request) {
+        DB::beginTransaction();
         try {
-            $data = $request->except(['_token', '_method', 'id']);
-            $user = $this->model->update($request->id, $data);
+            $user = $request->except(['_token', '_method', 'id', 'password']);
+            if ($request['password'] != '') {
+                $user['password'] = Hash::make($request->password);
+                $user['qr_code'] = Hash::make($request->password);
+            }
+            $user['is_member'] = '1';
+            $this->user->update($request->id, $user);
+
+            $member = $request->except(['_token', '_method', 'id', 'email', 'password', 'name']);
+            $member['created_by'] = Auth::user()->name;
+            // $member['user_id'] = $user_id->id;
+            $this->model->update($request->member_id, $member);
+
+            DB::commit();
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('member');
         } catch (\Throwable $e) {
+            DB::rollback();
             Alert::toast($e->getMessage(), 'error');
             return redirect()->route('member');
         }
