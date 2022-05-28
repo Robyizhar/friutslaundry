@@ -17,10 +17,12 @@ class CreateOutletsTable extends Migration
             $table->id();
             $table->string('nama', $precision = 50);
             $table->text('alamat')->nullable();
-            $table->string('no_telepon', $precision = 20);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->string('no_telepon', $precision = 20)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('created_by')->nullable(true);
+            $table->integer('updated_by')->nullable(true);
+            $table->integer('deleted_by')->nullable(true);
         });
     }
 

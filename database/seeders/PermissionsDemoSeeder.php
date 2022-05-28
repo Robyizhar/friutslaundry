@@ -56,8 +56,13 @@ class PermissionsDemoSeeder extends Seeder
         // buat role
         $owner = Role::create(['name' => 'Owner']);
         $owner->givePermissionTo(Permission::all());
+
         $dev = Role::create(['name' => 'Maintener']);
         $dev->givePermissionTo(Permission::all());
+
+        Role::create(['name' => 'Manager']);
+        Role::create(['name' => 'Supervisior']);
+        Role::create(['name' => 'Staff']);
 
         // buat user
 

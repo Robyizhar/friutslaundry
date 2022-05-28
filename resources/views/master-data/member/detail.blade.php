@@ -29,7 +29,7 @@
     </div>
     <div class="form-group mb-3">
         <label class="required">QR Login</label>
-        @php $accounts = json_encode([ 'email' => $data['detail']->email, 'password' => $data['detail']->qr_code ]); @endphp
+        @php $accounts = json_encode([ 'email' => $data['detail']->user->email, 'password' => $data['detail']->user->qr_code ]); @endphp
         <div class="row mb-2">
             <div class="col-12" id="image-qr">
                 {!! QrCode::size(300)->generate($accounts); !!}

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Outlet extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +30,7 @@ class Outlet extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -38,6 +39,6 @@ class Outlet extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        
+
     ];
 }

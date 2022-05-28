@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Layanan extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +29,7 @@ class Layanan extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -37,6 +38,6 @@ class Layanan extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        
+
     ];
 }

@@ -19,9 +19,12 @@ class CreateHargasTable extends Migration
             $table->string('nama', $precision = 50);
             $table->decimal('harga', $precision = 20)->nullable();
             $table->decimal('harga_member', $precision = 20)->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('created_by')->nullable(true);
+            $table->integer('updated_by')->nullable(true);
+            $table->integer('deleted_by')->nullable(true);
+
         });
     }
 

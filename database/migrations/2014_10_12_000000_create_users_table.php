@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->enum('is_member', [0, 1])->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('created_by')->nullable(true);
+            $table->integer('updated_by')->nullable(true);
+            $table->integer('deleted_by')->nullable(true);
         });
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\MasterData;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\OutleteRequest;
+use App\Http\Requests\OutleteRequestUpdate;
 use App\Models\Outlet;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -53,12 +55,11 @@ class OutletController extends Controller {
         }
     }
 
-    public function store(Request $request) {
+    public function store(OutleteRequest $request) {
         try {
             $data = $request->except(['_token', '_method', 'id']);
 
             $outlet = $this->model->store($data);
-            // $outlet->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('outlet');
         } catch (\Throwable $e) {
@@ -88,11 +89,10 @@ class OutletController extends Controller {
         }
     }
 
-    public function update(Request $request) {
+    public function update(OutleteRequestUpdate $request) {
         try {
             $data = $request->except(['_token', '_method', 'id']);
             $user = $this->model->update($request->id, $data);
-            // $user->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('outlet');
         } catch (\Throwable $e) {

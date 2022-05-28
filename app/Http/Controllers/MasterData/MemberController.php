@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MemberController extends Controller
 {
@@ -100,7 +101,7 @@ class MemberController extends Controller
 
     public function detail($id) {
         try {
-            $data['detail'] = $this->model->find($id);
+            $data['detail'] =  Member::with('user')->find($id);
             if(empty($data['detail'])){
                 Alert::toast('User Tidak Ditemukan', 'error');
                 return redirect()->route('user-member');
