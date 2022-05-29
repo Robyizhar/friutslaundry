@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController AS Login;
 use App\Http\Controllers\Auth\LoginController;
 
 //Master Data
@@ -13,7 +12,10 @@ use App\Http\Controllers\MasterData\HargaController;
 use App\Http\Controllers\MasterData\LayananController;
 use App\Http\Controllers\MasterData\MemberController;
 
-Route::get('/', [Login::class, 'index']);
+// Route::get('/', [Login::class, 'index']);
+Route::get('/', function() {
+    return redirect('/login');
+});
 Route::post('login-qr', [LoginController::class, 'loginQR'])->name('login-qr');
 
 Auth::routes();
