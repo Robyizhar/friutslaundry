@@ -21,8 +21,13 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('status')->default('active');
+            $table->enum('is_member', [0, 1])->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('created_by')->nullable(true);
+            $table->integer('updated_by')->nullable(true);
+            $table->integer('deleted_by')->nullable(true);
         });
     }
 

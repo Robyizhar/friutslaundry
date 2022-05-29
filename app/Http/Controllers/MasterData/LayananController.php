@@ -5,6 +5,8 @@ namespace App\Http\Controllers\MasterData;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\LayananRequest;
+use App\Http\Requests\LayananRequestUpdate;
 use App\Models\Layanan;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -53,12 +55,11 @@ class LayananController extends Controller {
         }
     }
 
-    public function store(Request $request) {
+    public function store(LayananRequest $request) {
         try {
             $data = $request->except(['_token', '_method', 'id']);
-            
+
             $layanan = $this->model->store($data);
-            $layanan->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('layanan');
         } catch (\Throwable $e) {
@@ -80,7 +81,7 @@ class LayananController extends Controller {
     public function detail($id) {
         try {
             $data['detail'] = $this->model->find($id);
-            
+
             return view('master-data.layanan.detail', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
@@ -88,11 +89,10 @@ class LayananController extends Controller {
         }
     }
 
-    public function update(Request $request) {
+    public function update(LayananRequestUpdate $request) {
         try {
             $data = $request->except(['_token', '_method', 'id']);
             $user = $this->model->update($request->id, $data);
-            $user->syncRoles($request->role);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('layanan');
         } catch (\Throwable $e) {

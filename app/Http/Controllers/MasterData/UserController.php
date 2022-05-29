@@ -4,7 +4,8 @@ namespace App\Http\Controllers\MasterData;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserRequestUpdate;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -27,7 +28,7 @@ class UserController extends Controller {
     }
 
     public function getData() {
-        $data = User::where('name', '!=', 'Maintener')->orderBy('id', 'ASC');
+        $data = User::where('name', '!=', 'Maintener')->where('is_member', '=', '0')->orderBy('id', 'DESC');
         return DataTables::of($data)
         ->addColumn('roles', function($data){
             $roles = $data->getRoleNames()->toArray();
@@ -63,7 +64,7 @@ class UserController extends Controller {
         }
     }
 
-    public function store(Request $request) {
+    public function store(UserRequest $request) {
         try {
             $data = $request->except(['_token', '_method', 'id', 'password_confirm', 'role']);
             $data['password'] = Hash::make($request->password);
@@ -103,11 +104,13 @@ class UserController extends Controller {
         }
     }
 
-    public function update(Request $request) {
+    public function update(UserRequestUpdate $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id']);
-            $data['password'] = Hash::make($request->password);
-            $data['qr_code'] = Hash::make($request->password);
+            $data = $request->except(['_token', '_method', 'id', 'password']);
+            if ($request['password'] != '') {
+                $data['password'] = Hash::make($request->password);
+                $data['qr_code'] = Hash::make($request->password);
+            }
             $user = $this->model->update($request->id, $data);
             $user->syncRoles($request->role);
             Alert::toast($request->name.' Berhasil Disimpan', 'success');

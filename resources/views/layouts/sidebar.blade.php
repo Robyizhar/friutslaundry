@@ -31,7 +31,14 @@
             <ul id="side-menu">
                 <li class="menu-title">Navigation</li>
                 <li>
-                    <a href="#" data-toggle="collapse">
+                    <a href="{{ route('home') }}">
+                        <i class="fas fa-tv"></i>
+                        {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('infogram') }}">
                         <i class="fas fa-tv"></i>
                         {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Infogram</span>
@@ -84,6 +91,12 @@
                     <a href="{{ route('master-data') }}">
                         <i class="fas fa-database"></i>
                         <span>Master Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user-member') }}">
+                        <i class="fas fa-address-card"></i>
+                        <span>Member</span>
                     </a>
                 </li>
             </ul>
