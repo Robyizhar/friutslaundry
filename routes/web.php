@@ -12,16 +12,16 @@ use App\Http\Controllers\MasterData\HargaController;
 use App\Http\Controllers\MasterData\LayananController;
 use App\Http\Controllers\MasterData\MemberController;
 
-// Route::get('/', [Login::class, 'index']);
 Route::get('/', function() {
     return redirect('/login');
 });
 Route::post('login-qr', [LoginController::class, 'loginQR'])->name('login-qr');
-
-Auth::routes();
-
+Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/infogram', function() {
+        return redirect('/home');
+    })->name('infogram');
     Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 
         Route::get('/', [MasterDataController::class, 'index'])->name('master-data');
