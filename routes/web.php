@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::prefix('master-data')->group(function () {
+    Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 
         Route::get('/', [MasterDataController::class, 'index'])->name('master-data');
 
