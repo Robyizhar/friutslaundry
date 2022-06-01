@@ -52,12 +52,13 @@
     @include('layouts.style')
 </head>
 
-<body  data-layout-mode="detached" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "light", "size": "default", "showuser": true}, "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
+<body data-layout-mode="horizontal" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
+
     <div id="wrapper">
         {{-- NAVBAR --}}
-        @include('layouts.navbar')
+        @include('layouts.navbar_user')
         {{-- SIDEBAR --}}
-        @include('layouts.sidebar')
+        <!-- @include('layouts.sidebar') -->
         {{-- SIDEMENU --}}
         {{-- Menu --}}
         @yield('content')

@@ -14,6 +14,7 @@ use App\Http\Controllers\MasterData\MemberController;
 
 //Transaksi
 use App\Http\Controllers\Transaksi\KasirController;
+use App\Http\Controllers\Member\PermintaanLaundryController;
 
 Route::get('/', function() {
     return redirect('/login');
@@ -24,6 +25,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
+
+    Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
+
+    Route::get('/infogram', function() {
+        return redirect('/home');
+    })->name('infogram');
 
     Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 
@@ -94,6 +101,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/destroy/{id}', [MemberController::class, 'destroy'])->name('user-member.destroy');
         });
 
+
+
     });
 
     Route::prefix('kasir')->group(function () {
@@ -104,6 +113,17 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/edit/{id}', [KasirController::class, 'edit'])->name('kasir.edit');
         // Route::put('/update', [KasirController::class, 'update'])->name('kasir.update');
         // Route::get('/destroy/{id}', [KasirController::class, 'destroy'])->name('kasir.destroy');
+    });
+
+    Route::prefix('permintaan-laundry')->group(function () {
+        Route::get('/', [PermintaanLaundryController::class, 'index'])->name('permintaan-laundry');
+        Route::post('/get-data', [PermintaanLaundryController::class, 'getData'])->name('permintaan-laundry.get-data');
+        Route::get('/create', [PermintaanLaundryController::class, 'create'])->name('permintaan-laundry.create');
+        Route::post('/store', [PermintaanLaundryController::class, 'store'])->name('permintaan-laundry.store');
+        Route::get('/detail/{id}', [PermintaanLaundryController::class, 'detail'])->name('permintaan-laundry.detail');
+        Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
+        Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
+        Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
     });
 
 });

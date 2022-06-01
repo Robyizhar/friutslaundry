@@ -1,11 +1,24 @@
 <!-- Vendor js -->
 <script src="{{ asset('assets/js/vendor.min.js')}}"></script>
 
+<!-- Plugins css -->
+<link href="{{ asset('assets/libs/flatpickr/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+<!-- <link href="{{ asset('assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css" /> -->
+<link href="{{ asset('assets/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+
 <!-- Plugins js-->
 <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
 <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
 
+<script src="{{ asset('assets/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+<script src="{{ asset('assets/libs/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
+<script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+
 <script src="{{ asset('assets/libs/selectize/js/standalone/selectize.min.js')}}"></script>
+
+<!-- Init js-->
+<script src="{{ asset('assets/js/pages/form-pickers.init.js')}}"></script>
 
 <!-- App js-->
 <script src="{{ asset('assets/js/app.min.js')}}"></script>

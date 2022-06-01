@@ -27,4 +27,8 @@ class HomeController extends Controller
     public function infogram() {
         return view('infogram');
     }
+
+    public function indexuser() {
+        return view('home_user');
+    }
 }
