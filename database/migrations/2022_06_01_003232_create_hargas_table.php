@@ -19,6 +19,7 @@ class CreateHargasTable extends Migration
             $table->string('nama', $precision = 50);
             $table->decimal('harga', $precision = 20)->nullable();
             $table->decimal('harga_member', $precision = 20)->nullable();
+            $table->enum('kategori', ['reguler', 'express', 'super_express']);
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->nullable(true);

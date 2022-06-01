@@ -24,10 +24,10 @@
     <div class="form-group mb-3">
         <label class="required form-label">Akses Role</label>
         @foreach ($data['permissions'] as $permission)
-        @php $permission_name = explode("-", $permission->name) @endphp
+        @php $permission_name = $permission->name @endphp
             <div class="checkbox checkbox-info checkbox-circle mb-2">
                 <input id="{{ $permission->id }}" type="checkbox"name="permissions[]" value="{{$permission->id}}" {{ isset($data['role_permission']) && in_array($permission->id, $data['role_permission']) ? 'checked' : '' }}>
-                <label for="{{ $permission->id }}"> {{ $permission_name[0] }} </label>
+                <label for="{{ $permission->id }}"> {{ $permission_name }} </label>
             </div>
         @endforeach
         <div id="bar" class="progress mb-3" style="height: 7px;">

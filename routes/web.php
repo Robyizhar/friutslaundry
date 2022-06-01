@@ -12,16 +12,19 @@ use App\Http\Controllers\MasterData\HargaController;
 use App\Http\Controllers\MasterData\LayananController;
 use App\Http\Controllers\MasterData\MemberController;
 
+//Transaksi
+use App\Http\Controllers\Transaksi\KasirController;
+
 Route::get('/', function() {
     return redirect('/login');
 });
 Route::post('login-qr', [LoginController::class, 'loginQR'])->name('login-qr');
 Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/infogram', function() {
-        return redirect('/home');
-    })->name('infogram');
+    Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
+
     Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 
         Route::get('/', [MasterDataController::class, 'index'])->name('master-data');
@@ -92,5 +95,16 @@ Route::middleware(['auth'])->group(function () {
         });
 
     });
+
+    Route::prefix('kasir')->group(function () {
+        Route::get('/', [KasirController::class, 'index'])->name('kasir');
+        // Route::post('/get-data', [KasirController::class, 'getData'])->name('kasir.get-data');
+        // Route::get('/create', [KasirController::class, 'create'])->name('kasir.create');
+        Route::post('/store', [KasirController::class, 'store'])->name('kasir.store');
+        // Route::get('/edit/{id}', [KasirController::class, 'edit'])->name('kasir.edit');
+        // Route::put('/update', [KasirController::class, 'update'])->name('kasir.update');
+        // Route::get('/destroy/{id}', [KasirController::class, 'destroy'])->name('kasir.destroy');
+    });
+
 });
 

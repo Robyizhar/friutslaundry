@@ -21,8 +21,7 @@ class RoleController extends Controller {
 
     public function index() {
         try{
-            $permissions = Permission::pluck('name','id');
-            return view('master-data.roles.index', compact('permissions'));
+            return view('master-data.roles.index');
         }catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);

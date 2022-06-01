@@ -17,7 +17,7 @@ class MasterDataController extends Controller {
             'harga' => Harga::count(),
             'layanan' => Layanan::count(),
             'outlet' => Outlet::count(),
-            'user' => User::count(),
+            'user' => User::where('is_member', '0')->where('id','!=', 1)->count(),
             'role' => Role::count()
         ];
         // return $data;
