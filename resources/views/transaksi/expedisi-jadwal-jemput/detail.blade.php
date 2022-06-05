@@ -24,11 +24,11 @@
 
     <div class="form-group mb-3">
         <label class="required">Alamat Penjemputan</label>
-        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail']->alamat) }}" type="text" name="alamat" class="form-control active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat penjemputan" readonly>
+        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail']->alamat) }}" type="text" name="alamat" class="form-control active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat penjemputan" />
     </div>
     <div class="form-group mb-3">
         <label class="required">Catatan</label>
-        <textarea type="text" name="catatan" class="form-control mb-2" readonly>
+        <textarea type="text" name="catatan" class="form-control mb-2">
         {{ !isset($data['detail']) ? old('catatan') : old('catatan', $data['detail']->catatan) }}
         </textarea>
     </div>

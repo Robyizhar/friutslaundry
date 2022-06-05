@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermintaanLaundryTable extends Migration
+class CreateExpedisiJemputsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePermintaanLaundryTable extends Migration
      */
     public function up()
     {
-        Schema::create('permintaan_laundries', function (Blueprint $table) {
+        Schema::create('expedisi_jemputs', function (Blueprint $table) {
             $table->id();
-            $table->integer('member_id');
-            $table->date('tanggal')->nullable();
-            $table->string('waktu')->nullable();
-            $table->text('alamat')->nullable();
+            $table->integer('permintaan_laundry_id');
+            $table->date('tanggal');
+            $table->string('kode', $precision = 20)->nullable();
+            $table->string('status_jemput')->nullable();
+            $table->decimal('titip_saldo', $precision = 20)->nullable();
             $table->text('catatan')->nullable();
+            $table->string('image');
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->nullable(true);
@@ -35,6 +37,6 @@ class CreatePermintaanLaundryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permintaan_laundries');
+        Schema::dropIfExists('expedisi_jemputs');
     }
 }

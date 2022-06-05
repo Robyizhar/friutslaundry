@@ -14,6 +14,11 @@ use App\Http\Controllers\MasterData\MemberController;
 
 //Transaksi
 use App\Http\Controllers\Transaksi\KasirController;
+use App\Http\Controllers\Transaksi\TopupController;
+use App\Http\Controllers\Transaksi\ExpedisiJadwalJemputController;
+use App\Http\Controllers\Transaksi\ExpedisiJemputController;
+
+//Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
 
 Route::get('/', function() {
@@ -124,6 +129,43 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
         Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
         Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
+    });
+
+    Route::prefix('top-up')->group(function () {
+        Route::get('/', [TopupController::class, 'index'])->name('top-up');
+        Route::post('/get-data', [TopupController::class, 'getData'])->name('top-up.get-data');
+        Route::get('/create', [TopupController::class, 'create'])->name('top-up.create');
+        Route::post('/store', [TopupController::class, 'store'])->name('top-up.store');
+        Route::get('/detail/{id}', [TopupController::class, 'detail'])->name('top-up.detail');
+        Route::get('/edit/{id}', [TopupController::class, 'edit'])->name('top-up.edit');
+        Route::put('/update', [TopupController::class, 'update'])->name('top-up.update');
+        Route::get('/destroy/{id}', [TopupController::class, 'destroy'])->name('top-up.destroy');
+        Route::post('/get-data-member', [TopupController::class, 'getDataMember'])->name('top-up.get-data-member');
+    });
+
+
+    Route::prefix('expedisi-jadwal-jemput')->group(function () {
+        Route::get('/', [ExpedisiJadwalJemputController::class, 'index'])->name('expedisi-jadwal-jemput');
+        Route::post('/get-data', [ExpedisiJadwalJemputController::class, 'getData'])->name('expedisi-jadwal-jemput.get-data');
+        Route::get('/create', [ExpedisiJadwalJemputController::class, 'create'])->name('expedisi-jadwal-jemput.create');
+        Route::post('/store', [ExpedisiJadwalJemputController::class, 'store'])->name('expedisi-jadwal-jemput.store');
+        Route::get('/detail/{id}', [ExpedisiJadwalJemputController::class, 'detail'])->name('expedisi-jadwal-jemput.detail');
+        Route::get('/edit/{id}', [ExpedisiJadwalJemputController::class, 'edit'])->name('expedisi-jadwal-jemput.edit');
+        Route::put('/update', [ExpedisiJadwalJemputController::class, 'update'])->name('expedisi-jadwal-jemput.update');
+        Route::get('/destroy/{id}', [ExpedisiJadwalJemputController::class, 'destroy'])->name('expedisi-jadwal-jemput.destroy');
+        Route::post('/get-data-user', [ExpedisiJadwalJemputController::class, 'getDataUser'])->name('expedisi-jadwal-jemput.get-data-user');
+    });
+
+    Route::prefix('expedisi-jemput')->group(function () {
+        Route::get('/', [ExpedisiJemputController::class, 'index'])->name('expedisi-jemput');
+        Route::post('/get-data', [ExpedisiJemputController::class, 'getData'])->name('expedisi-jemput.get-data');
+        Route::get('/create', [ExpedisiJemputController::class, 'create'])->name('expedisi-jemput.create');
+        Route::post('/store', [ExpedisiJemputController::class, 'store'])->name('expedisi-jemput.store');
+        Route::get('/detail/{id}', [ExpedisiJemputController::class, 'detail'])->name('expedisi-jemput.detail');
+        Route::get('/edit/{id}', [ExpedisiJemputController::class, 'edit'])->name('expedisi-jemput.edit');
+        Route::put('/update', [ExpedisiJemputController::class, 'update'])->name('expedisi-jemput.update');
+        Route::get('/destroy/{id}', [ExpedisiJemputController::class, 'destroy'])->name('expedisi-jemput.destroy');
+        Route::post('/get-data-permintaan', [ExpedisiJemputController::class, 'getDataPermintaan'])->name('expedisi-jemput.get-data-permintaan');
     });
 
 });

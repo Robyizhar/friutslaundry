@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermintaanLaundryTable extends Migration
+class CreateTopupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePermintaanLaundryTable extends Migration
      */
     public function up()
     {
-        Schema::create('permintaan_laundries', function (Blueprint $table) {
+        Schema::create('topups', function (Blueprint $table) {
             $table->id();
             $table->integer('member_id');
-            $table->date('tanggal')->nullable();
-            $table->string('waktu')->nullable();
-            $table->text('alamat')->nullable();
-            $table->text('catatan')->nullable();
+            $table->date('tanggal');
+            $table->string('kode', $precision = 20)->nullable();
+            $table->decimal('nominal', $precision = 20)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->nullable(true);
@@ -35,6 +34,6 @@ class CreatePermintaanLaundryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permintaan_laundries');
+        Schema::dropIfExists('topups');
     }
 }
