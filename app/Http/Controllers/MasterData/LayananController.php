@@ -105,10 +105,10 @@ class LayananController extends Controller {
         try {
             $this->model->softDelete($id);
             Alert::toast($request->name.' Berhasil Dihapus', 'success');
-            return redirect()->route('users');
+            return redirect()->route('layanan');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('users');
+            return redirect()->route('layanan');
         }
     }
 }

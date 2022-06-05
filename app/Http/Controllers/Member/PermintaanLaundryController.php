@@ -105,10 +105,10 @@ class PermintaanLaundryController extends Controller {
         try {
             $this->model->softDelete($id);
             Alert::toast($request->name.' Berhasil Dihapus', 'success');
-            return redirect()->route('users');
+            return redirect()->route('permintaan-laundry');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('users');
+            return redirect()->route('permintaan-laundry');
         }
     }
 }
