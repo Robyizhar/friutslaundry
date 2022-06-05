@@ -5,7 +5,7 @@
                 class="rounded-circle avatar-md"> --}}
             <div class="dropdown">
                 <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
-                    data-toggle="dropdown">Geneva Kennedy</a>
+                    data-toggle="dropdown">{{ Auth::user()->name }}</a>
                 <div class="dropdown-menu user-pro-dropdown">
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-user mr-1"></i>
@@ -32,14 +32,14 @@
                 <li class="menu-title">Navigation</li>
                 <li>
                     <a href="{{ route('home') }}">
-                        <i class="fas fa-tv"></i>
+                        <i class="dripicons-home"></i>
                         {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('infogram') }}">
-                        <i class="fas fa-tv"></i>
+                        <i class="fe-tv"></i>
                         {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Infogram</span>
                     </a>
@@ -47,56 +47,71 @@
                 <li class="menu-title mt-2">Apps</li>
                 <li>
                     <a href="{{ route('kasir') }}">
-                        <i class="fas fa-book-open"></i>
+                        <i class="dripicons-document-edit"></i>
                         <span>Kasir</span>
                     </a>
                 </li>
                 <li>
+                    <a href="#member" data-toggle="collapse">
+                        <i class="fe-user-check"></i>
+                        <span>Member</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="member">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('user-member') }}">
+                                    <span>Data Member</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('top-up') }}">
+                                    <span>Top Up Member</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
                     <a href="#">
-                        <i class="fas fa-check-double"></i>
+                        <i class="fe-check-square"></i>
                         <span>QC</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-water"></i>
+                        <i class="fe-instagram"></i>
                         <span>Cuci</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-wind"></i>
+                        <i class="dripicons-brightness-max"></i>
                         <span>Pengeringan</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fe-triangle"></i>
                         <span>Setrika</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-shipping-fast"></i>
+                        <i class="fe-truck"></i>
                         <span>Expedisi</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="dripicons-graph-pie"></i>
                         <span>Laporan</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('master-data') }}">
-                        <i class="fas fa-database"></i>
+                        <i class="dripicons-toggles"></i>
                         <span>Master Data</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('user-member') }}">
-                        <i class="fas fa-address-card"></i>
-                        <span>Member</span>
                     </a>
                 </li>
             </ul>

@@ -14,6 +14,9 @@ use App\Http\Controllers\MasterData\MemberController;
 
 //Transaksi
 use App\Http\Controllers\Transaksi\KasirController;
+use App\Http\Controllers\Transaksi\TopupController;
+
+//Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
 
 Route::get('/', function() {
@@ -124,6 +127,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
         Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
         Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
+    });
+
+    Route::prefix('top-up')->group(function () {
+        Route::get('/', [TopupController::class, 'index'])->name('top-up');
+        Route::post('/get-data', [TopupController::class, 'getData'])->name('top-up.get-data');
+        Route::get('/create', [TopupController::class, 'create'])->name('top-up.create');
+        Route::post('/store', [TopupController::class, 'store'])->name('top-up.store');
+        Route::get('/detail/{id}', [TopupController::class, 'detail'])->name('top-up.detail');
+        Route::get('/edit/{id}', [TopupController::class, 'edit'])->name('top-up.edit');
+        Route::put('/update', [TopupController::class, 'update'])->name('top-up.update');
+        Route::get('/destroy/{id}', [TopupController::class, 'destroy'])->name('top-up.destroy');
+        Route::post('/get-data-member', [TopupController::class, 'getDataMember'])->name('top-up.get-data-member');
     });
 
 });

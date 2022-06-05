@@ -104,13 +104,10 @@
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <img src="{{ asset('assets/images/users/user-1.jpg') }}" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ml-1">
-                        Selamat datang, {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
+                        Hi, {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                    <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome !</h6>
-                    </div>
 
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
@@ -122,16 +119,11 @@
                         <span>Settings</span>
                     </a>
 
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-lock"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
                     <div class="dropdown-divider"></div>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" style="background-color: red ; color:white;">
                             <i class="fe-log-out"></i>
                             <span>Logout</span>
                         </a>
