@@ -107,7 +107,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('kasir')->group(function () {
         Route::get('/', [KasirController::class, 'index'])->name('kasir');
-        // Route::post('/get-data', [KasirController::class, 'getData'])->name('kasir.get-data');
+        Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('kasir.get-data-layanan');
         // Route::get('/create', [KasirController::class, 'create'])->name('kasir.create');
         Route::post('/store', [KasirController::class, 'store'])->name('kasir.store');
         // Route::get('/edit/{id}', [KasirController::class, 'edit'])->name('kasir.edit');

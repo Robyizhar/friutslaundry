@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Transaksi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Harga;
+use Yajra\DataTables\Facades\DataTables;
 
 class KasirController extends Controller
 {
@@ -11,8 +13,22 @@ class KasirController extends Controller
         return view('transaksi.kasir.form');
     }
 
-    public function create() {
-        //
+    public function getDataLayanan(Request $request) {
+        // return $request;
+        $data = Harga::where('kategori', $request->kategori);
+        return DataTables::of($data)
+
+        ->addColumn('action', function ($data) {
+            return view('component.action', [
+                'model' => $data,
+                'url_edit' => route('harga.edit', $data->id),
+                'url_detail' => route('harga.detail', $data->id),
+                'url_destroy' => route('harga.destroy', $data->id)
+            ]);
+        })
+        ->addIndexColumn()
+        ->rawColumns(['action', 'roles'])
+        ->make(true);
     }
 
     public function store(Request $request) {
