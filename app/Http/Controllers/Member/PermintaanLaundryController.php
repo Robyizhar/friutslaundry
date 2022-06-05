@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PermintaanLaundryRequest;
 use App\Http\Requests\PermintaanLaundryRequestUpdate;
 use App\Models\PermintaanLaundry;
+use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+
+use DB;
+use Auth;
 
 class PermintaanLaundryController extends Controller {
 
@@ -29,7 +33,10 @@ class PermintaanLaundryController extends Controller {
     }
 
     public function getData() {
-        $data = PermintaanLaundry::all();
+
+        $member_id = DB::table('members')->where('user_id', Auth::user()->id)->first()->id;
+
+        $data = PermintaanLaundry::where('member_id','=',$member_id);
         return DataTables::of($data)
 
         ->addColumn('action', function ($data) {
@@ -47,8 +54,10 @@ class PermintaanLaundryController extends Controller {
 
     public function create() {
         try {
-            $roles = Role::where('name', '!=', 'Maintener')->pluck('name','id');
-            return view('member.permintaan-laundry.form', compact('roles'));
+            $member_id = DB::table('members')->where('user_id', Auth::user()->id)->first()->id;
+
+            $data['info'] = Member::find($member_id);
+            return view('member.permintaan-laundry.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
             return redirect()->route('permintaan-laundry');

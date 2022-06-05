@@ -48,14 +48,14 @@
                             <div class="col-6">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate"><u>Total Saldo</u></p>
-                                    <h2 class="mt-1">Rp <span data-plugin="counterup">58.947</span></h2>
+                                    <h2 class="mt-1">Rp <span data-plugin="counterup"> {{ number_format($data['saldo'], 2) }}</span></h2>
                                 </div>
                             </div>
                         </div> <!-- end row-->
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
             
-                <div class="col-md-6 col-xl-3">
+                <a class="col-md-6 col-xl-3" href="{{ route('permintaan-laundry.create') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-6">
@@ -71,7 +71,7 @@
                             </div>
                         </div> <!-- end row-->
                     </div> <!-- end widget-rounded-circle-->
-                </div> <!-- end col-->
+                </a> <!-- end col-->
 
                 <div class="col-md-6 col-xl-3">
                     <div class="widget-rounded-circle card-box">

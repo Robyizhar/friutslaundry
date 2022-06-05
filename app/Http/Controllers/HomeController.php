@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Member;
+use DB;
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -29,6 +33,10 @@ class HomeController extends Controller
     }
 
     public function indexuser() {
-        return view('home_user');
+
+        $saldo = DB::table('members')->where('user_id', Auth::user()->id)->first()->balance;
+        $data['saldo'] = $saldo;
+
+        return view('home_user', compact('data'));
     }
 }
