@@ -35,6 +35,6 @@ class CreatePermintaanLaundryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permintaan_laundry');
+        Schema::dropIfExists('permintaan_laundries');
     }
 }

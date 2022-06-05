@@ -12,15 +12,16 @@ class PermintaanLaundryRequestUpdate extends FormRequest
 
     public function rules() {
         return [
-            
+            'tanggal'           => 'required',
+            'waktu'             => 'required',
+            'alamat'            => 'required',
         ];
     }
 
     public function messages() {
         return [
-            'member_id.required'  => 'member harus diisi',
             'tanggal.required'  => 'tanggal harus diisi',
-            'jam.required'      => 'jam harus diisi',
+            'waktu.required'    => 'waktu harus diisi',
             'alamat.required'   => 'alamat harus diisi',
         ];
     }
