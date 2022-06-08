@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ExpedisiJemputRequest;
 use App\Http\Requests\ExpedisiJemputRequestUpdate;
 use App\Models\ExpedisiJemput;
-use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\Permission\Models\Role;
@@ -47,7 +46,7 @@ class ExpedisiJemputController extends Controller {
             return view('component.action', [
                 'model' => $data,
                 'url_edit' => route('expedisi-jemput.edit', $data->id),
-                'url_detail' => route('expedisi-jemput.detail', $data->id)
+                // 'url_detail' => route('expedisi-jemput.detail', $data->id)
                 // 'url_destroy' => route('expedisi-jemput.destroy', $data->id)
             ]);
         })
@@ -66,28 +65,33 @@ class ExpedisiJemputController extends Controller {
     //     }
     // }
 
-    // public function store(ExpedisiJemputRequest $request) {
-    //     try {
-    //         $data = $request->except(['_token', '_method', 'id' ,'nama', 'nominal_old']);
+    public function store(ExpedisiJemputRequest $request) {
+        try {
+            $data = $request->except(['_token', '_method', 'id', 'nama', 'waktu', 'alamat', 'tanggal']);
+            
+            DB::update("update permintaan_laundries set status_jemput = '1' where permintaan_laundries.id= " .$request->permintaan_laundry_id);
 
-    //         $expedisi-jemput = $this->model->store($data);
+            if($request->id==''){
+                $expedisijemput = $this->model->store($data);
+            }else{
+                $expedisijemput = $this->model->update($request->id, $data);
+            }
 
-    //         DB::update('update members set balance = balance+'  .$request->nominal. ' where members.id= ' .$request->member_id);
-
-    //         Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
-    //         return redirect()->route('top-up');
-    //     } catch (\Throwable $e) {
-    //         Alert::toast($e->getMessage(), 'error');
-    //         return back();
-    //     }
-    // }
+            Alert::toast('Data Berhasil Disimpan', 'success');
+            return redirect()->route('expedisi-jemput');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return redirect()->route('expedisi-jemput');
+        }
+    }
 
     public function edit($id) {
         try {
             $data['detail'] = DB::table('permintaan_laundries')
-            ->select('permintaan_laundries.*', 'users.name')
+            ->select('permintaan_laundries.*', 'users.name','expedisi_jemputs.titip_saldo', 'expedisi_jemputs.catatan', 'expedisi_jemputs.id as expedisi_jemput_id', 'expedisi_jemputs.image')
             ->join('members', 'members.id', '=', 'permintaan_laundries.member_id')
             ->join('users', 'users.id', '=', 'members.user_id')
+            ->join('expedisi_jemputs', 'expedisi_jemputs.permintaan_laundry_id', '=', 'permintaan_laundries.id','left')
             ->where('permintaan_laundries.id',$id)
             ->get();
 
@@ -109,24 +113,25 @@ class ExpedisiJemputController extends Controller {
     //     }
     // }
 
-    // public function update(ExpedisiJemputRequestUpdate $request) {
-    //     try {
-    //         $data = $request->except(['_token', '_method', 'id', 'nama', 'nominal_old']);
-    //         $user = $this->model->update($request->id, $data);
+    public function update(ExpedisiJemputRequest $request) {
+        
+        try {
+            $data = $request->except(['_token', '_method', 'id', 'nama', 'nominal_old']);
             
-    //         $selisih = $request->nominal-$request->nominal_old;
-    //         // echo($selisih);
-    //         // exit();
+            if($request->id==''){
+                $user = $this->model->create($data);
+                DB::update('update permintaan_laundries set status_jemput = 1 where permintaan_laundries.id= ' .$request->permintaan_laundry_id);
+            }else{
+                $user = $this->model->update($request->id, $data);
+            }
 
-    //         DB::update('update members set balance = balance+'  .(float)$selisih. ' where members.id= ' .$request->member_id);
-
-    //         Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
-    //         return redirect()->route('top-up');
-    //     } catch (\Throwable $e) {
-    //         Alert::toast($e->getMessage(), 'error');
-    //         return redirect()->route('top-up');
-    //     }
-    // }
+            Alert::toast('Data Berhasil Disimpan', 'success');
+            return redirect()->route('expedisi-jemput');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return redirect()->route('expedisi-jemput');
+        }
+    }
 
     // public function destroy($id) {
     //     try {

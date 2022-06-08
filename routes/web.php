@@ -11,6 +11,7 @@ use App\Http\Controllers\MasterData\OutletController;
 use App\Http\Controllers\MasterData\HargaController;
 use App\Http\Controllers\MasterData\LayananController;
 use App\Http\Controllers\MasterData\MemberController;
+use App\Http\Controllers\MasterData\ParfumeController;
 
 //Transaksi
 use App\Http\Controllers\Transaksi\KasirController;
@@ -106,6 +107,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/destroy/{id}', [MemberController::class, 'destroy'])->name('user-member.destroy');
         });
 
+        Route::prefix('parfume')->group(function () {
+            Route::get('/', [ParfumeController::class, 'index'])->name('parfume');
+            Route::post('/get-data', [ParfumeController::class, 'getData'])->name('parfume.get-data');
+            Route::get('/create', [ParfumeController::class, 'create'])->name('parfume.create');
+            Route::post('/store', [ParfumeController::class, 'store'])->name('parfume.store');
+            Route::get('/detail/{id}', [ParfumeController::class, 'detail'])->name('parfume.detail');
+            Route::get('/edit/{id}', [ParfumeController::class, 'edit'])->name('parfume.edit');
+            Route::put('/update', [ParfumeController::class, 'update'])->name('parfume.update');
+            Route::get('/destroy/{id}', [ParfumeController::class, 'destroy'])->name('parfume.destroy');
+        });
+
 
 
     });
@@ -129,6 +141,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
         Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
         Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
+        Route::post('/get-data-layanan', [PermintaanLaundryController::class, 'getDataLayanan'])->name('permintaan-laundry.get-data-layanan');
+        Route::post('/get-data-parfume', [PermintaanLaundryController::class, 'getDataParfume'])->name('permintaan-laundry.get-data-parfume');
     });
 
     Route::prefix('top-up')->group(function () {

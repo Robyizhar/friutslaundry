@@ -25,7 +25,16 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('home');
+        
+        if(Auth::user()->is_member==1){
+            $saldo = DB::table('members')->where('user_id', Auth::user()->id)->first()->balance;
+            $data['saldo'] = $saldo;
+
+            return view('home_user', compact('data'));    
+        }else{
+            return view('home');
+        }
+        
     }
 
     public function infogram() {

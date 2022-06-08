@@ -18,6 +18,7 @@ class CreateTransaksisTable extends Migration
 
             $table->string('kode_transaksi')->unique();
             $table->integer('kasir_id')->nullable(true);
+            $table->integer('permintaan_laundry_id')->nullable(true);
             $table->integer('qc_id')->nullable(true);
             $table->integer('cuci_id')->nullable(true);
             $table->integer('pengeringan_id')->nullable(true);

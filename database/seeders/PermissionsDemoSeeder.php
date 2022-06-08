@@ -63,6 +63,7 @@ class PermissionsDemoSeeder extends Seeder
         Role::create(['name' => 'Manager']);
         Role::create(['name' => 'Supervisior']);
         Role::create(['name' => 'Staff']);
+        Role::create(['name' => 'Expedisi']);
 
         // buat user
 
@@ -81,6 +82,16 @@ class PermissionsDemoSeeder extends Seeder
             'email' => 'owner@fruitslaundry.com',
             'password' => Hash::make('admin1234'),
             'qr_code' => Hash::make('admin1234')
+        ]);
+        $user->assignRole($owner);
+
+        $user = \App\Models\User::factory()->create([
+            'id' => 3,
+            'name' => 'Expedisi',
+            'email' => 'expedisi@gmail.com',
+            'password' => Hash::make('expedisi'),
+            'qr_code' => Hash::make('expedisi'),
+            'role_id' => '6'
         ]);
         $user->assignRole($owner);
 
