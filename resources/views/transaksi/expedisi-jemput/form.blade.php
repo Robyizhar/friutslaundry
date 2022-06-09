@@ -11,7 +11,7 @@
         @slot('method','POST')
     @endisset
     @slot('content')
-    <h3>detailrmasi Penjemputan</h3>
+    <h3>Informasi Penjemputan</h3>
 
     <div class="form-group mb-3">
         <label class="required">Nama</label>
@@ -22,17 +22,17 @@
 
     <div class="form-group mb-3">
         <label class="required">Alamat</label>
-        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail'][0]->alamat) }}" type="text" name="alamat" class="form-control flatpickr-input active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat" id="basic-datepicker" readonly>
+        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail'][0]->alamat) }}" type="text" name="alamat" class="form-control active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat" readonly>
     </div>
 
     <div class="form-group mb-3">
         <label class="required">Tanggal</label>
-        <input value="{{ !isset($data['detail']) ? old('tanggal') : old('tanggal', $data['detail'][0]->tanggal) }}" type="text" name="tanggal" class="form-control flatpickr-input active mb-2 @error('tanggal') is-invalid @enderror" placeholder="tanggal" readonly>
+        <input value="{{ !isset($data['detail']) ? old('tanggal') : old('tanggal', $data['detail'][0]->tanggal) }}" type="text" name="tanggal" class="form-control active mb-2 @error('tanggal') is-invalid @enderror" placeholder="tanggal" readonly>
     </div>
 
     <div class="form-group mb-3">
         <label class="required">Waktu</label>
-        <input value="{{ !isset($data['detail']) ? old('waktu') : old('waktu', $data['detail'][0]->waktu) }}" type="text" name="waktu" class="form-control flatpickr-input active mb-2 @error('waktu') is-invalid @enderror" placeholder="waktu" readonly>
+        <input value="{{ !isset($data['detail']) ? old('waktu') : old('waktu', $data['detail'][0]->waktu) }}" type="text" name="waktu" class="form-control active mb-2 @error('waktu') is-invalid @enderror" placeholder="waktu" readonly>
     </div>
 
     <h3>&nbsp;</h3>
@@ -41,8 +41,8 @@
 
     <div class="form-group mb-3">
         <label class="required">Titip Saldo</label>
-        <input value="{{ !isset($data['detail']) ? old('titip_saldo') : old('titip_saldo', $data['detail'][0]->titip_saldo) }}" type="text" name="titip_saldo" class="form-control flatpickr-input active mb-2 @error('titip_saldo') is-invalid @enderror" placeholder="titip saldo">
-        <input value="{{ !isset($data['detail']) ? old('image') : old('image', $data['detail'][0]->image) }}" type="hidden" name="image" class="form-control flatpickr-input active mb-2 @error('image') is-invalid @enderror" placeholder="image">
+        <input value="{{ !isset($data['detail']) ? old('titip_saldo') : old('titip_saldo', $data['detail'][0]->titip_saldo) }}" type="text" name="titip_saldo" class="form-control active mb-2 @error('titip_saldo') is-invalid @enderror" placeholder="titip saldo">
+        <input value="{{ !isset($data['detail']) ? old('image') : old('image', $data['detail'][0]->image) }}" type="hidden" name="image" class="form-control active mb-2 @error('image') is-invalid @enderror" placeholder="image">
     </div>
     
     <div class="form-group mb-3">

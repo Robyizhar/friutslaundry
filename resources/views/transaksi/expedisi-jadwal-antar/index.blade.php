@@ -7,11 +7,6 @@
     <div class="content">
         <div class="container-fluid">
             @include('component.breadcrumb')
-            <!-- <div class="row">
-                <div class="col-12">
-                    <a href="{{ route('top-up.create') }}" class="btn btn-primary waves-effect waves-light mb-3">Add</a>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -20,11 +15,10 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
-                                        <th>Alamat</th>
+                                        <th>Kode Transaksi</th>
                                         <th>Nama</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam</th>
-                                        <th>Jemput</th>
+                                        <th>Alamat</th>
+                                        <th>Petugas Antar</th>
                                         <th width="10%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -41,7 +35,6 @@
 @endsection
 @push('script')
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-
 <script>
     $(document).ready( function () {
         let datatable = $('#state-saving-datatable').DataTable({
@@ -51,18 +44,17 @@
             method: "POST",
             scrollX: true,
             ajax: {
-                url: "{!! route('expedisi-jemput.get-data') !!}",
+                url: "{!! route('expedisi-jadwal-antar.get-data') !!}",
                 type: "POST",
                 dataType: "JSON"
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
+                {data: 'kode_transaksi', name: 'kode_transaksi'},
+                {data: 'nama', name: 'nama'},
                 {data: 'alamat', name: 'alamat'},
-                {data: 'name', name: 'name'},
-                {data: 'tanggal', name: 'tanggal'},
-                {data: 'waktu', name: 'waktu'},
-                {data: 'status', name: 'status'},
-                {data: 'action', name: 'action'},
+                {data: 'deliver_name', name: 'deliver_name'},
+                {data: 'action', name: 'action'}
             ]
         });
     });

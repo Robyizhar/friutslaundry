@@ -18,6 +18,7 @@ use App\Http\Controllers\Transaksi\KasirController;
 use App\Http\Controllers\Transaksi\TopupController;
 use App\Http\Controllers\Transaksi\ExpedisiJadwalJemputController;
 use App\Http\Controllers\Transaksi\ExpedisiJemputController;
+use App\Http\Controllers\Transaksi\ExpedisiJadwalAntarController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
@@ -177,6 +178,18 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJemputController::class, 'update'])->name('expedisi-jemput.update');
         Route::get('/destroy/{id}', [ExpedisiJemputController::class, 'destroy'])->name('expedisi-jemput.destroy');
         Route::post('/get-data-permintaan', [ExpedisiJemputController::class, 'getDataPermintaan'])->name('expedisi-jemput.get-data-permintaan');
+    });
+
+    Route::prefix('expedisi-jadwal-antar')->group(function () {
+        Route::get('/', [ExpedisiJadwalAntarController::class, 'index'])->name('expedisi-jadwal-antar');
+        Route::post('/get-data', [ExpedisiJadwalAntarController::class, 'getData'])->name('expedisi-jadwal-antar.get-data');
+        Route::get('/create', [ExpedisiJadwalAntarController::class, 'create'])->name('expedisi-jadwal-antar.create');
+        Route::post('/store', [ExpedisiJadwalAntarController::class, 'store'])->name('expedisi-jadwal-antar.store');
+        Route::get('/detail/{id}', [ExpedisiJadwalAntarController::class, 'detail'])->name('expedisi-jadwal-antar.detail');
+        Route::get('/edit/{id}', [ExpedisiJadwalAntarController::class, 'edit'])->name('expedisi-jadwal-antar.edit');
+        Route::put('/update', [ExpedisiJadwalAntarController::class, 'update'])->name('expedisi-jadwal-antar.update');
+        Route::get('/destroy/{id}', [ExpedisiJadwalAntarController::class, 'destroy'])->name('expedisi-jadwal-antar.destroy');
+        Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
     });
 
 });
