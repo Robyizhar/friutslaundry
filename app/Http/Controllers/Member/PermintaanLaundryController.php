@@ -66,7 +66,7 @@ class PermintaanLaundryController extends Controller {
 
     public function store(PermintaanLaundryRequest $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id']);
+            $data = $request->except(['_token', '_method', 'id', 'nama_parfume', 'nama_layanan']);
 
             $PermintaanLaundry = $this->model->store($data);
             Alert::toast('Berhasil Disimpan', 'success');
@@ -79,7 +79,13 @@ class PermintaanLaundryController extends Controller {
 
     public function edit($id) {
         try {
-            $data['detail'] = $this->model->find($id);
+            $data['detail'] = DB::table('permintaan_laundries')
+            ->select('permintaan_laundries.*', 'parfumes.nama as nama_parfume', 'parfumes.id as parfume_id', 'layanans.id as layanan_id', 'layanans.nama as nama_layanan')
+            ->join('layanans', 'layanans.id', '=', 'permintaan_laundries.layanan_id','left')
+            ->join('parfumes', 'parfumes.id', '=', 'permintaan_laundries.parfume_id','left')
+            ->where('permintaan_laundries.id',$id)
+            ->get();
+
             return view('member.permintaan-laundry.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
@@ -100,7 +106,7 @@ class PermintaanLaundryController extends Controller {
 
     public function update(PermintaanLaundryRequestUpdate $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id']);
+            $data = $request->except(['_token', '_method', 'id', 'nama_parfume', 'nama_layanan']);
             $user = $this->model->update($request->id, $data);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
             return redirect()->route('permintaan-laundry');
@@ -119,5 +125,31 @@ class PermintaanLaundryController extends Controller {
             Alert::toast($e->getMessage(), 'error');
             return redirect()->route('permintaan-laundry');
         }
+    }
+
+    public function getDataLayanan() {
+        $data = DB::table('layanans')
+        ->select('layanans.*')
+        ->whereNull('layanans.deleted_at')
+        ->orderBy('layanans.nama', 'ASC')
+        ->get();
+        
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->rawColumns(['action', 'roles'])
+        ->make(true);
+    }
+
+    public function getDataParfume() {
+        $data = DB::table('parfumes')
+        ->select('parfumes.*')
+        ->whereNull('parfumes.deleted_at')
+        ->orderBy('parfumes.nama', 'ASC')
+        ->get();
+        
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->rawColumns(['action', 'roles'])
+        ->make(true);
     }
 }

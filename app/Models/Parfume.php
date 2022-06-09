@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ExpedisiJemput extends Authenticatable
+class Parfume extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
@@ -19,10 +19,8 @@ class ExpedisiJemput extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'permintaan_laundry_id',
-        'catatan',
-        'titip_saldo',
-        'image'
+        'kode',
+        'nama'
     ];
 
     /**

@@ -57,10 +57,6 @@
     <div id="wrapper">
         {{-- NAVBAR --}}
         @include('layouts.navbar_user')
-        {{-- SIDEBAR --}}
-        <!-- @include('layouts.sidebar') -->
-        {{-- SIDEMENU --}}
-        {{-- Menu --}}
         @yield('content')
     </div>
     {{-- <SCRIPT></SCRIPT> --}}

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('status')->default('active');
             $table->enum('is_member', [0, 1])->default(0);
+            $table->integer('role_id')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

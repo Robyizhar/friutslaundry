@@ -17,8 +17,6 @@ class CreateLayanansTable extends Migration
             $table->id();
             $table->string('kode', $precision = 20);
             $table->string('nama', $precision = 50);
-            $table->decimal('harga', $precision = 20)->nullable();
-            $table->decimal('harga_member', $precision = 20)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->nullable(true);

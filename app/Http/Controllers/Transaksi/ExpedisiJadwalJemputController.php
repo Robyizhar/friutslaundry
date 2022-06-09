@@ -119,7 +119,7 @@ class ExpedisiJadwalJemputController extends Controller {
             // echo($selisih);
             // exit();
 
-            DB::update('update permintaan_laundries set picked_by = '.$request->picked_by);
+            DB::update('update permintaan_laundries set picked_by = '.$request->picked_by. ' WHERE permintaan_laundries.id ='.$request->id);
 
             Alert::toast('Berhasil Disimpan', 'success');
             return redirect()->route('expedisi-jadwal-jemput');

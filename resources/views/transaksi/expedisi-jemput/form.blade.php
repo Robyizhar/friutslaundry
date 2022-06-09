@@ -4,49 +4,55 @@
 @endpush
 @section('content')
 @component('component.form')
-    @slot('action', !isset($data['detail']) ? route('top-up.store') : route('top-up.update'))
+    @slot('action', !isset($data['detail']) ? route('expedisi-jemput.store') : route('expedisi-jemput.store'))
     @isset ($data['detail'])
-        @slot('method','PUT')
+        @slot('method','POST')
     @else
         @slot('method','POST')
     @endisset
     @slot('content')
-    <h3>Informasi Penjemputan</h3>
+    <h3>detailrmasi Penjemputan</h3>
 
     <div class="form-group mb-3">
         <label class="required">Nama</label>
-        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail'][0]->id }}" name="id">
+        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail'][0]->expedisi_jemput_id }}" name="id">
         <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail'][0]->id }}" name="permintaan_laundry_id">
-        <input value="{{ !isset($data['detail']) ? old('nama') : old('nama', $data['detail'][0]->name) }}" type="text" name="nama" class="form-control mb-2 @error('nama') is-invalid @enderror" placeholder="nama" autocomplete="off" />
+        <input value="{{ !isset($data['detail']) ? old('nama') : old('nama', $data['detail'][0]->name) }}" type="text" name="nama" class="form-control mb-2 @error('nama') is-invalid @enderror" placeholder="nama" autocomplete="off" readonly>
     </div>
 
     <div class="form-group mb-3">
         <label class="required">Alamat</label>
-        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail'][0]->alamat) }}" type="text" name="alamat" class="form-control flatpickr-input active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat" id="basic-datepicker">
+        <input value="{{ !isset($data['detail']) ? old('alamat') : old('alamat', $data['detail'][0]->alamat) }}" type="text" name="alamat" class="form-control flatpickr-input active mb-2 @error('alamat') is-invalid @enderror" placeholder="alamat" id="basic-datepicker" readonly>
     </div>
 
     <div class="form-group mb-3">
         <label class="required">Tanggal</label>
-        <input value="{{ !isset($data['detail']) ? old('tanggal') : old('tanggal', $data['detail'][0]->tanggal) }}" type="text" name="tanggal" class="form-control flatpickr-input active mb-2 @error('tanggal') is-invalid @enderror" placeholder="tanggal" id="basic-datepicker">
+        <input value="{{ !isset($data['detail']) ? old('tanggal') : old('tanggal', $data['detail'][0]->tanggal) }}" type="text" name="tanggal" class="form-control flatpickr-input active mb-2 @error('tanggal') is-invalid @enderror" placeholder="tanggal" readonly>
     </div>
 
     <div class="form-group mb-3">
         <label class="required">Waktu</label>
-        <input value="{{ !isset($data['detail']) ? old('waktu') : old('waktu', $data['detail'][0]->waktu) }}" type="text" name="waktu" class="form-control flatpickr-input active mb-2 @error('waktu') is-invalid @enderror" placeholder="waktu" id="basic-datepicker">
+        <input value="{{ !isset($data['detail']) ? old('waktu') : old('waktu', $data['detail'][0]->waktu) }}" type="text" name="waktu" class="form-control flatpickr-input active mb-2 @error('waktu') is-invalid @enderror" placeholder="waktu" readonly>
     </div>
 
+    <h3>&nbsp;</h3>
+    <h3>Catatan Expedisi</h3>
+    <h3>&nbsp;</h3>
+
     <div class="form-group mb-3">
-        <label class="required">Member</label>
-        <div class="input-group">
-            <input value="{{ !isset($data['detail']) ? old('member_id') : old('member_id', $data['detail'][0]->member_id) }}" type="hidden" name="member_id" id="member_id" class="form-control mb-2 @error('member_id') is-invalid @enderror" placeholder="member_id" autocomplete="off"/>
-            <input value="{{ !isset($data['detail']) ? old('nama') : old('nama', $data['detail'][0]->name) }}" type="text" name="nama" id="nama" class="form-control mb-2 @error('nama') is-invalid @enderror" placeholder="nama" autocomplete="off" readonly>
-            <div class="input-group-append">
-                <button class="btn btn-dark waves-effect waves-light mb-2" type="button" data-toggle="modal" onclick="ambil_member()"> Cari Member</button>
-            </div>
-            @if($errors->has('nama'))
-                <div class="text-danger"> {{ $errors->first('nama')}} </div>
-            @endif
-        </div>
+        <label class="required">Titip Saldo</label>
+        <input value="{{ !isset($data['detail']) ? old('titip_saldo') : old('titip_saldo', $data['detail'][0]->titip_saldo) }}" type="text" name="titip_saldo" class="form-control flatpickr-input active mb-2 @error('titip_saldo') is-invalid @enderror" placeholder="titip saldo">
+        <input value="{{ !isset($data['detail']) ? old('image') : old('image', $data['detail'][0]->image) }}" type="hidden" name="image" class="form-control flatpickr-input active mb-2 @error('image') is-invalid @enderror" placeholder="image">
+    </div>
+    
+    <div class="form-group mb-3">
+        <label class="required">Catatan</label>
+        <textarea value="" type="text" name="catatan" class="form-control mb-2">
+        {{ !isset($data['detail']) ? old('catatan') : old('catatan', $data['detail'][0]->catatan) }}
+        </textarea>
+        @if($errors->has('catatan'))
+            <div class="text-danger"> {{ $errors->first('catatan')}} </div>
+        @endif
     </div>
 
 

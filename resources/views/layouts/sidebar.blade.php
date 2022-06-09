@@ -4,8 +4,8 @@
             {{-- <img src="{{ ('assets/images/users/user-1.jpg') }}" alt="user-img" title="Mat Helme"
                 class="rounded-circle avatar-md"> --}}
             <div class="dropdown">
-                <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
-                    data-toggle="dropdown">{{ Auth::user()->name }}</a>
+                <!-- <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+                    data-toggle="dropdown">{{ Auth::user()->name }}</a> -->
                 <div class="dropdown-menu user-pro-dropdown">
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-user mr-1"></i>
@@ -25,7 +25,7 @@
                     </a>
                 </div>
             </div>
-            <p class="text-muted">Admin Head</p>
+            <!-- <p class="text-muted">Admin Head</p> -->
         </div>
         <div id="sidebar-menu">
             <ul id="side-menu">
@@ -97,10 +97,35 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#expedisi" data-toggle="collapse">
                         <i class="fe-truck"></i>
                         <span>Expedisi</span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="expedisi">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('expedisi-jadwal-jemput') }}">
+                                    <span>Jadwal Jemput</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('expedisi-jemput') }}">
+                                    <span>Jemput Barang</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Jadwal Antar</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Antar Barang</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li>
                     <a href="#">

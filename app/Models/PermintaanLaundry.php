@@ -23,7 +23,9 @@ class PermintaanLaundry extends Authenticatable
         'tanggal',
         'waktu',
         'alamat',
-        'catatan'
+        'catatan',
+        'parfume_id',
+        'layanan_id'
     ];
 
     /**
