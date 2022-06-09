@@ -900,10 +900,10 @@
                     dataType: "JSON",
                     success: function (response) {
                         if (response.status == true) {
-                            let print_url = `{{ route('kasir.print', 'id') }}`;
-                            print_url = print_url.replace('id', response.kode_transaksi);
+                            let print_url = `{{ url('kasir/print') }}`;
+                            let redirect_print_url = print_url+'/'+response.kode_transaksi;
                             // window.open(print_url,'nama window','width=459,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,copyhistory=no');
-                            window.open(print_url, '_blank');
+                            window.open(redirect_print_url, '_blank');
                             $('#form-transaksi').find("input[type=text], input[type=number], textarea").val("");
                             $('.select-input').css("background-color", "#edeff1");
                             $('.pip').html("");
