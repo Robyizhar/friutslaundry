@@ -32,6 +32,7 @@ class CreateTransaksisTable extends Migration
 
             $table->decimal('total', $precision = 20)->nullable(true);
             $table->decimal('bayar', $precision = 20)->nullable(true);
+            $table->enum('pembayaran', ['tunai', 'non_tunai', 'pot_deposit']);
             $table->enum('kategori', ['reguler', 'express', 'super_express']);
             $table->text('note')->nullable(true);
             $table->enum('is_done', ['0', '1'])->default('0');

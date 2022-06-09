@@ -113,11 +113,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('kasir')->group(function () {
         Route::get('/', [KasirController::class, 'index'])->name('kasir');
         Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('kasir.get-data-layanan');
-        // Route::get('/create', [KasirController::class, 'create'])->name('kasir.create');
+        Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('kasir.print');
         Route::post('/store', [KasirController::class, 'store'])->name('kasir.store');
-        // Route::get('/edit/{id}', [KasirController::class, 'edit'])->name('kasir.edit');
-        // Route::put('/update', [KasirController::class, 'update'])->name('kasir.update');
-        // Route::get('/destroy/{id}', [KasirController::class, 'destroy'])->name('kasir.destroy');
     });
 
     Route::prefix('permintaan-laundry')->group(function () {

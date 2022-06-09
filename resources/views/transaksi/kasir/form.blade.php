@@ -2,7 +2,41 @@
 @push('style')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 <style>
+    /* Multiple Upload Images */
+    .thumbnail {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+        cursor: pointer;
+    }
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+    .remove {
+        display: block;
+        /* background: #444;
+        border: 1px solid black;
+        color: white; */
+        text-align: center;
+        cursor: pointer;
+        /* border-radius: 5px; */
+    }
+    .remove:hover {
+        background: rgb(234, 1, 1);
+        color: black;
+    }
+    /* Multiple Upload Images */
 
+    /* Form Error */
+    .error {
+        color: #990707;
+        font-size: 0.8rem;
+    }
+    /* Form Error */
+    .no-padding {
+        padding: 0 !important;
+    }
 </style>
 @endpush
 @section('content')
@@ -37,38 +71,52 @@
                                 </ul>
                                 <div class="tab-content b-0 mb-0 pt-0">
                                     <div class="tab-pane" id="barang_masuk">
-                                        <form method="POST" enctype="multipart/form-data" action="{{ route('kasir.store') }}">
+                                        <form method="POST" id="form-transaksi" enctype="multipart/form-data" action="{{ route('kasir.store') }}">
                                             @csrf
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-12"><div class="form-group row mb-3">
+                                                    <label class="col-md-3 col-form-label">Outlet</label>
+                                                    <div class="col-md-9">
+                                                        <div class="selectize-control multi">
+                                                            <div style="height: auto;" class="selectize-input items not-full has-options has-items">
+                                                                @foreach ($outlets as $outlet)
+                                                                    <div class="select-input item-outlet" data-value="{{ $outlet->id }}">{{ $outlet->nama }}</div>
+                                                                @endforeach
+                                                                <input type="text" autocomplete="off" tabindex="" id="selectize-outlet-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
+                                                                <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" name="outlet" id="selectize-outlet" tabindex="-1" class="selectized" style="display: none;">
+                                                    </div>
+                                                </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label">Kategori Layanan</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" name="kategori" id="selectize-tags" tabindex="-1" class="selectized" style="display: none;">
                                                             <div class="selectize-control multi">
                                                                 <div class="selectize-input items not-full has-options has-items">
-                                                                    <div class="item" data-value="reguler">REG</div>
-                                                                    <div class="item" data-value="express">EXPRESS</div>
-                                                                    <div class="item" data-value="super_express">SUPER EXPRESS</div>
+                                                                    <div class="select-input item" data-value="reguler">REG</div>
+                                                                    <div class="select-input item" data-value="express">EXPRESS</div>
+                                                                    <div class="select-input item" data-value="super_express">SUPER EXPRESS</div>
                                                                     <input type="text" autocomplete="off" tabindex="" id="selectize-tags-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
                                                                     <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
                                                                 </div>
                                                             </div>
+                                                            <input type="text" name="kategori" id="selectize-tags" tabindex="-1" class="selectized" style="display: none;">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label">Kategori Pelanggan</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="selectize-pelanggan" tabindex="-1" class="selectized" style="display: none;">
                                                             <div class="selectize-control multi">
                                                                 <div class="selectize-input items not-full has-options has-items">
-                                                                    <div class="item-pelanggan" data-value="non_member">NON MEMBER</div>
-                                                                    <div class="item-pelanggan" data-value="member">MEMBER</div>
-                                                                    {{-- <div class="item-pelanggan" data-value="khusus">KHUSUS</div> --}}
+                                                                    <div class="select-input item-pelanggan" data-value="non_member">NON MEMBER</div>
+                                                                    <div class="select-input item-pelanggan" data-value="member">MEMBER</div>
+                                                                    {{-- <div class="select-input item-pelanggan" data-value="khusus">KHUSUS</div> --}}
                                                                     <input type="text" autocomplete="off" tabindex="" id="selectize-pelanggan-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
                                                                     <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
                                                                 </div>
                                                             </div>
+                                                            <input type="text" id="selectize-pelanggan" name="pelanggan" tabindex="-1" class="selectized" style="display: none;">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3 pilih_member" style="display: none;">
@@ -77,16 +125,11 @@
                                                             <button type="button" id="show-member" class="btn btn-secondary" data-toggle="modal" data-target="#modal-member"><i class="fas fa-search"></i></button>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="form-group row mb-3 pilih_layanan">
-                                                        <label class="col-md-3 col-form-label" for="show-layanan">Pilih Layanan</label>
-                                                        <div class="col-md-4">
-                                                            <button type="button" id="show-layanan" class="btn btn-secondary" data-toggle="modal" data-target="#modal-layanan"><i class="fas fa-search"></i></button>
-                                                        </div>
-                                                    </div> --}}
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="nama">Nama</label>
                                                         <div class="col-md-9">
                                                             <input type="text" class="form-control data-pelanggan" id="nama" name="nama">
+                                                            <input type="hidden" class="form-control" id="member_id" name="member_id">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
@@ -105,6 +148,43 @@
                                                         <label class="col-md-3 col-form-label" for="parfume">Parfume</label>
                                                         <div class="col-md-9">
                                                             <input type="text" class="form-control" id="parfume" name="parfume">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-md-3 col-form-label">Pembayaran</label>
+                                                        <div class="col-md-9">
+                                                            <div class="selectize-control multi">
+                                                                <div class="selectize-input items not-full has-options has-items">
+                                                                    <div class="select-input item-pembayaran" data-value="tunai">TUNAI</div>
+                                                                    <div class="select-input item-pembayaran" data-value="non_tunai">NON TUNAI</div>
+                                                                    <div class="select-input item-pembayaran" data-value="pot_deposit">POT DEPOSIT</div>
+                                                                    <input type="text" autocomplete="off" tabindex="" id="selectize-pembayaran-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
+                                                                    <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" name="pembayaran" id="selectize-pembayaran" tabindex="-1" class="selectized" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="bayar">Bayar</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" id="bayar" name="bayar" autocomplete="off" onkeypress="return isNumber(event)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="example-textarea">Catatan</label>
+                                                        <textarea class="form-control" name="note" id="example-textarea" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-3 col-form-label">Gambar Cucian</label>
+                                                        <div class="col-9">
+                                                            <div class="input-group">
+                                                                <div class="custom-file">
+                                                                    <input accept="image/png, image/gif, image/jpeg, image/jpg" multiple name="images[]" type="file" class="custom-file-input" id="images">
+                                                                    <label class="custom-file-label" for="images">Upload Beberapa Gambar(Max 10)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div id="image-preview"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,8 +217,8 @@
                                                                     <th class="text-right"><span class="sub_layanan_qty_kg">0</span></th>
                                                                     <th class="text-right"></th>
                                                                     <th class="text-right"><span class="sub_special_teatment_qty_satuan">0</span></th>
-                                                                    <th class="text-right"><span class="sub_special_teatment_qty_harga">0</span></th>
-                                                                    <th class="text-right" width="15%"><span class="sub_all_qty_harga">0</span></th>
+                                                                    <th class="text-right">Rp. <span class="sub_special_teatment_qty_harga">0</span></th>
+                                                                    <th class="text-right" width="15%">Rp. <span class="sub_all_qty_harga">0</span></th>
                                                                     <th class="text-right action-buton" width="4%">
                                                                         {{-- <a class='btn btn-sm btn-success' type='button'><i class="fas fa-circle-notch"></i></a> --}}
                                                                     </th>
@@ -197,32 +277,33 @@
 </div>
 <table class="template-layanan-selected" style="display: none;">
     <tr class="template-layanan-selected-list" childidx="0" style="position: relative;">
-        <td class="text-left" width="15%">
+        <td class="text-left no-padding" width="15%">
             <span class="show-layanan layanan_nama_label"  style="cursor: pointer;">
                 Pilih Layanan
                 <i class="fas fa-search"></i>
             </span>
-			<input data-toggle="modal" readonly required class="form-control text-left show-layanan layanan_nama" type="hidden" name="layanan[0][nama]" autocomplete="off" />
+			<input data-toggle="modal" require readonly class="form-control text-left show-layanan layanan_nama" type="hidden" name="layanan[0][nama]" autocomplete="off" />
+			<input data-toggle="modal" readonly required class="form-control text-left show-layanan layanan_id" type="hidden" name="layanan[0][id]" autocomplete="off" />
         </td>
-		<td class="text-left" width="15%">
+		<td class="text-left no-padding" width="15%">
             <span class="layanan_harga_label">
             </span>
 			<input data-toggle="modal" readonly class="form-control text-left show-layanan layanan_harga" type="hidden" name="layanan[0][harga]" autocomplete="off" />
         </td>
-		<td class="text-center">
-			<input class="form-control text-left layanan_qty_satuan" disabled style="background-color: #cfcece;" type="text" name="layanan[0][qty_satuan]" autocomplete="off" onkeypress="return isNumber(event)" />
+		<td class="text-center no-padding">
+			<input class="form-control text-left no-padding layanan_qty_satuan" required readonly style="background-color: #f5f5f5;" maxlength="9" type="text" name="layanan[0][qty_satuan]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-		<td class="text-center">
-			<input class="form-control text-left layanan_qty_kg" disabled style="background-color: #cfcece;" type="text" name="layanan[0][qty_kg]" autocomplete="off" onkeypress="return isNumber(event)" />
+		<td class="text-center no-padding">
+			<input class="form-control text-left no-padding layanan_qty_kg" required step=".01" readonly style="background-color: #f5f5f5;" maxlength="9" type="number" name="layanan[0][qty_kg]" autocomplete="off" />
         </td>
-		<td class="text-center">
-			<input class="form-control text-left layanan_special_treatment" disabled style="background-color: #cfcece;" type="text" name="layanan[0][special_treatment]" autocomplete="off" />
+		<td class="text-center no-padding">
+			<input class="form-control text-left no-padding layanan_special_treatment" readonly style="background-color: #f5f5f5;" type="text" name="layanan[0][special_treatment]" autocomplete="off" />
         </td>
-		<td class="text-center">
-			<input class="form-control text-left layanan_qty_special_treatment" disabled style="background-color: #cfcece;" type="text" name="layanan[0][qty_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
+		<td class="text-center no-padding">
+			<input class="form-control text-left no-padding layanan_qty_special_treatment" readonly style="background-color: #f5f5f5;" type="text" maxlength="9" name="layanan[0][qty_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-        <td class="text-center">
-			<input class="form-control text-left layanan_harga_special_treatment" disabled style="background-color: #cfcece;" type="text" name="layanan[0][harga_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
+        <td class="text-center no-padding">
+			<input class="form-control text-left no-padding layanan_harga_special_treatment" readonly style="background-color: #f5f5f5;" type="text" maxlength="9" name="layanan[0][harga_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
         <td class="text-left" width="15%">
             <span class="layanan_total_label">
@@ -330,6 +411,17 @@
 
     $(document).ready(function () {
 
+        // $(document).on('focus', 'input[type=number]', function (e) {
+        //     $(this).on('wheel.disableScroll', function (e) {
+        //         e.preventDefault()
+        //         console.log('INPUT');
+        //     })
+        // })
+        // $(document).on('blur', 'input[type=number]', function (e) {
+        //     $(this).off('wheel.disableScroll')
+        //     console.log('INPUT');
+        // });
+
         $('.item').click(function (e) {
             e.preventDefault();
             let value = $(this).data('value');
@@ -339,7 +431,7 @@
             $(this).css("background-color", "#6c757d");
             $('#selectize-tags').val(value);
         });
-
+        // member_id
         $('.item-pelanggan').click(function (e) {
             e.preventDefault();
             let value = $(this).data('value');
@@ -358,6 +450,37 @@
                 $(".data-pelanggan").prop('readonly', false);
                 $(".data-pelanggan").css('background-color', '#fff');
                 $(".data-pelanggan").css('cursor', 'auto');
+            }
+        });
+
+        $('.item-outlet').click(function (e) {
+            e.preventDefault();
+            let value = $(this).data('value');
+            $('.item-outlet').not(this).each(function(){
+                $(this).css("background-color", "#edeff1");
+            });
+            $(this).css("background-color", "#6c757d");
+            $('#selectize-outlet').val(value);
+        });
+
+        $('.item-pembayaran').click(function (e) {
+            e.preventDefault();
+            let value = $(this).data('value');
+            $('.item-pembayaran').not(this).each(function(){
+                $(this).css("background-color", "#edeff1");
+            });
+            $(this).css("background-color", "#6c757d");
+            $('#selectize-pembayaran').val(value);
+            if (value == 'member') {
+                $('.pilih_member').css("display", "flex");
+                $(".data-pembayaran").prop('readonly', true);
+                $(".data-pembayaran").css('background-color', '#cfcece');
+                $(".data-pembayaran").css('cursor', 'no-drop');
+            } else {
+                $('.pilih_member').css("display", "none");
+                $(".data-pembayaran").prop('readonly', false);
+                $(".data-pembayaran").css('background-color', '#fff');
+                $(".data-pembayaran").css('cursor', 'auto');
             }
         });
 
@@ -391,7 +514,7 @@
                     {
                         mRender: function(data, type, row, meta) {
                             let action_button = '<div>';
-                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.user.name+'" data-phone="'+row.phone+'" data-address="'+row.address+'">';
+                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.user.name+'" data-id="'+row.id+'" data-phone="'+row.phone+'" data-address="'+row.address+'">';
                             action_button += ' </div>';
                             return action_button;
                         }
@@ -405,18 +528,63 @@
         $('#state-saving-datatable tbody').on( 'click', 'tr', function () {
             var row = $(this);
             row.find('.input[type="radio"]').attr('checked', 'checked');
+            let id = row.find('input[type="radio"]').data('id');
             let name = row.find('input[type="radio"]').val();
             let phone = row.find('input[type="radio"]').data('phone');
             let address = row.find('input[type="radio"]').data('address');
             $('#nama').val(name)
             $('#no_handphone').val(phone)
             $('#alamat').val(address)
+            $('#member_id').val(id)
             $('#modal-member').modal('hide');
         });
 
+        if (window.File && window.FileList && window.FileReader) {
+            $("#images").on("change", function(e) {
+                const files = e.target.files, filesLength = files.length;
+                if (filesLength > 10) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Maksimal 10 Photo'
+                    });
+                    $('#images').val('');
+                    return false;
+                }
+                for (let i = 0; i < filesLength; i++) {
+                    let f = files[i]
+                    let fileReader = new FileReader();
+                    fileReader.onload = (function(e) {
+                        let file = e.target;
+                        $("<span class=\"pip\">" +
+                            "<img class=\"thumbnail\" src=\"" + e.target.result + "\" title=\"" + files.name + "\"/>" +
+                            "<br/><span class=\"remove btn-warning mb-1\">Hapus</span>" +
+                            "</span>").insertAfter("#image-preview");
+                        $(".remove").click(function(){
+                            $(this).parent(".pip").remove();
+                        });
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+        } else {
+            Swal.fire( 'Browser Tidak Support !', 'error' )
+        }
+
         $(document).on('click', '.show-layanan', function (e) {
             e.preventDefault();
-            let kategori_layanan = $('.selectized').val();
+            let kategori_layanan = $('#selectize-tags').val();
+            let pelanggan = $('#selectize-pelanggan').val();
             if(kategori_layanan == ''){
                 $('#modal-layanan').modal('hide');
                 Swal.fire("Warning!", "Silahkan Pilih Kategori Layanan.", "warning");
@@ -439,7 +607,8 @@
                     type: "POST",
                     dataType: "JSON",
                     data: ({
-                        kategori: kategori_layanan
+                        kategori: kategori_layanan,
+                        member: pelanggan
                     })
                 },
                 columns: [
@@ -459,7 +628,7 @@
                     {
                         mRender: function(data, type, row, meta) {
                             let action_button = '<div>';
-                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.kode+'" data-nama="'+row.nama+'" data-harga="'+row.harga+'"  data-harga_member="'+row.harga_member+'">';
+                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.kode+'" data-id="'+row.id+'" data-nama="'+row.nama+'" data-harga="'+row.harga+'"  data-harga_member="'+row.harga_member+'">';
                             action_button += ' </div>';
                             return action_button;
                         }
@@ -472,16 +641,18 @@
         $('#state-saving-datatable-layanan tbody').on( 'click', 'tr', function () {
             var row = $(this);
             row.find('.input[type="radio"]').attr('checked', 'checked');
+            let id = row.find('input[type="radio"]').data('id');
             let kode = row.find('input[type="radio"]').val();
             let nama = row.find('input[type="radio"]').data('nama');
             let harga = row.find('input[type="radio"]').data('harga');
             let index_row = $('.index_row').val();
             let this_row = $(document).find(`.layanan-selected-list[childidx=${index_row}]`);
-            this_row.find(".form-control").prop('disabled', false);
+            this_row.find(".form-control").prop('readonly', false);
             this_row.find(".form-control").css('background-color', '#FFF');
             this_row.find('.layanan_nama_label').html(nama);
             let harga_label = numberFormater(parseInt(harga));
             this_row.find('.layanan_harga_label').html('Rp. '+harga_label);
+            this_row.find('.layanan_id').val(id);
             this_row.find('.layanan_nama').val(nama);
             this_row.find('.layanan_harga').val(harga);
 
@@ -505,36 +676,13 @@
         });
 
         $(document).on('keyup', '.layanan_qty_kg', function (e) {
-            if (/^0/.test(this.value)) {
-                this.value = this.value.replace(/^0/, "")
-            }
-            let this_row = $(this).parent().parent();
-            let harga = this_row.find('.layanan_harga').val() || 0;
-            let layanan_qty_special_treatment = this_row.find('.layanan_qty_special_treatment').val() || 0;
-            let layanan_harga_special_treatment = this_row.find('.layanan_harga_special_treatment').val() || 0;
-            let total_special_treatment = parseInt(layanan_qty_special_treatment) * parseInt(layanan_harga_special_treatment) || 0;
-            let quantity = $(this).val() || 0;
-            if (layanan_harga_special_treatment >= 0 && quantity >= 0 && layanan_qty_special_treatment >= 0) {
-                let total_harga = parseInt(harga) * parseInt(quantity);
-                let sub_total_harga_this_row = parseInt(total_harga) + parseInt(total_special_treatment) || 0;
 
-                let sub_total_harga_this_row_label = numberFormater(parseInt(sub_total_harga_this_row));
-                this_row.find('.layanan_total_label').html('Rp. '+sub_total_harga_this_row_label);
-                this_row.find('.layanan_total').val(sub_total_harga_this_row);
-
-                let sum = 0;
-                $(document).find(".layanan_qty_kg").each(function(){
-                    sum += +$(this).val();
-                });
-                $(".sub_layanan_qty_kg").html(sum);
-
-                let sum_total = 0;
-                $(document).find(".layanan_total").each(function(){
-                    sum_total += +$(this).val();
-                });
-                sum_total = numberFormater(sum_total);
-                $(".sub_all_qty_harga").html(sum_total);
-            }
+            let sum = 0.0;
+            $(document).find(".layanan_qty_kg").each(function(){
+                sum += +$(this).val();
+            });
+            $(".sub_layanan_qty_kg").html(sum);
+            console.log(sum);
         });
 
         $(document).on('keyup', '.layanan_qty_satuan', function (e) {
@@ -692,6 +840,92 @@
             })
         });
 
+        $("#form-transaksi").validate({
+            rules: {
+                outlet: {
+                    required: true
+                },
+                kategori: {
+                    required: true
+                },
+                pelanggan: {
+                    required: true
+                },
+                pembayaran: {
+                    required: true
+                },
+                bayar: {
+                    required: true
+                },
+                nama: {
+                    required: true
+                },
+                alamat: {
+                    required: true
+                }
+            },
+            messages: {
+                outlet: {
+                    required: "Pilih outlet"
+                },
+                kategori: {
+                    required: "Pilih kategori"
+                },
+                pelanggan: {
+                    required: "Pilih kategori pelanggan"
+                },
+                pembayaran: {
+                    required: "Pilih metode pembayaran"
+                },
+                bayar: {
+                    required: "Masukan jumlah pembayaran"
+                },
+                nama: {
+                    required: "Masukan nama atau pilih member"
+                },
+                alamat: {
+                    required: "Masukan alamat atau pilih member"
+                }
+            },
+            ignore: "",
+            submitHandler: function () {
+                var formData = new FormData($('#form-transaksi')[0]);
+                $('#loading').css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: `{{ route('kasir.store') }}`,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.status == true) {
+                            let print_url = `{{ route('kasir.print', 'id') }}`;
+                            print_url = print_url.replace('id', response.kode_transaksi);
+                            window.open(print_url,'nama window','width=459,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,copyhistory=no');
+                            $('#form-transaksi').find("input[type=text], input[type=number], textarea").val("");
+                            $('.select-input').css("background-color", "#edeff1");
+                            $('.pip').html("");
+                        } else {
+                            if (response.err == 'empty_layanan') {
+                                let params = {icon: 'warning', title: response.msg}
+                                showAlaret(params);
+                            } else {
+                                let params = {icon: 'error', title: 'Terjadi kesalahan atau koneksi terputus !'}
+                                showAlaret(params);
+                            }
+                        }
+                        $('#loading').css("display", "none");
+                    },
+                    error: function (request, status, error) {
+                        let params = {icon: 'error', title: 'Terjadi kesalahan atau koneksi terputus !'}
+                        $('#loading').css("display", "none");
+                        showAlaret(params);
+                    }
+                });
+                return false;
+            }
+        });
     });
 </script>
 @endpush

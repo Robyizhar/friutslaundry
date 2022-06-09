@@ -23,6 +23,7 @@
 <!-- App js-->
 <script src="{{ asset('assets/js/app.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <script>
     $.ajaxSetup({
         headers: {
@@ -63,4 +64,24 @@
             })
         });
     });
+</script>
+<script>
+    function showAlaret(params = '') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: false,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        Toast.fire({
+            icon: params.icon,
+            title: params.title
+        });
+    }
 </script>
