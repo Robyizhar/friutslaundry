@@ -51,11 +51,16 @@ class CreateTransaksisTable extends Migration
             $table->string('kg_setrika')->nullable(true);
             $table->string('kg_expedisi')->nullable(true);
 
+            $table->enum('kepuasan_pelanggan', ['0', '1'])->default('0');
+            $table->text('catatan_pelanggan')->nullable(true);
+
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->nullable(true);
             $table->integer('updated_by')->nullable(true);
             $table->integer('deleted_by')->nullable(true);
+            $table->integer('deliver_by')->nullable(true);
+            $table->timestamps('deliver_at')->nullable(true);
         });
     }
 

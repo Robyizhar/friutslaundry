@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Transaksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\ExpedisiJadwalJemputRequest;
-use App\Models\ExpedisiJadwalJemput;
+use App\Http\Requests\ExpedisiJadwalAntarRequest;
+use App\Models\ExpedisiJadwalAntar;
 use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,38 +17,38 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use DB;
 
-class ExpedisiJadwalJemputController extends Controller {
+class ExpedisiJadwalAntarController extends Controller {
 
     protected $model, $role;
 
-    public function __construct(ExpedisiJadwalJemput $ExpedisiJadwalJemput) {
-        $this->model = new BaseRepository($ExpedisiJadwalJemput);
+    public function __construct(ExpedisiJadwalAntar $ExpedisiJadwalAntar) {
+        $this->model = new BaseRepository($ExpedisiJadwalAntar);
         $this->middleware('auth');
     }
 
     public function index() {
-        return view('transaksi.expedisi-jadwal-jemput.index');
+        return view('transaksi.expedisi-jadwal-antar.index');
     }
 
     public function getData() {
-        //belum difilter untuk orang yg menjemput
-        $data = DB::table('permintaan_laundries')
-        ->select('permintaan_laundries.*', 'users.name', 'users_picked.name as picked_name')
-        ->join('members', 'members.id', '=', 'permintaan_laundries.member_id')
-        ->join('users', 'users.id', '=', 'members.user_id')
-        ->join('users as users_picked', 'users_picked.id', '=', 'permintaan_laundries.picked_by', 'left')
-        ->whereNull('permintaan_laundries.deleted_at')
-        ->orderBy('permintaan_laundries.tanggal', 'ASC')
-        ->orderBy('permintaan_laundries.waktu', 'ASC')
+        //belum difilter untuk orang yg menantar
+        $data = DB::table('transaksis')
+        ->select('transaksis.*', 'users.name', 'users_deliver.name as deliver_name')
+        ->join('members', 'members.id', '=', 'transaksis.member_id', 'left')
+        ->join('users', 'users.id', '=', 'members.user_id', 'left')
+        ->join('users as users_deliver', 'users_deliver.id', '=', 'transaksis.deliver_by', 'left')
+        ->whereNull('transaksis.deleted_at') 
+        ->where('transaksis.is_done','0')
+        ->orderBy('transaksis.id', 'ASC')
         ->get();
         return DataTables::of($data)
 
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                'url_edit' => route('expedisi-jadwal-jemput.edit', $data->id),
-                // 'url_detail' => route('expedisi-jadwal-jemput.detail', $data->id)
-                'url_destroy' => route('expedisi-jadwal-jemput.destroy', $data->id)
+                'url_edit' => route('expedisi-jadwal-antar.edit', $data->id),
+                // 'url_detail' => route('expedisi-jadwal-antar.detail', $data->id)
+                'url_destroy' => route('expedisi-jadwal-antar.destroy', $data->id)
             ]);
         })
         ->addIndexColumn()
@@ -59,18 +59,18 @@ class ExpedisiJadwalJemputController extends Controller {
     // public function create() {
     //     try {
     //         $roles = Role::where('name', '!=', 'Maintener')->pluck('name','id');
-    //         return view('transaksi.expedisi-jemput.form', compact('roles'));
+    //         return view('transaksi.expedisi-antar.form', compact('roles'));
     //     } catch (\Throwable $e) {
     //         Alert::toast($e->getMessage(), 'error');
     //         return redirect()->route('top-up');
     //     }
     // }
 
-    // public function store(ExpedisiJemputRequest $request) {
+    // public function store(ExpedisiAntarRequest $request) {
     //     try {
     //         $data = $request->except(['_token', '_method', 'id' ,'nama', 'nominal_old']);
 
-    //         $expedisi-jemput = $this->model->store($data);
+    //         $expedisi-antar = $this->model->store($data);
 
     //         DB::update('update members set balance = balance+'  .$request->nominal. ' where members.id= ' .$request->member_id);
 
@@ -84,18 +84,18 @@ class ExpedisiJadwalJemputController extends Controller {
 
     public function edit($id) {
         try {
-            $data['detail'] = DB::table('permintaan_laundries')
-            ->select('permintaan_laundries.*', 'users.name', 'users_picked.name as picked_name')
-            ->join('members', 'members.id', '=', 'permintaan_laundries.member_id')
-            ->join('users', 'users.id', '=', 'members.user_id')
-            ->join('users as users_picked', 'users_picked.id', '=', 'permintaan_laundries.picked_by', 'left')
-            ->where('permintaan_laundries.id',$id)
+            $data['detail'] = DB::table('transaksis')
+            ->select('transaksis.*', 'users.name', 'users_deliver.name as deliver_name')
+            ->join('members', 'members.id', '=', 'transaksis.member_id', 'left')
+            ->join('users', 'users.id', '=', 'members.user_id', 'left')
+            ->join('users as users_deliver', 'users_deliver.id', '=', 'transaksis.deliver_by', 'left')
+            ->where('transaksis.id',$id)
             ->get();
 
-            return view('transaksi.expedisi-jadwal-jemput.form', compact('data'));
+            return view('transaksi.expedisi-jadwal-antar.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-jemput');
+            return redirect()->route('expedisi-jadwal-antar');
         }
     }
 
@@ -103,14 +103,14 @@ class ExpedisiJadwalJemputController extends Controller {
     //     try {
     //         $data['detail'] = $this->model->find($id);
 
-    //         return view('transaksi.expedisi-jemput.detail', compact('data'));
+    //         return view('transaksi.expedisi-antar.detail', compact('data'));
     //     } catch (\Throwable $e) {
     //         Alert::toast($e->getMessage(), 'error');
     //         return redirect()->route('top-up');
     //     }
     // }
 
-    public function update(ExpedisiJadwalJemputRequest $request) {
+    public function update(ExpedisiJadwalAntarRequest $request) {
         try {
             // $data = $request->except(['_token', '_method', 'id', 'nama', 'nominal_old']);
             // $user = $this->model->update($request->id, $data);
@@ -119,28 +119,28 @@ class ExpedisiJadwalJemputController extends Controller {
             // echo($selisih);
             // exit();
 
-            DB::update('update permintaan_laundries set picked_by = '.$request->picked_by. ' WHERE permintaan_laundries.id ='.$request->id);
+            DB::update('update transaksis set deliver_by = '.$request->deliver_by. ' WHERE transaksis.id ='.$request->id);
 
             Alert::toast('Berhasil Disimpan', 'success');
-            return redirect()->route('expedisi-jadwal-jemput');
+            return redirect()->route('expedisi-jadwal-antar');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-jemput');
+            return redirect()->route('expedisi-jadwal-antar');
         }
     }
 
     public function destroy($id) {
         try {
 
-            DB::update("update permintaan_laundries set picked_by = null WHERE permintaan_laundries.id=".$id);
+            DB::update("update transaksis set deliver_by = null WHERE transaksis.id=".$id);
             
-            Alert::toast('Jadwal Penjemputan Berhasil Dibatalkan', 'success');
-            return redirect()->route('expedisi-jadwal-jemput');
+            Alert::toast('Jadwal Pengantaran Berhasil Dibatalkan', 'success');
+            return redirect()->route('expedisi-jadwal-antar');
         } catch (\Throwable $e) {
             echo 'gagal';
             exit();
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-jemput');
+            return redirect()->route('expedisi-jadwal-antar');
         }
     }
 

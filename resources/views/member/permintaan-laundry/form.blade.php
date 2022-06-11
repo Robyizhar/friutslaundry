@@ -15,7 +15,7 @@
     <div class="form-group mb-3">
         <label class="required">Tanggal Penjemputan</label>
         <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail'][0]->id }}" name="id">
-        <input type="hidden" value="{{ !isset($data['detail']) ? $data['info'][0]->id : $data['detail'][0]->member_id }}" name="member_id">
+        <input type="hidden" value="{{ !isset($data['detail']) ? '' : $data['detail'][0]->member_id }}" name="member_id">
         <input value="{{ !isset($data['detail']) ? old('tanggal') : old('name', $data['detail'][0]->tanggal) }}" type="text" name="tanggal" class="form-control flatpickr-input active mb-2 @error('tanggal') is-invalid @enderror" placeholder="tanggal penjemputan" id="basic-datepicker">
         @if($errors->has('tanggal'))
             <div class="text-danger"> {{ $errors->first('tanggal')}} </div>

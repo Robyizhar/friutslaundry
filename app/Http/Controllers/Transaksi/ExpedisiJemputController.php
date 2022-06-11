@@ -33,7 +33,7 @@ class ExpedisiJemputController extends Controller {
     public function getData() {
         //belum difilter untuk orang yg menjemput
         $data = DB::table('permintaan_laundries')
-        ->select('permintaan_laundries.*', 'users.name')
+        ->select("permintaan_laundries.*", "users.name",DB::raw("(case when permintaan_laundries.id IN (select permintaan_laundry_id from expedisi_jemputs) then 'sudah' else '-' end) as status"))
         ->join('members', 'members.id', '=', 'permintaan_laundries.member_id')
         ->join('users', 'users.id', '=', 'members.user_id')
         ->whereNull('permintaan_laundries.deleted_at')
@@ -47,7 +47,7 @@ class ExpedisiJemputController extends Controller {
                 'model' => $data,
                 'url_edit' => route('expedisi-jemput.edit', $data->id),
                 // 'url_detail' => route('expedisi-jemput.detail', $data->id)
-                // 'url_destroy' => route('expedisi-jemput.destroy', $data->id)
+                'url_destroy' => route('expedisi-jemput.destroy', $data->id)
             ]);
         })
         ->addIndexColumn()
@@ -133,23 +133,20 @@ class ExpedisiJemputController extends Controller {
         }
     }
 
-    // public function destroy($id) {
-    //     try {
+    public function destroy($id) {
+        try {
 
-    //         $data = $this->model->find($id);
-    //         DB::update('update members set balance = balance-'  .(float)$data->nominal. ' where members.id= ' .$data->member_id);
-
-    //         $this->model->softDelete($id);
+            DB::delete("delete from expedisi_jemputs where expedisi_jemputs.id =".$id);
             
-    //         Alert::toast('ExpedisiJemput Kode '.$data->kode.' Berhasil Dihapus', 'success');
-    //         return redirect()->route('top-up');
-    //     } catch (\Throwable $e) {
-    //         echo 'gagal';
-    //         exit();
-    //         Alert::toast($e->getMessage(), 'error');
-    //         return redirect()->route('top-up');
-    //     }
-    // }
+            // Alert::toast('Pencatatan Jemput Berhasil Dihapus', 'success');
+            return redirect()->route('expedisi-jemput');
+        } catch (\Throwable $e) {
+            echo 'gagal';
+            exit();
+            Alert::toast($e->getMessage(), 'error');
+            return redirect()->route('expedisi-jemput');
+        }
+    }
 
     // public function getDataMember() {
     //     $data = DB::table('members')
