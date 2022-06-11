@@ -37,6 +37,7 @@ class CreateTransaksisTable extends Migration
             $table->enum('kategori', ['reguler', 'express', 'super_express']);
             $table->text('note')->nullable(true);
             $table->enum('is_done', ['0', '1'])->default('0');
+            $table->enum('status', ['kasir', 'qc', 'cuci', 'pengeringan', 'setrika', 'expedisi']);
 
             $table->string('quantity_qc')->nullable(true);
             $table->string('quantity_cuci')->nullable(true);

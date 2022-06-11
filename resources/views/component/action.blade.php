@@ -15,4 +15,21 @@
         </a>
     @endif
 </div>
-
+<div class="text-left get-action">
+    @if (isset($valid))
+        <a href="#" data-id="{{ $valid }}" class="btn btn-sm btn-success waves-effect waves-light valid" title="Valid">
+            <i class="far fa-check-circle"></i>
+        </a>
+    @endif
+    @if (isset($invalid))
+        <a href="#" data-id="{{ $valid }}" class="btn btn-sm btn-danger waves-effect waves-light invalid" title="Invalid">
+            <i class="far fa-times-circle"></i>
+        </a>
+    @endif
+    @if (isset($input_satuan))
+        <input type="text" class="form-control quantity_satuan" style="padding: 0;" name="quantity_qc" autocomplete="off" onkeypress="return isNumber(event)">
+    @endif
+    @if (isset($input_kg))
+        <input class="form-control text-left quantity_kg" style="padding: 0;" step=".01" maxlength="9" type="number" name="quantity_kg" autocomplete="off" />
+    @endif
+</div>

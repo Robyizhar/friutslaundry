@@ -21,6 +21,10 @@ class Transaksi extends Authenticatable
     protected $fillable = [
         'kode_transaksi',
         'kasir_id',
+        'member_id',
+        'qc_id',
+        'cuci_id',
+        'pengeringan_id',
         'outlet_id',
         'nama',
         'alamat',
@@ -29,7 +33,15 @@ class Transaksi extends Authenticatable
         'total',
         'bayar',
         'pembayaran',
-        'note'
+        'note',
+        'status',
+        'is_done',
+        'quantity_qc',
+        'kg_qc',
+        'quantity_cuci',
+        'kg_cuci',
+        'quantity_pengeringan',
+        'kg_pengeringan'
     ];
 
     /**
@@ -57,5 +69,4 @@ class Transaksi extends Authenticatable
     public function outlet() {
         return $this->belongsTo('App\Models\Outlet', 'outlet_id', 'id');
     }
-    // return $this->belongsTo('App\Models\TResultInspection', 'id', 'unit_inspenction_id');
 }

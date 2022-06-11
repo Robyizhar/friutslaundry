@@ -73,7 +73,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('qc') }}">
                         <i class="fe-check-square"></i>
                         <span>QC</span>
                     </a>

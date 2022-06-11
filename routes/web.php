@@ -18,6 +18,10 @@ use App\Http\Controllers\Transaksi\KasirController;
 use App\Http\Controllers\Transaksi\TopupController;
 use App\Http\Controllers\Transaksi\ExpedisiJadwalJemputController;
 use App\Http\Controllers\Transaksi\ExpedisiJemputController;
+use App\Http\Controllers\Transaksi\QcController;
+use App\Http\Controllers\Transaksi\CuciController;
+use App\Http\Controllers\Transaksi\PengeringanController;
+use App\Http\Controllers\Transaksi\SetrikaController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
@@ -177,6 +181,33 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJemputController::class, 'update'])->name('expedisi-jemput.update');
         Route::get('/destroy/{id}', [ExpedisiJemputController::class, 'destroy'])->name('expedisi-jemput.destroy');
         Route::post('/get-data-permintaan', [ExpedisiJemputController::class, 'getDataPermintaan'])->name('expedisi-jemput.get-data-permintaan');
+    });
+
+    Route::prefix('qc')->group(function () {
+        Route::get('/', [QcController::class, 'index'])->name('qc');
+        Route::post('/get-data', [QcController::class, 'getData'])->name('qc.get-data');
+        Route::post('/store', [QcController::class, 'store'])->name('qc.store');
+    });
+
+    Route::prefix('cuci')->group(function () {
+        Route::get('/', [CuciController::class, 'index'])->name('cuci');
+        Route::post('/get-data', [CuciController::class, 'getData'])->name('cuci.get-data');
+        Route::post('/get-request', [CuciController::class, 'getRequest'])->name('cuci.request');
+        Route::post('/store', [CuciController::class, 'store'])->name('cuci.store');
+    });
+
+    Route::prefix('pengeringan')->group(function () {
+        Route::get('/', [PengeringanController::class, 'index'])->name('pengeringan');
+        Route::post('/get-data', [PengeringanController::class, 'getData'])->name('pengeringan.get-data');
+        Route::post('/get-request', [PengeringanController::class, 'getRequest'])->name('pengeringan.request');
+        Route::post('/store', [PengeringanController::class, 'store'])->name('pengeringan.store');
+    });
+
+    Route::prefix('setrika')->group(function () {
+        Route::get('/', [SetrikaController::class, 'index'])->name('setrika');
+        Route::post('/get-data', [SetrikaController::class, 'getData'])->name('setrika.get-data');
+        Route::post('/get-request', [SetrikaController::class, 'getRequest'])->name('setrika.request');
+        Route::post('/store', [SetrikaController::class, 'store'])->name('setrika.store');
     });
 
 });

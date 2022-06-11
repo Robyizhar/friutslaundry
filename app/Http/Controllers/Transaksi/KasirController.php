@@ -32,7 +32,7 @@ class KasirController extends Controller
 
     public function index() {
         $outlets = Outlet::get();
-        return view('transaksi.kasir.form', compact('outlets'));
+        return view('transaksi.kasir.index', compact('outlets'));
     }
 
     public function getDataLayanan(Request $request) {
@@ -55,13 +55,13 @@ class KasirController extends Controller
     }
     public function store(Request $request) {
         try {
-            $kode_transaksi = Carbon::now();
+            $kode_transaksi = date("dmy");
             if(!isset($request->layanan))
                 return response()->json([ 'status' => false, 'err' => 'empty_layanan', 'msg' => 'Pilih Transaksi' ], 200);
 
             $total = array_sum(array_column($request->layanan, 'total'));
             $data = [
-                'kode_transaksi' => $kode_transaksi->toDateString().'-'.strtoupper(Str::random(5)),
+                'kode_transaksi' => $kode_transaksi.strtoupper(Str::random(5)),
                 'kasir_id' => Auth::user()->id,
                 'outlet_id' => $request->outlet,
                 'member_id' => $request->member_id,
@@ -72,7 +72,9 @@ class KasirController extends Controller
                 'total' => $total,
                 'bayar' => $request->bayar,
                 'pembayaran' => $request->pembayaran,
-                'note' => $request->note
+                'note' => $request->note,
+                'status' => 'kasir',
+                'is_done' => '1'
             ];
             DB::beginTransaction();
             $transaksi = $this->model->store($data);
@@ -125,17 +127,5 @@ class KasirController extends Controller
             Alert::toast($th->getMessage(), 'error');
             return back();
         }
-    }
-
-    public function edit($id) {
-        //
-    }
-
-    public function update(Request $request, $id) {
-        //
-    }
-
-    public function destroy($id) {
-        //
     }
 }

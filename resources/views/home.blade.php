@@ -50,55 +50,22 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card-box">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="avatar-lg rounded-circle bg-soft-success border-success border">
-                                    <i class="fe-shopping-cart font-22 avatar-title text-success"></i>
+                    <a href="{{ route('qc') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <h3 class="text-dark mt-1"><span data-plugin="counterup">127</span></h3>
-                                    <p class="text-muted mb-1 text-truncate">Today's Sales</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card-box">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="avatar-lg rounded-circle bg-soft-info border-info border">
-                                    <i class="fe-bar-chart-line- font-22 avatar-title text-info"></i>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <h3 class="text-dark mt-1"><span data-plugin="counterup">0.58</span>%</h3>
-                                    <p class="text-muted mb-1 text-truncate">Conversion</p>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">QC</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card-box">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-                                    <i class="fe-eye font-22 avatar-title text-warning"></i>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <h3 class="text-dark mt-1"><span data-plugin="counterup">78.41</span>k</h3>
-                                    <p class="text-muted mb-1 text-truncate">Today's Visits</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -109,5 +76,5 @@
 @endsection
 @push('script')
 <!-- Dashboar 1 init js-->
-<script src="{{ asset('assets/js/pages/dashboard-1.init.js')}}"></script>
+{{-- <script src="{{ asset('assets/js/pages/dashboard-1.init.js')}}"></script> --}}
 @endpush
