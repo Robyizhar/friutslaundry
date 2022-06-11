@@ -4,10 +4,13 @@
 <style>
     /* Multiple Upload Images */
     .thumbnail {
-        max-height: 75px;
+        /* max-height: 75px; */
         border: 2px solid;
         padding: 1px;
         cursor: pointer;
+        width: 164px;
+        height: auto;
+        border-radius: 5px;
     }
     .pip {
         display: inline-block;
@@ -558,7 +561,6 @@
                         let file = e.target;
                         $("<span class=\"pip\">" +
                             "<img class=\"thumbnail\" src=\"" + e.target.result + "\" title=\"" + files.name + "\"/>" +
-                            "<br/><span class=\"remove btn-warning mb-1\">Hapus</span>" +
                             "</span>").insertAfter("#image-preview");
                         $(".remove").click(function(){
                             $(this).parent(".pip").remove();
