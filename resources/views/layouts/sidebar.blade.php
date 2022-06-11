@@ -115,12 +115,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('expedisi-jadwal-antar') }}">
                                     <span>Jadwal Antar</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('expedisi-antar') }}">
                                     <span>Antar Barang</span>
                                 </a>
                             </li>

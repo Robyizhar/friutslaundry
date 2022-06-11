@@ -14,6 +14,25 @@
             <i class="fas fa-trash"></i>
         </a>
     @endif
+
+    <!-- costume button -->
+    @if (isset($url_pilih_kurir))
+        <a href="" class="btn btn-sm btn-primary btn_pop waves-effect waves-light" onClick="open_modal({{ $url_pilih_kurir }})" title="Pilih Kurir" data-toggle="modal">
+            <i class="fas fa-truck"></i>
+        </a>
+    @endif
+
+    @if (isset($url_kurir))
+        <a href="" class="btn btn-sm btn-primary btn_pop waves-effect waves-light" onClick="open_modal({{ $url_kurir }})" title="Catatan Kurir" data-toggle="modal">
+            <i class=" fas fa-check-square"></i>
+        </a>
+    @endif
+    
+    @if (isset($url_batal))
+        <a href="{{ $url_batal }}" class="btn btn-sm btn-danger btn-delete waves-effect waves-light" title="Batalkan Pencatatan">
+            <i class="fas fa-redo"></i>
+        </a>
+    @endif
 </div>
 <div class="text-left get-action">
     @if (isset($valid))

@@ -54,9 +54,12 @@ class PermintaanLaundryController extends Controller {
 
     public function create() {
         try {
-            $member_id = DB::table('members')->where('user_id', Auth::user()->id)->first()->id;
+            
+            $data['info'] = DB::table('members')
+            ->select('members.*')
+            ->where('members.user_id', Auth::user()->id)
+            ->first();
 
-            $data['info'] = Member::find($member_id);
             return view('member.permintaan-laundry.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');

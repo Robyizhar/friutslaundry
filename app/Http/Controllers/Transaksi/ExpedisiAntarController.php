@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Transaksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\ExpedisiJadwalAntarRequest;
-use App\Models\ExpedisiJadwalAntar;
+use App\Http\Requests\ExpedisiAntarRequest;
+use App\Models\ExpedisiAntar;
 use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,12 +17,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use DB;
 
-class ExpedisiJadwalAntarController extends Controller {
+class ExpedisiAntarController extends Controller {
 
     protected $model, $role;
 
-    public function __construct(ExpedisiJadwalAntar $ExpedisiJadwalAntar) {
-        $this->model = new BaseRepository($ExpedisiJadwalAntar);
+    public function __construct(ExpedisiAntar $ExpedisiAntar) {
+        $this->model = new BaseRepository($ExpedisiAntar);
         $this->middleware('auth');
     }
 
@@ -32,18 +32,17 @@ class ExpedisiJadwalAntarController extends Controller {
         ->where('role_id', '=', 6)
         ->get();
 
-        return view('transaksi.expedisi-jadwal-antar.index',['kurir'=>$kurir]);
+        return view('transaksi.expedisi-antar.index',['kurir'=>$kurir]);
     }
 
     public function getData() {
         //belum difilter untuk orang yg menantar
         $data = DB::table('transaksis')
-        ->select('transaksis.*', 'users.name', 'users_deliver.name as deliver_name')
+        ->select('transaksis.*', 'users.name', 'users_deliver.name as deliver_name',DB::raw("(case when transaksis.deliver_at is null then '-' ELSE 'Selesai' END) as status"))
         ->join('members', 'members.id', '=', 'transaksis.member_id', 'left')
         ->join('users', 'users.id', '=', 'members.user_id', 'left')
         ->join('users as users_deliver', 'users_deliver.id', '=', 'transaksis.deliver_by', 'left')
         ->whereNull('transaksis.deleted_at') 
-        ->whereNull('transaksis.deliver_at') 
         ->where('transaksis.is_done','0')
         ->orderBy('transaksis.id', 'ASC')
         ->get();
@@ -52,10 +51,10 @@ class ExpedisiJadwalAntarController extends Controller {
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                // 'url_edit' => route('expedisi-jadwal-antar.edit', $data->id),
-                // 'url_detail' => route('expedisi-jadwal-antar.detail', $data->id)
-                'url_batal' => route('expedisi-jadwal-antar.destroy', $data->id),
-                'url_pilih_kurir'=> $data->id,
+                // 'url_edit' => route('expedisi-antar.edit', $data->id),
+                // 'url_detail' => route('expedisi-antar.detail', $data->id)
+                'url_batal' => route('expedisi-antar.destroy', $data->id),
+                'url_kurir'=> $data->id,
             ]);
         })
         ->addIndexColumn()
@@ -75,8 +74,10 @@ class ExpedisiJadwalAntarController extends Controller {
 
     public function store(Request $request)
     {  
+
+        $waktu = date('Y-m-d H:i:s');
         
-        $transaksi = DB::update('update transaksis set deliver_by = '.$request->deliver_by. ' WHERE transaksis.id ='.$request->transaksi_id);
+        $transaksi = DB::update("update transaksis set deliver_at = '".$waktu. "' WHERE transaksis.id =".$request->transaksi_id);
                          
         return Response()->json($transaksi);
  
@@ -92,10 +93,10 @@ class ExpedisiJadwalAntarController extends Controller {
             ->where('transaksis.id',$id)
             ->get();
 
-            return view('transaksi.expedisi-jadwal-antar.form', compact('data'));
+            return view('transaksi.expedisi-antar.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-antar');
+            return redirect()->route('expedisi-antar');
         }
     }
 
@@ -110,7 +111,7 @@ class ExpedisiJadwalAntarController extends Controller {
     //     }
     // }
 
-    public function update(ExpedisiJadwalAntarRequest $request) {
+    public function update(ExpedisiAntarRequest $request) {
         try {
             // $data = $request->except(['_token', '_method', 'id', 'nama', 'nominal_old']);
             // $user = $this->model->update($request->id, $data);
@@ -119,28 +120,28 @@ class ExpedisiJadwalAntarController extends Controller {
             // echo($selisih);
             // exit();
 
-            DB::update('update transaksis set deliver_by = '.$request->deliver_by. ' WHERE transaksis.id ='.$request->id);
+            DB::update('update transaksis set deliver_at = '.$request->deliver_by. ' WHERE transaksis.id ='.$request->id);
 
             Alert::toast('Berhasil Disimpan', 'success');
-            return redirect()->route('expedisi-jadwal-antart');
+            return redirect()->route('expedisi-antart');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-antarx');
+            return redirect()->route('expedisi-antarx');
         }
     }
 
     public function destroy($id) {
         try {
 
-            DB::update("update transaksis set deliver_by = null WHERE transaksis.id=".$id);
+            DB::update("update transaksis set deliver_at = null WHERE transaksis.id=".$id);
             
-            Alert::toast('Jadwal Pengantaran Berhasil Dibatalkan', 'success');
-            return redirect()->route('expedisi-jadwal-antar');
+            Alert::toast(' Pengantaran Berhasil Dibatalkan', 'success');
+            return redirect()->route('expedisi-antar');
         } catch (\Throwable $e) {
             echo 'gagal';
             exit();
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('expedisi-jadwal-antar');
+            return redirect()->route('expedisi-antar');
         }
     }
 
