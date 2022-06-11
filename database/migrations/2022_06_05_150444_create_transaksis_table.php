@@ -60,7 +60,7 @@ class CreateTransaksisTable extends Migration
             $table->integer('updated_by')->nullable(true);
             $table->integer('deleted_by')->nullable(true);
             $table->integer('deliver_by')->nullable(true);
-            $table->timestamps('deliver_at')->nullable(true);
+            $table->timestamp('deliver_at')->nullable(true);
         });
     }
 
