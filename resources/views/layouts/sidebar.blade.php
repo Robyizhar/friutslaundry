@@ -79,19 +79,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('cuci') }}">
                         <i class="fe-instagram"></i>
                         <span>Cuci</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('pengeringan') }}">
                         <i class="dripicons-brightness-max"></i>
                         <span>Pengeringan</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('setrika') }}">
                         <i class="fe-triangle"></i>
                         <span>Setrika</span>
                     </a>

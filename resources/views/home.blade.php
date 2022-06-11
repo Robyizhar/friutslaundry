@@ -67,11 +67,63 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('cuci') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">CUCI</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('pengeringan') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">PENGERINGAN</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('setrika') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">SETRIKA</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-
     </div>
-
 </div>
 @endsection
 @push('script')

@@ -3,7 +3,7 @@
         <div class="page-title-box">
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Infogram</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     @php
                         $segment = [Request::segment(1), Request::segment(2), Request::segment(3), Request::segment(4)]
                     @endphp
