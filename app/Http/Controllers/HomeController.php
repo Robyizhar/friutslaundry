@@ -27,8 +27,23 @@ class HomeController extends Controller
     public function index() {
         
         if(Auth::user()->is_member==1){
-            $saldo = DB::table('members')->where('user_id', Auth::user()->id)->first()->balance;
-            $data['saldo'] = $saldo;
+
+            $member_info        = DB::table('members')->where('user_id', Auth::user()->id)->first();
+            
+            $transaksi_terakhir = DB::table('transaksis')->select('transaksis.*')
+                                    ->where('transaksis.member_id', $member_info->id)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first();
+
+            $history_transaksi  = DB::table('transaksis')->select('transaksis.*')
+                                    ->where('transaksis.member_id', $member_info->id)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first();
+            
+
+            $data['saldo']              = $member_info->balance;
+            $data['history_transaksi']  = $history_transaksi;
+            $data['transaksi_terakhir'] = $transaksi_terakhir;
 
             return view('home_user', compact('data'));    
         }else{
@@ -41,11 +56,37 @@ class HomeController extends Controller
         return view('infogram');
     }
 
-    public function indexuser() {
-
-        $saldo = DB::table('members')->where('user_id', Auth::user()->id)->first()->balance;
-        $data['saldo'] = $saldo;
-
-        return view('home_user', compact('data'));
+    public function like($id) {
+        
+        $like =  DB::update("update transaksis set kepuasan_pelanggan = 'ya' where transaksis.id= " .$id);
+                         
+        return Response()->json($like);
     }
+
+    public function dislike($id) {
+        try {
+
+            DB::update("update transaksis set kepuasan_pelanggan = 'tidak' where transaksis.id= " .$id);
+
+            // Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('history-laundry');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return back();
+        }
+    }
+
+    public function netral($id) {
+        try {
+
+            DB::update("update transaksis set kepuasan_pelanggan = 'netral' where transaksis.id= " .$id);
+
+            // Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('history-laundry');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return back();
+        }
+    }
+
 }

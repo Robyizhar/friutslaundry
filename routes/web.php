@@ -27,6 +27,7 @@ use App\Http\Controllers\Transaksi\SetrikaController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
+use App\Http\Controllers\Member\HistoryLaundryController;
 
 Route::get('/', function() {
     return redirect('/login');
@@ -37,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
+    Route::get('/like', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
+    Route::get('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
@@ -249,6 +252,21 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJadwalAntarController::class, 'update'])->name('expedisi-jadwal-antar.update');
         Route::get('/destroy/{id}', [ExpedisiJadwalAntarController::class, 'destroy'])->name('expedisi-jadwal-antar.destroy');
         Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
+    });
+
+    Route::prefix('history-laundry')->group(function () {
+        Route::get('/', [HistoryLaundryController::class, 'index'])->name('history-laundry');
+        Route::post('/get-data', [HistoryLaundryController::class, 'getData'])->name('history-laundry.get-data');
+        Route::get('/create', [HistoryLaundryController::class, 'create'])->name('history-laundry.create');
+        Route::post('/store', [HistoryLaundryController::class, 'store'])->name('history-laundry.store');
+        Route::get('/detail/{id}', [HistoryLaundryController::class, 'detail'])->name('history-laundry.detail');
+        Route::get('/edit/{id}', [HistoryLaundryController::class, 'edit'])->name('history-laundry.edit');
+        Route::put('/update', [HistoryLaundryController::class, 'update'])->name('history-laundry.update');
+        Route::get('/destroy/{id}', [HistoryLaundryController::class, 'destroy'])->name('history-laundry.destroy');
+        Route::post('/get-data-layanan', [HistoryLaundryController::class, 'getDataLayanan'])->name('history-laundry.get-data-layanan');
+        Route::post('/get-data-parfume', [HistoryLaundryController::class, 'getDataParfume'])->name('history-laundry.get-data-parfume');
+        Route::get('/like/{id}', [HistoryLaundryController::class, 'like'])->name('history-laundry.like');
+        Route::get('/dislike/{id}', [HistoryLaundryController::class, 'dislike'])->name('history-laundry.dislike');
     });
 
 });

@@ -52,7 +52,7 @@ class CreateTransaksisTable extends Migration
             $table->string('kg_expedisi')->nullable(true);
 
             $table->text('catatan_kurir')->nullable(true);
-            $table->enum('kepuasan_pelanggan', ['0', '1'])->default('0');
+            $table->enum('kepuasan_pelanggan', ['netral', 'ya', 'tidak'])->default('netral');
             $table->text('catatan_pelanggan')->nullable(true);
 
             $table->timestamps();

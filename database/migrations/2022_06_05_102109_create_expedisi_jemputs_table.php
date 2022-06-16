@@ -16,7 +16,7 @@ class CreateExpedisiJemputsTable extends Migration
         Schema::create('expedisi_jemputs', function (Blueprint $table) {
             $table->id();
             $table->integer('permintaan_laundry_id');
-            ]$table->string('kode', $precision = 20)->nullable();
+            $table->string('kode', $precision = 20)->nullable();
             $table->string('status_jemput')->nullable();
             $table->decimal('titip_saldo', $precision = 20)->nullable();
             $table->text('catatan')->nullable();

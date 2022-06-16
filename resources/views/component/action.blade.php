@@ -1,16 +1,16 @@
 <div class="text-center">
     @if (isset($url_detail))
-        <a href="{{ $url_detail }}" class="btn btn-sm btn-info btn-rounded waves-effect waves-light" title="Info">
+        <a href="{{ $url_detail }}" class="btn btn-sm btn-info waves-effect waves-light" title="Info">
             <i class="fas fa-exclamation-circle"></i>
         </a>
     @endif
     @if (isset($url_edit))
-        <a href="{{ $url_edit }}" class="btn btn-sm btn-warning btn-rounded waves-effect waves-light" title="Edit">
+        <a href="{{ $url_edit }}" class="btn btn-sm btn-warning waves-effect waves-light" title="Edit">
             <i class="fas fa-align-left"></i>
         </a>
     @endif
     @if (isset($url_destroy))
-        <a href="{{ $url_destroy }}" class="btn btn-sm btn-danger btn-delete btn-rounded waves-effect waves-light" title="Hapus">
+        <a href="{{ $url_destroy }}" class="btn btn-sm btn-danger btn-delete waves-effect waves-light" title="Hapus">
             <i class="fas fa-trash"></i>
         </a>
     @endif
@@ -51,4 +51,24 @@
     @if (isset($input_kg))
         <input class="form-control text-left quantity_kg" style="padding: 0;" step=".01" maxlength="9" type="number" name="quantity_kg" autocomplete="off" />
     @endif
+
+
+    @if (isset($url_like))
+        <a href="{{ $url_like }}" class="btn btn-sm btn-outline-success btn_pop waves-effect waves-light" title="Suka">
+            <i class="fe-thumbs-up"></i>
+        </a>
+    @endif
+
+    @if (isset($url_dislike))
+        <a href="{{ $url_dislike }}" class="btn btn-sm btn-outline-danger btn_pop waves-effect waves-light" title="Tidak Suka">
+            <i class="fe-thumbs-down"></i>
+        </a>
+    @endif
+
+    @if (isset($url_catatan))
+        <a href="" class="btn btn-sm btn-info btn_pop waves-effect waves-light" onClick="tambah_catatan({{ $url_catatan }})" title="Tambah Catatan" data-toggle="modal">
+            <i class="fe-message-circle"></i>
+        </a>
+    @endif
+
 </div>

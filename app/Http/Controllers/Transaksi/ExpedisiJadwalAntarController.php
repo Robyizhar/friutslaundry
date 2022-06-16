@@ -44,7 +44,7 @@ class ExpedisiJadwalAntarController extends Controller {
         ->join('users as users_deliver', 'users_deliver.id', '=', 'transaksis.deliver_by', 'left')
         ->whereNull('transaksis.deleted_at') 
         ->whereNull('transaksis.deliver_at') 
-        ->where('transaksis.is_done','0')
+        ->where('transaksis.is_done','1')
         ->orderBy('transaksis.id', 'ASC')
         ->get();
         return DataTables::of($data)
