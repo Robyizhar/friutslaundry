@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\PermintaanLaundryRequest;
-use App\Http\Requests\PermintaanLaundryRequestUpdate;
-use App\Models\PermintaanLaundry;
+use App\Http\Requests\HistoryLaundryRequest;
+use App\Http\Requests\HistoryLaundryRequestUpdate;
+use App\Models\HistoryLaundry;
 use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,32 +19,37 @@ use RealRashid\SweetAlert\Facades\Alert;
 use DB;
 use Auth;
 
-class PermintaanLaundryController extends Controller {
+class HistoryLaundryController extends Controller {
 
     protected $model, $role;
 
-    public function __construct(PermintaanLaundry $PermintaanLaundry) {
-        $this->model = new BaseRepository($PermintaanLaundry);
+    public function __construct(HistoryLaundry $HistoryLaundry) {
+        $this->model = new BaseRepository($HistoryLaundry);
         $this->middleware('auth');
     }
 
     public function index() {
-        return view('member.permintaan-laundry.index');
+        return view('member.history-laundry.index');
     }
 
     public function getData() {
 
         $member_id = DB::table('members')->where('user_id', Auth::user()->id)->first()->id;
 
-        $data = PermintaanLaundry::where('member_id','=',$member_id);
+        $data = DB::table('transaksis')
+            ->select('transaksis.*', 'parfumes.nama as nama_parfume', 'parfumes.id as parfume_id', 'permintaan_laundries.tanggal', 'permintaan_laundries.waktu')
+            ->join('permintaan_laundries', 'permintaan_laundries.id', '=', 'transaksis.permintaan_laundry_id','left')
+            ->join('parfumes', 'parfumes.id', '=', 'permintaan_laundries.parfume_id','left')
+            ->where('transaksis.member_id',$member_id);
+            
         return DataTables::of($data)
 
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                'url_edit' => route('permintaan-laundry.edit', $data->id),
-                'url_detail' => route('permintaan-laundry.detail', $data->id),
-                'url_destroy' => route('permintaan-laundry.destroy', $data->id)
+                'url_like' => route('history-laundry.like', $data->id),
+                'url_dislike' => route('history-laundry.dislike', $data->id),
+                'url_catatan' => $data->id
             ]);
         })
         ->addIndexColumn()
@@ -60,20 +65,23 @@ class PermintaanLaundryController extends Controller {
             ->where('members.user_id', Auth::user()->id)
             ->first();
 
-            return view('member.permintaan-laundry.form', compact('data'));
+            return view('member.history-laundry.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         }
     }
 
-    public function store(PermintaanLaundryRequest $request) {
+    public function store(Request $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id', 'nama_parfume', 'nama_layanan']);
+            $data = $request->except(['_token', '_method', 'id' ,'nama', 'nominal_old']);
 
-            $PermintaanLaundry = $this->model->store($data);
-            Alert::toast('Berhasil Disimpan', 'success');
-            return redirect()->route('permintaan-laundry');
+            $topup = $this->model->store($data);
+
+            DB::update('update members set balance = balance+'  .$request->nominal. ' where members.id= ' .$request->member_id);
+
+            Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('top-up');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
             return back();
@@ -89,10 +97,10 @@ class PermintaanLaundryController extends Controller {
             ->where('permintaan_laundries.id',$id)
             ->get();
 
-            return view('member.permintaan-laundry.form', compact('data'));
+            return view('member.history-laundry.form', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         }
     }
 
@@ -100,22 +108,22 @@ class PermintaanLaundryController extends Controller {
         try {
             $data['detail'] = $this->model->find($id);
 
-            return view('member.permintaan-laundry.detail', compact('data'));
+            return view('member.history-laundry.detail', compact('data'));
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         }
     }
 
-    public function update(PermintaanLaundryRequestUpdate $request) {
+    public function update(HistoryLaundryRequestUpdate $request) {
         try {
             $data = $request->except(['_token', '_method', 'id', 'nama_parfume', 'nama_layanan']);
             $user = $this->model->update($request->id, $data);
             Alert::toast($request->nama.' Berhasil Disimpan', 'success');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         }
     }
 
@@ -123,10 +131,10 @@ class PermintaanLaundryController extends Controller {
         try {
             $this->model->softDelete($id);
             Alert::toast($request->name.' Berhasil Dihapus', 'success');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         } catch (\Throwable $e) {
             Alert::toast($e->getMessage(), 'error');
-            return redirect()->route('permintaan-laundry');
+            return redirect()->route('history-laundry');
         }
     }
 
@@ -154,5 +162,44 @@ class PermintaanLaundryController extends Controller {
         ->addIndexColumn()
         ->rawColumns(['action', 'roles'])
         ->make(true);
+    }
+
+    public function like($id) {
+        try {
+
+            DB::update("update transaksis set kepuasan_pelanggan = 'ya' where transaksis.id= " .$id);
+
+            // Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('history-laundry');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return back();
+        }
+    }
+
+    public function dislike($id) {
+        try {
+
+            DB::update("update transaksis set kepuasan_pelanggan = 'tidak' where transaksis.id= " .$id);
+
+            // Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('history-laundry');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return back();
+        }
+    }
+
+    public function netral($id) {
+        try {
+
+            DB::update("update transaksis set kepuasan_pelanggan = 'netral' where transaksis.id= " .$id);
+
+            // Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
+            return redirect()->route('history-laundry');
+        } catch (\Throwable $e) {
+            Alert::toast($e->getMessage(), 'error');
+            return back();
+        }
     }
 }

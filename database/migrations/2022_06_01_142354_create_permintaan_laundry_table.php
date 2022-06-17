@@ -29,6 +29,7 @@ class CreatePermintaanLaundryTable extends Migration
             $table->integer('updated_by')->nullable(true);
             $table->integer('deleted_by')->nullable(true);
             $table->integer('picked_by')->nullable(true);
+            $table->timestamp('picked_at')->nullable(true);
         });
     }
 

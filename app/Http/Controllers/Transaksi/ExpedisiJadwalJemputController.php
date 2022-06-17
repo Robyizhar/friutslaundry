@@ -27,7 +27,12 @@ class ExpedisiJadwalJemputController extends Controller {
     }
 
     public function index() {
-        return view('transaksi.expedisi-jadwal-jemput.index');
+        $kurir = DB::table('users')
+        ->select('users.*')
+        ->where('role_id', '=', 6)
+        ->get();
+
+        return view('transaksi.expedisi-jadwal-jemput.index',['kurir'=>$kurir]);
     }
 
     public function getData() {
@@ -46,9 +51,11 @@ class ExpedisiJadwalJemputController extends Controller {
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                'url_edit' => route('expedisi-jadwal-jemput.edit', $data->id),
+                // 'url_edit' => route('expedisi-jadwal-jemput.edit', $data->id),
                 // 'url_detail' => route('expedisi-jadwal-jemput.detail', $data->id)
-                'url_destroy' => route('expedisi-jadwal-jemput.destroy', $data->id)
+
+                'url_pilih_kurir'=> $data->id,
+                'url_batal' => route('expedisi-jadwal-jemput.destroy', $data->id)
             ]);
         })
         ->addIndexColumn()
@@ -66,21 +73,14 @@ class ExpedisiJadwalJemputController extends Controller {
     //     }
     // }
 
-    // public function store(ExpedisiJemputRequest $request) {
-    //     try {
-    //         $data = $request->except(['_token', '_method', 'id' ,'nama', 'nominal_old']);
-
-    //         $expedisi-jemput = $this->model->store($data);
-
-    //         DB::update('update members set balance = balance+'  .$request->nominal. ' where members.id= ' .$request->member_id);
-
-    //         Alert::toast('Top Up '.$request->nama.' Berhasil Disimpan', 'success');
-    //         return redirect()->route('top-up');
-    //     } catch (\Throwable $e) {
-    //         Alert::toast($e->getMessage(), 'error');
-    //         return back();
-    //     }
-    // }
+    public function store(Request $request)
+    {  
+        
+        $permintaan = DB::update('update permintaan_laundries set picked_by = '.$request->picked_by. ' WHERE permintaan_laundries.id ='.$request->permintaan_laundry_id);
+                         
+        return Response()->json($permintaan);
+ 
+    }
 
     public function edit($id) {
         try {
@@ -155,5 +155,20 @@ class ExpedisiJadwalJemputController extends Controller {
         ->addIndexColumn()
         ->rawColumns(['action', 'roles'])
         ->make(true);
+    }
+
+    public function getDataInfo(Request $request) {
+
+        $info  = DB::table('permintaan_laundries')->select('permintaan_laundries.*', 'users.name', 'users_deliver.name as deliver_name')
+        ->join('members', 'members.id', '=', 'permintaan_laundries.member_id', 'left')
+        ->join('users', 'users.id', '=', 'members.user_id', 'left')
+        ->join('users as users_deliver', 'users_deliver.id', '=', 'permintaan_laundries.picked_by', 'left')
+        ->whereNull('permintaan_laundries.deleted_at') 
+        ->where('permintaan_laundries.id',$request->id)
+        ->orderBy('permintaan_laundries.id', 'ASC')
+        ->first();
+      
+        return Response()->json($info);
+        
     }
 }

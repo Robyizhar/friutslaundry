@@ -18,14 +18,16 @@ use App\Http\Controllers\Transaksi\KasirController;
 use App\Http\Controllers\Transaksi\TopupController;
 use App\Http\Controllers\Transaksi\ExpedisiJadwalJemputController;
 use App\Http\Controllers\Transaksi\ExpedisiJemputController;
+use App\Http\Controllers\Transaksi\ExpedisiJadwalAntarController;
+use App\Http\Controllers\Transaksi\ExpedisiAntarController;
 use App\Http\Controllers\Transaksi\QcController;
 use App\Http\Controllers\Transaksi\CuciController;
 use App\Http\Controllers\Transaksi\PengeringanController;
 use App\Http\Controllers\Transaksi\SetrikaController;
-use App\Http\Controllers\Transaksi\ExpedisiJadwalAntarController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
+use App\Http\Controllers\Member\HistoryLaundryController;
 
 Route::get('/', function() {
     return redirect('/login');
@@ -36,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
+    Route::get('/like', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
+    Route::get('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
@@ -170,6 +174,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJadwalJemputController::class, 'update'])->name('expedisi-jadwal-jemput.update');
         Route::get('/destroy/{id}', [ExpedisiJadwalJemputController::class, 'destroy'])->name('expedisi-jadwal-jemput.destroy');
         Route::post('/get-data-user', [ExpedisiJadwalJemputController::class, 'getDataUser'])->name('expedisi-jadwal-jemput.get-data-user');
+        Route::post('/get-data-info', [ExpedisiJadwalJemputController::class, 'getDataInfo'])->name('expedisi-jadwal-jemput.get-data-info');
     });
 
     Route::prefix('expedisi-jemput')->group(function () {
@@ -182,6 +187,32 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJemputController::class, 'update'])->name('expedisi-jemput.update');
         Route::get('/destroy/{id}', [ExpedisiJemputController::class, 'destroy'])->name('expedisi-jemput.destroy');
         Route::post('/get-data-permintaan', [ExpedisiJemputController::class, 'getDataPermintaan'])->name('expedisi-jemput.get-data-permintaan');
+    });
+
+    Route::prefix('expedisi-jadwal-antar')->group(function () {
+        Route::get('/', [ExpedisiJadwalAntarController::class, 'index'])->name('expedisi-jadwal-antar');
+        Route::post('/get-data', [ExpedisiJadwalAntarController::class, 'getData'])->name('expedisi-jadwal-antar.get-data');
+        Route::get('/create', [ExpedisiJadwalAntarController::class, 'create'])->name('expedisi-jadwal-antar.create');
+        Route::post('/store', [ExpedisiJadwalAntarController::class, 'store'])->name('expedisi-jadwal-antar.store');
+        Route::get('/detail/{id}', [ExpedisiJadwalAntarController::class, 'detail'])->name('expedisi-jadwal-antar.detail');
+        Route::get('/edit/{id}', [ExpedisiJadwalAntarController::class, 'edit'])->name('expedisi-jadwal-antar.edit');
+        Route::put('/update', [ExpedisiJadwalAntarController::class, 'update'])->name('expedisi-jadwal-antar.update');
+        Route::get('/destroy/{id}', [ExpedisiJadwalAntarController::class, 'destroy'])->name('expedisi-jadwal-antar.destroy');
+        Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
+        Route::post('/get-data-info', [ExpedisiJadwalAntarController::class, 'getDataInfo'])->name('expedisi-jadwal-antar.get-data-info');
+    });
+
+    Route::prefix('expedisi-antar')->group(function () {
+        Route::get('/', [ExpedisiAntarController::class, 'index'])->name('expedisi-antar');
+        Route::post('/get-data', [ExpedisiAntarController::class, 'getData'])->name('expedisi-antar.get-data');
+        Route::get('/create', [ExpedisiAntarController::class, 'create'])->name('expedisi-antar.create');
+        Route::post('/store', [ExpedisiAntarController::class, 'store'])->name('expedisi-antar.store');
+        Route::get('/detail/{id}', [ExpedisiAntarController::class, 'detail'])->name('expedisi-antar.detail');
+        Route::get('/edit/{id}', [ExpedisiAntarController::class, 'edit'])->name('expedisi-antar.edit');
+        Route::put('/update', [ExpedisiAntarController::class, 'update'])->name('expedisi-antar.update');
+        Route::get('/destroy/{id}', [ExpedisiAntarController::class, 'destroy'])->name('expedisi-antar.destroy');
+        Route::post('/get-data-user', [ExpedisiAntarController::class, 'getDataUser'])->name('expedisi-antar.get-data-user');
+        Route::post('/get-data-info', [ExpedisiAntarController::class, 'getDataInfo'])->name('expedisi-antar.get-data-info');
     });
 
     Route::prefix('qc')->group(function () {
@@ -221,6 +252,21 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update', [ExpedisiJadwalAntarController::class, 'update'])->name('expedisi-jadwal-antar.update');
         Route::get('/destroy/{id}', [ExpedisiJadwalAntarController::class, 'destroy'])->name('expedisi-jadwal-antar.destroy');
         Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
+    });
+
+    Route::prefix('history-laundry')->group(function () {
+        Route::get('/', [HistoryLaundryController::class, 'index'])->name('history-laundry');
+        Route::post('/get-data', [HistoryLaundryController::class, 'getData'])->name('history-laundry.get-data');
+        Route::get('/create', [HistoryLaundryController::class, 'create'])->name('history-laundry.create');
+        Route::post('/store', [HistoryLaundryController::class, 'store'])->name('history-laundry.store');
+        Route::get('/detail/{id}', [HistoryLaundryController::class, 'detail'])->name('history-laundry.detail');
+        Route::get('/edit/{id}', [HistoryLaundryController::class, 'edit'])->name('history-laundry.edit');
+        Route::put('/update', [HistoryLaundryController::class, 'update'])->name('history-laundry.update');
+        Route::get('/destroy/{id}', [HistoryLaundryController::class, 'destroy'])->name('history-laundry.destroy');
+        Route::post('/get-data-layanan', [HistoryLaundryController::class, 'getDataLayanan'])->name('history-laundry.get-data-layanan');
+        Route::post('/get-data-parfume', [HistoryLaundryController::class, 'getDataParfume'])->name('history-laundry.get-data-parfume');
+        Route::get('/like/{id}', [HistoryLaundryController::class, 'like'])->name('history-laundry.like');
+        Route::get('/dislike/{id}', [HistoryLaundryController::class, 'dislike'])->name('history-laundry.dislike');
     });
 
 });

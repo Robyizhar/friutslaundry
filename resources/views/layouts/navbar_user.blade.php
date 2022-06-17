@@ -120,22 +120,20 @@
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fe-airplay mr-1"></i> Home
+                        <a class="nav-link dropdown-toggle arrow-none" href="{{ route('home') }}" role="button">
+                            <i class="fe-home mr-1"></i> Home
                         </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fe-grid mr-1"></i> Transaksi <div class="arrow-down"></div>
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" role="button">
+                            <i class="fe-list mr-1"></i> Transaksi <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-apps">
 
-                            <a href="apps-calendar.html" class="dropdown-item"><i class="fe-calendar mr-1"></i> Buat Pesanan Baru</a>
-                            <a href="apps-calendar.html" class="dropdown-item"><i class="fe-calendar mr-1"></i> List Transaksi</a>
-                            <a href="apps-calendar.html" class="dropdown-item"><i class="fe-calendar mr-1"></i> Lihat list harga</a>
+                            <a class="dropdown-item" href="{{ route('permintaan-laundry.create') }}"><i class="fe-message-circle"></i>&ensp;&ensp; Buat Pesanan Baru</a>
+                            <a class="dropdown-item" href="{{ route('permintaan-laundry') }}"><i class="fe-file-text"></i>&ensp;&ensp; List Transaksi</a>
+                            <a class="dropdown-item" href="{{ route('history-laundry') }}"><i class="fe-clock"></i>&ensp;&ensp; Lihat History Pemesanan</a>
                             
                         </div>
                     </li>

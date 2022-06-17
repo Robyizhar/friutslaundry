@@ -47,7 +47,7 @@ class ExpedisiJemputController extends Controller {
                 'model' => $data,
                 'url_edit' => route('expedisi-jemput.edit', $data->id),
                 // 'url_detail' => route('expedisi-jemput.detail', $data->id)
-                'url_destroy' => route('expedisi-jemput.destroy', $data->id)
+                'url_batal' => route('expedisi-jemput.destroy', $data->id)
             ]);
         })
         ->addIndexColumn()
@@ -67,9 +67,17 @@ class ExpedisiJemputController extends Controller {
 
     public function store(ExpedisiJemputRequest $request) {
         try {
-            $data = $request->except(['_token', '_method', 'id', 'nama', 'waktu', 'alamat', 'tanggal']);
+            $data = $request->except(['_token', '_method', 'id', 'nama', 'waktu', 'alamat', 'tanggal', 'image']);
+            $waktu = date('Y-m-d H:i:s');
             
-            DB::update("update permintaan_laundries set status_jemput = '1' where permintaan_laundries.id= " .$request->permintaan_laundry_id);
+            DB::update("update permintaan_laundries set status_jemput = '1', picked_at = '".$waktu."' where permintaan_laundries.id= " .$request->permintaan_laundry_id);
+
+            DB::update("insert into transaksis
+                        (kode_transaksi, permintaan_laundry_id, member_id, nama, alamat, parfume, created_at)
+                        select concat('PM-',permintaan_laundries.id) kode, permintaan_laundries.id, permintaan_laundries.member_id, users.name, permintaan_laundries.alamat, permintaan_laundries.parfume_id, permintaan_laundries.picked_at from permintaan_laundries
+                        left join members on members.id =permintaan_laundries.member_id
+                        left join users on users.id = members.user_id
+                        WHERE permintaan_laundries.id = '".$request->permintaan_laundry_id."'" );
 
             if($request->id==''){
                 $expedisijemput = $this->model->store($data);
@@ -136,7 +144,7 @@ class ExpedisiJemputController extends Controller {
     public function destroy($id) {
         try {
 
-            DB::delete("delete from expedisi_jemputs where expedisi_jemputs.id =".$id);
+            DB::delete("delete from expedisi_jemputs where expedisi_jemputs.permintaan_laundry_id =".$id);
             
             // Alert::toast('Pencatatan Jemput Berhasil Dihapus', 'success');
             return redirect()->route('expedisi-jemput');

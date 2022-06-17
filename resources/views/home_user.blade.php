@@ -36,8 +36,42 @@
             </div>
             <!-- end page title -->
 
+                
             <div class="row">
+                @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan)) 
+
+                @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral')
+
                 <div class="col-md-12 col-xl-3">
+                    <div class="widget-rounded-circle card-box">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <img src="../assets/images/laundry/comment.png" style="height:150px;" alt="user-img" />
+                                    <h4>Menyukai layanan dari kami?</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <a onClick="like({{ $data['transaksi_terakhir']->id }})" class="btn btn-lg btn-outline-success waves-effect waves-light" title="Like">
+                                        <i class="fe-thumbs-up"></i>
+                                    </a>
+                                    <a href="" class="btn btn-lg btn-outline-danger waves-effect waves-light" title="Hapus">
+                                        <i class="fe-thumbs-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> <!-- end row-->
+                    </div> <!-- end widget-rounded-circle-->
+                </div> <!-- end col-->
+
+                @endif
+
+                @endif
+                
+                <div class="col-md-6 col-xl-3">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-6">
@@ -48,7 +82,7 @@
                             <div class="col-6">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate"><u>Total Saldo</u></p>
-                                    <h2 class="mt-1">Rp <span data-plugin="counterup"> {{ number_format($data['saldo'], 2) }}</span></h2>
+                                    <h2 class="mt-1">Rp <span data-plugin="counterup"> {{ number_format($data['saldo'], 0) }}</span></h2>
                                 </div>
                             </div>
                         </div> <!-- end row-->
@@ -72,24 +106,6 @@
                         </div> <!-- end row-->
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="widget-rounded-circle card-box">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <img src="../assets/images/laundry/clock.png" style="height:150px;" alt="user-img" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p>
-                                    <h3 class="mt-1">History Pemesanan</h3>
-                                </div>
-                            </div>
-                        </div> <!-- end row-->
-                    </div> <!-- end widget-rounded-circle-->
-                </div> <!-- end col-->
 
                 <div class="col-md-6 col-xl-3">
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
@@ -235,6 +251,24 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                <a class="col-md-6 col-xl-3" href="{{ route('history-laundry') }}">
+                    <div class="widget-rounded-circle card-box">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="text-right">
+                                    <img src="../assets/images/laundry/clock.png" style="height:150px;" alt="user-img" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-left">
+                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p>
+                                    <h3 class="mt-1">History Pemesanan</h3>
+                                </div>
+                            </div>
+                        </div> <!-- end row-->
+                    </div> <!-- end widget-rounded-circle-->
+                </a> <!-- end col-->
+
             </div>
             <!-- end row-->
         </div>
@@ -247,7 +281,7 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <label class="mt-0">No Transaksi: </label><label class="mt-0">#VL2537</label>
+                    <label class="mt-0">No Transaksi: </label><label class="mt-0">#@if(isset($data['transaksi_terakhir'])) {{ $data['transaksi_terakhir']->kode_transaksi }} @endif</label>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -255,36 +289,82 @@
                     <!-- <div class="text-center"> -->
                         <div class="track-order-list">
                             <ul class="list-unstyled">
-                                <li class="completed">
-                                    <h5 class="mt-0 mb-1">Proses Penjemputan</h5>
-                                    <p class="text-muted">28 Mei 2022 <small class="text-muted">07:22</small> </p>
-                                </li>
-                                <li class="completed">
-                                    <h5 class="mt-0 mb-1">Proses QC</h5>
-                                    <p class="text-muted">28 Mei 2022 <small class="text-muted">12:16</small></p>
-                                </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='0' and $data['transaksi_terakhir']->cuci_id=='0')
                                 <li>
                                     <span class="active-dot dot"></span>
-                                    <h5 class="mt-0 mb-1">Proses Cuci</h5>
-                                    <p class="text-muted">28 Mei 2022 <small class="text-muted">14:20</small></p>
-                                </li>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1')
+                                <li class="completed">
+                                @else
                                 <li>
+                                @endif
+                                    <h5 class="mt-0 mb-1">Proses Penjemputan</h5>
+                                    <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">07:22</small> </p> -->
+                                </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1' and $data['transaksi_terakhir']->cuci_id=='0')
+                                <li>
+                                    <span class="active-dot dot"></span>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1' and $data['transaksi_terakhir']->cuci_id=='1')
+                                <li class="completed">
+                                @else
+                                <li>
+                                @endif
+                                    <h5 class="mt-0 mb-1">Proses QC</h5>
+                                    <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">12:16</small></p> -->
+                                </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id=='1' and $data['transaksi_terakhir']->pengeringan_id=='0')
+                                <li>
+                                    <span class="active-dot dot"></span>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id=='1' and $data['transaksi_terakhir']->pengeringan_id=='1')
+                                <li class="completed">
+                                @else
+                                <li>
+                                @endif
+                                    <h5 class="mt-0 mb-1">Proses Cuci</h5>
+                                    <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">14:20</small></p> -->
+                                </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id=='1' and $data['transaksi_terakhir']->setrika_id=='0')
+                                <li>
+                                    <span class="active-dot dot"></span>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id=='1' and $data['transaksi_terakhir']->setrika_id=='1')
+                                <li class="completed">
+                                @else
+                                <li>
+                                @endif
                                     <h5 class="mt-0 mb-1">Proses Pengeringan</h5>
                                     <p class="text-muted"></p>
                                 </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id=='1' and $data['transaksi_terakhir']->deliver_by=='0')
                                 <li>
+                                    <span class="active-dot dot"></span>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id=='1' and $data['transaksi_terakhir']->deliver_by=='1')
+                                <li class="completed">
+                                @else
+                                <li>
+                                @endif
                                     <h5 class="mt-0 mb-1"> Proses Setrika</h5>
                                     <p class="text-muted"></p>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <h5 class="mt-0 mb-1"> Proses Pack</h5>
                                     <p class="text-muted"></p>
-                                </li>
+                                </li> -->
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at=='0000-00-00 00:00:00')
                                 <li>
+                                    <span class="active-dot dot"></span>
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at>'0000-00-00 00:00:00')
+                                <li class="completed">
+                                @else
+                                <li>
+                                @endif
                                     <h5 class="mt-0 mb-1"> Proses Pengantaran</h5>
                                     <p class="text-muted"></p>
                                 </li>
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at > '0000-00-00 00:00:00')
                                 <li>
+                                    <span class="active-dot dot"></span>
+                                @else
+                                <li>
+                                @endif
                                     <h5 class="mt-0 mb-1"> Selesai</h5>
                                     <p class="text-muted"></p>
                                 </li>
@@ -303,3 +383,22 @@
 
 @endsection
 
+@push('script')
+<script type="text/javascript">
+    function like(id){
+        $.ajax({
+            type:'POST',
+            url: "{!! route('like') !!}",
+            data: id,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+            },
+            error: function(data){
+            console.log(data);
+            }
+        });
+    }
+</script>
+@endpush
