@@ -31,6 +31,9 @@ class KasirController extends Controller
     }
 
     public function index() {
+        // $model_name = $this->model->find(49);
+        // echo get_class($model_name);
+        // die;
         $outlets = Outlet::get();
         return view('transaksi.kasir.index', compact('outlets'));
     }
@@ -53,6 +56,7 @@ class KasirController extends Controller
         ->rawColumns(['harga'])
         ->make(true);
     }
+
     public function store(Request $request) {
         try {
             $kode_transaksi = date("dmy");
