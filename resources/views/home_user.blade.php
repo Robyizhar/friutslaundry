@@ -40,7 +40,7 @@
             <div class="row">
                 @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan)) 
 
-                @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral')
+                @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral' and $data['transaksi_terakhir']->is_done =='1')
 
                 <div class="col-md-12 col-xl-3">
                     <div class="widget-rounded-circle card-box">
@@ -107,7 +107,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and is_null($data['transaksi_terakhir']->qc_id))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3" style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -125,7 +129,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0 and is_null($data['transaksi_terakhir']->cuci_id))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -143,7 +151,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id > 0 and is_null($data['transaksi_terakhir']->pengeringan_id))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -161,7 +173,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id > 0 and is_null($data['transaksi_terakhir']->setrika_id))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -179,7 +195,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id > 0 and is_null($data['transaksi_terakhir']->deliver_by))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -197,7 +217,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
-                <div class="col-md-6 col-xl-3">
+               <!--  @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0 and is_null($data['transaksi_terakhir']->cuci_id))
+                <div class="col-md-6 col-xl-3" style="display: none;">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -211,11 +235,15 @@
                                     <h4 class="mt-1">Dalam Proses Packing</h4>
                                 </div>
                             </div>
-                        </div> <!-- end row-->
-                    </div> <!-- end widget-rounded-circle-->
-                </div> <!-- end col-->
+                        </div> 
+                    </div> 
+                </div> -->
 
+                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by > 0 and is_null($data['transaksi_terakhir']->deliver_at))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -233,7 +261,11 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
+                @if(isset($data['transaksi_terakhir']) and isset($data['transaksi_terakhir']->deliver_at))
                 <div class="col-md-6 col-xl-3">
+                @else
+                <div class="col-md-6 col-xl-3"  style="display: none;">
+                @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
                             <div class="col-6">
@@ -289,10 +321,10 @@
                     <!-- <div class="text-center"> -->
                         <div class="track-order-list">
                             <ul class="list-unstyled">
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='0' and $data['transaksi_terakhir']->cuci_id=='0')
+                                @if(isset($data['transaksi_terakhir']) and is_null($data['transaksi_terakhir']->qc_id))
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0)
                                 <li class="completed">
                                 @else
                                 <li>
@@ -300,10 +332,10 @@
                                     <h5 class="mt-0 mb-1">Proses Penjemputan</h5>
                                     <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">07:22</small> </p> -->
                                 </li>
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1' and $data['transaksi_terakhir']->cuci_id=='0')
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0 and is_null($data['transaksi_terakhir']->cuci_id))
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id=='1' and $data['transaksi_terakhir']->cuci_id=='1')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0 and $data['transaksi_terakhir']->cuci_id > 0)
                                 <li class="completed">
                                 @else
                                 <li>
@@ -311,10 +343,10 @@
                                     <h5 class="mt-0 mb-1">Proses QC</h5>
                                     <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">12:16</small></p> -->
                                 </li>
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id=='1' and $data['transaksi_terakhir']->pengeringan_id=='0')
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id > 0 and is_null($data['transaksi_terakhir']->pengeringan_id))
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id=='1' and $data['transaksi_terakhir']->pengeringan_id=='1')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->cuci_id > 0 and $data['transaksi_terakhir']->pengeringan_id > 0)
                                 <li class="completed">
                                 @else
                                 <li>
@@ -322,10 +354,10 @@
                                     <h5 class="mt-0 mb-1">Proses Cuci</h5>
                                     <!-- <p class="text-muted">28 Mei 2022 <small class="text-muted">14:20</small></p> -->
                                 </li>
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id=='1' and $data['transaksi_terakhir']->setrika_id=='0')
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id > 0 and is_null($data['transaksi_terakhir']->setrika_id))
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id=='1' and $data['transaksi_terakhir']->setrika_id=='1')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->pengeringan_id > 0 and $data['transaksi_terakhir']->setrika_id > 0)
                                 <li class="completed">
                                 @else
                                 <li>
@@ -333,10 +365,10 @@
                                     <h5 class="mt-0 mb-1">Proses Pengeringan</h5>
                                     <p class="text-muted"></p>
                                 </li>
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id=='1' and $data['transaksi_terakhir']->deliver_by=='0')
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id > 0 and is_null($data['transaksi_terakhir']->deliver_by))
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id=='1' and $data['transaksi_terakhir']->deliver_by=='1')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->setrika_id > 0 and $data['transaksi_terakhir']->deliver_by > 0)
                                 <li class="completed">
                                 @else
                                 <li>
@@ -348,10 +380,10 @@
                                     <h5 class="mt-0 mb-1"> Proses Pack</h5>
                                     <p class="text-muted"></p>
                                 </li> -->
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at=='0000-00-00 00:00:00')
+                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by > 0 and is_null($data['transaksi_terakhir']->deliver_at) )
                                 <li>
                                     <span class="active-dot dot"></span>
-                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at>'0000-00-00 00:00:00')
+                                @elseif(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by > 0 and isset($data['transaksi_terakhir']->deliver_at))
                                 <li class="completed">
                                 @else
                                 <li>
@@ -359,7 +391,7 @@
                                     <h5 class="mt-0 mb-1"> Proses Pengantaran</h5>
                                     <p class="text-muted"></p>
                                 </li>
-                                @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by=='1' and $data['transaksi_terakhir']->deliver_at > '0000-00-00 00:00:00')
+                                @if(isset($data['transaksi_terakhir']) and isset($data['transaksi_terakhir']->deliver_at))
                                 <li>
                                     <span class="active-dot dot"></span>
                                 @else
