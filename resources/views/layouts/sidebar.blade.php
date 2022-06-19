@@ -44,6 +44,13 @@
                         <span>Infogram</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('laporan') }}">
+                        <i class="fe-tv"></i>
+                        {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
+                        <span>Laporan</span>
+                    </a>
+                </li>
                 <li class="menu-title mt-2">Apps</li>
                 <li>
                     <a href="{{ route('kasir') }}">

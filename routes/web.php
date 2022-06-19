@@ -38,14 +38,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
+    Route::get('/laporan', [App\Http\Controllers\HomeController::class, 'laporan'])->name('laporan');
     Route::get('/like', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
     Route::get('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
-    Route::get('/infogram', function() {
-        return redirect('/home');
-    })->name('infogram');
+    // Route::get('/infogram', function() {
+    //     return redirect('/home');
+    // })->name('infogram');
 
     Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 

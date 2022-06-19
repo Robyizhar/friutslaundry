@@ -38,6 +38,7 @@
 
                 
             <div class="row">
+
                 @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan)) 
 
                 @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral' and $data['transaksi_terakhir']->is_done =='1')
