@@ -46,7 +46,7 @@
                 </li>
                 <li>
                     <a href="{{ route('laporan') }}">
-                        <i class="fe-tv"></i>
+                        <i class="fe-bar-chart-line-"></i>
                         {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Laporan</span>
                     </a>
@@ -133,12 +133,6 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="dripicons-graph-pie"></i>
-                        <span>Laporan</span>
-                    </a>
                 </li>
                 <li>
                     <a href="{{ route('master-data') }}">

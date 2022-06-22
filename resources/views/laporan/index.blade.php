@@ -41,7 +41,7 @@
 
             <div class="row">
                 
-                <a class="col-md-6 col-xl-3" href="{{ route('laporan') }}">
+                <a class="col-md-4 col-xl-3" href="{{ route('laporan-outlet') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-6">
@@ -59,17 +59,15 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
-                <a class="col-md-6 col-xl-3" href="{{ route('laporan') }}">
+                <a class="col-md-4 col-xl-3" href="{{ route('laporan') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="text-right">
-                                    <img src="../assets/images/laundry/expedisi.png" style="height:150px;" alt="user-img" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p>
+                                    <img src="../assets/images/laundry/expedisi.png" width="100%" height="100%" alt="user-img" />
+                                </div><br>
+                                <div class="text-center">
+                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p><br>
                                     <h3 class="mt-1">EXPEDISI</h3>
                                 </div>
                             </div>
@@ -77,7 +75,7 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
-                <a class="col-md-6 col-xl-3" href="{{ route('laporan') }}">
+                <a class="col-md-4 col-xl-3" href="{{ route('laporan-member') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-6">

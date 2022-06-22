@@ -29,6 +29,10 @@ use App\Http\Controllers\Transaksi\SetrikaController;
 use App\Http\Controllers\Member\PermintaanLaundryController;
 use App\Http\Controllers\Member\HistoryLaundryController;
 
+//Laporan
+use App\Http\Controllers\Laporan\LaporanMemberController;
+use App\Http\Controllers\Laporan\LaporanOutletController;
+
 Route::get('/', function() {
     return redirect('/login');
 });
@@ -268,6 +272,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-parfume', [HistoryLaundryController::class, 'getDataParfume'])->name('history-laundry.get-data-parfume');
         Route::get('/like/{id}', [HistoryLaundryController::class, 'like'])->name('history-laundry.like');
         Route::get('/dislike/{id}', [HistoryLaundryController::class, 'dislike'])->name('history-laundry.dislike');
+    });
+
+
+    Route::prefix('laporan-member')->group(function () {
+        Route::get('/', [LaporanMemberController::class, 'index'])->name('laporan-member');
+        Route::post('/get-data', [LaporanMemberController::class, 'getData'])->name('laporan-member.get-data');
+    });
+
+    Route::prefix('laporan-outlet')->group(function () {
+        Route::get('/', [LaporanOutletController::class, 'index'])->name('laporan-outlet');
+        Route::post('/get-data', [LaporanOutletController::class, 'getData'])->name('laporan-outlet.get-data');
     });
 
 });
