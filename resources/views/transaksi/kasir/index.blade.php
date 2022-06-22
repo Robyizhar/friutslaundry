@@ -132,26 +132,26 @@
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="nama">Nama</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control data-pelanggan" id="nama" name="nama">
+                                                            <input readonly type="text" class="form-control data-pelanggan first-outlet" id="nama" name="nama">
                                                             <input type="hidden" class="form-control" id="member_id" name="member_id">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="alamat">Alamat</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control data-pelanggan" id="alamat" name="alamat">
+                                                            <input readonly type="text" class="form-control data-pelanggan first-outlet" id="alamat" name="alamat">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="no_handphone">No Handphone</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control data-pelanggan" id="no_handphone" name="no_handphone">
+                                                            <input readonly type="text" class="form-control data-pelanggan first-outlet" id="no_handphone" name="no_handphone">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="parfume">Parfume</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="parfume" name="parfume">
+                                                            <input readonly type="text" class="form-control first-outlet" id="parfume" name="parfume">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
@@ -172,12 +172,12 @@
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="bayar">Bayar</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="bayar" name="bayar" autocomplete="off" onkeypress="return isNumber(event)">
+                                                            <input readonly type="text" class="form-control first-outlet" id="bayar" name="bayar" autocomplete="off" onkeypress="return isNumber(event)">
                                                         </div>
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label for="example-textarea">Catatan</label>
-                                                        <textarea class="form-control" name="note" id="example-textarea" rows="5"></textarea>
+                                                        <textarea  class="form-control" name="note" id="example-textarea" rows="5"></textarea>
                                                     </div>
                                                     <div class="form-group row mb-3">
                                                         <label class="col-3 col-form-label">Gambar Cucian</label>
@@ -201,11 +201,11 @@
                                                                 <tr>
                                                                     <th class="text-center" width="15%">Nama Layanan</th>
                                                                     <th class="text-center" width="15%">Harga Satuan</th>
-                                                                    <th class="text-center">Quantity Satuan</th>
-                                                                    <th class="text-center">Quantity KG</th>
-                                                                    <th class="text-center">Special Treatment</th>
+                                                                    <th class="text-center">Quantity</th>
+                                                                    {{-- <th class="text-center">Quantity KG</th> --}}
+                                                                    {{-- <th class="text-center">Special Treatment</th> --}}
                                                                     <th class="text-center">Quantity Special Treatment</th>
-                                                                    <th class="text-center">Harga Special Treatment</th>
+                                                                    {{-- <th class="text-center">Harga Special Treatment</th> --}}
                                                                     <th class="text-center" width="15%">Total</th>
                                                                     <th class="text-center action-buton" width="4%">Aksi</th>
                                                                 </tr>
@@ -218,10 +218,10 @@
                                                                     <th class="text-right" width="15%">Sub Total</th>
                                                                     <th class="text-right" width="15%">Rp. <span class="sub_layanan_harga_satuan">0</span></th>
                                                                     <th class="text-right"><span class="sub_layanan_qty_satuan">0</span></th>
-                                                                    <th class="text-right"><span class="sub_layanan_qty_kg">0</span></th>
+                                                                    {{-- <th class="text-right"><span class="sub_layanan_qty_kg">0</span></th> --}}
                                                                     <th class="text-right"></th>
                                                                     <th class="text-right"><span class="sub_special_teatment_qty_satuan">0</span></th>
-                                                                    <th class="text-right">Rp. <span class="sub_special_teatment_qty_harga">0</span></th>
+                                                                    {{-- <th class="text-right">Rp. <span class="sub_special_teatment_qty_harga">0</span></th> --}}
                                                                     <th class="text-right" width="15%">Rp. <span class="sub_all_qty_harga">0</span></th>
                                                                     <th class="text-right action-buton" width="4%">
                                                                         {{-- <a class='btn btn-sm btn-success' type='button'><i class="fas fa-circle-notch"></i></a> --}}
@@ -297,18 +297,18 @@
 		<td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_qty_satuan" required readonly style="background-color: #f5f5f5;" maxlength="9" type="text" name="layanan[0][qty_satuan]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-		<td class="text-center no-padding">
+		{{-- <td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_qty_kg" required step=".01" readonly style="background-color: #f5f5f5;" maxlength="9" type="number" name="layanan[0][qty_kg]" autocomplete="off" />
-        </td>
-		<td class="text-center no-padding">
+        </td> --}}
+		{{-- <td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_special_treatment" readonly style="background-color: #f5f5f5;" type="text" name="layanan[0][special_treatment]" autocomplete="off" />
-        </td>
+        </td> --}}
 		<td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_qty_special_treatment" readonly style="background-color: #f5f5f5;" type="text" maxlength="9" name="layanan[0][qty_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-        <td class="text-center no-padding">
-			<input class="form-control text-left no-padding layanan_harga_special_treatment" readonly style="background-color: #f5f5f5;" type="text" maxlength="9" name="layanan[0][harga_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
-        </td>
+        {{-- <td class="text-center no-padding"> --}}
+			<input class="form-control text-left no-padding layanan_harga_special_treatment" readonly style="background-color: #f5f5f5;" value="25000" type="hidden" maxlength="9" name="layanan[0][harga_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
+        {{-- </td> --}}
         <td class="text-left" width="15%">
             <span class="layanan_total_label">
             </span>
@@ -413,10 +413,18 @@
         return number_value;
     }
 
+
     $(document).ready(function () {
 
         $('.item').click(function (e) {
             e.preventDefault();
+            let outletID = $('#selectize-outlet').val();
+            console.log(outletID);
+            if (outletID == '') {
+                let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                showAlaret(params);
+                return false;
+            }
             let value = $(this).data('value');
             $('.item').not(this).each(function(){
                 $(this).css("background-color", "#edeff1");
@@ -427,6 +435,12 @@
 
         $('.item-pelanggan').click(function (e) {
             e.preventDefault();
+            let outletID = $('#selectize-outlet').val();
+            if (outletID == '') {
+                let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                showAlaret(params);
+                return false;
+            }
             let value = $(this).data('value');
             $('.item-pelanggan').not(this).each(function(){
                 $(this).css("background-color", "#edeff1");
@@ -454,10 +468,17 @@
             });
             $(this).css("background-color", "#6c757d");
             $('#selectize-outlet').val(value);
+            $(".first-outlet").prop('readonly', false);
         });
 
         $('.item-pembayaran').click(function (e) {
             e.preventDefault();
+            let outletID = $('#selectize-outlet').val();
+            if (outletID == '') {
+                let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                showAlaret(params);
+                return false;
+            }
             let value = $(this).data('value');
             $('.item-pembayaran').not(this).each(function(){
                 $(this).css("background-color", "#edeff1");
@@ -479,6 +500,12 @@
 
         $('#show-member').click(function (e) {
             e.preventDefault();
+            let outletID = $('#selectize-outlet').val();
+            if (outletID == '') {
+                let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                showAlaret(params);
+                return false;
+            }
             $('#state-saving-datatable').DataTable({
                 responsive: true,
                 processing: true,
@@ -519,6 +546,12 @@
         var member_table = $('#state-saving-datatable').DataTable();
 
         $('#state-saving-datatable tbody').on( 'click', 'tr', function () {
+            let outletID = $('#selectize-outlet').val();
+            if (outletID == '') {
+                let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                showAlaret(params);
+                return false;
+            }
             var row = $(this);
             row.find('.input[type="radio"]').attr('checked', 'checked');
             let id = row.find('input[type="radio"]').data('id');
@@ -534,6 +567,12 @@
 
         if (window.File && window.FileList && window.FileReader) {
             $("#images").on("change", function(e) {
+                let outletID = $('#selectize-outlet').val();
+                if (outletID == '') {
+                    let params = {icon: 'warning', title: 'Silahkan Pilih Outlet !', text: 'Pastikan nama outlet sudah sesuai !'}
+                    showAlaret(params);
+                    return false;
+                }
                 const files = e.target.files, filesLength = files.length;
                 if (filesLength > 10) {
                     const Toast = Swal.mixin({
@@ -620,7 +659,7 @@
                     {
                         mRender: function(data, type, row, meta) {
                             let action_button = '<div>';
-                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.kode+'" data-id="'+row.id+'" data-nama="'+row.nama+'" data-harga="'+row.harga+'"  data-harga_member="'+row.harga_member+'">';
+                            action_button += '<input type="radio" name="radio" class="radio1" value="'+row.kode+'" data-id="'+row.id+'" data-nama="'+row.nama+'" data-harga="'+row.harga+'"  data-harga_member="'+row.harga_member+'" data-jenis_item="'+row.jenis_item+'">';
                             action_button += ' </div>';
                             return action_button;
                         }
@@ -637,13 +676,14 @@
             let kode = row.find('input[type="radio"]').val();
             let nama = row.find('input[type="radio"]').data('nama');
             let harga = row.find('input[type="radio"]').data('harga');
+            let jenis_item = row.find('input[type="radio"]').data('jenis_item');
             let index_row = $('.index_row').val();
             let this_row = $(document).find(`.layanan-selected-list[childidx=${index_row}]`);
             this_row.find(".form-control").prop('readonly', false);
             this_row.find(".form-control").css('background-color', '#FFF');
             this_row.find('.layanan_nama_label').html(nama);
             let harga_label = numberFormater(parseInt(harga));
-            this_row.find('.layanan_harga_label').html('Rp. '+harga_label);
+            this_row.find('.layanan_harga_label').html('Rp. '+harga_label + '/' + jenis_item);
             this_row.find('.layanan_id').val(id);
             this_row.find('.layanan_nama').val(nama);
             this_row.find('.layanan_harga').val(harga);
@@ -746,43 +786,43 @@
             }
         });
 
-        $(document).on('keyup', '.layanan_harga_special_treatment', function (e) {
-            if (/^0/.test(this.value)) {
-                this.value = this.value.replace(/^0/, "")
-            }
-            let this_row = $(this).parent().parent();
+        // $(document).on('keyup', '.layanan_harga_special_treatment', function (e) {
+        //     if (/^0/.test(this.value)) {
+        //         this.value = this.value.replace(/^0/, "")
+        //     }
+        //     let this_row = $(this).parent().parent();
 
-            let harga = this_row.find('.layanan_harga').val() || 0;
-            let quantity = this_row.find('.layanan_qty_satuan').val() || 0;
+        //     let harga = this_row.find('.layanan_harga').val() || 0;
+        //     let quantity = this_row.find('.layanan_qty_satuan').val() || 0;
 
-            let layanan_qty_special_treatment = this_row.find('.layanan_qty_special_treatment').val() || 0;
-            let layanan_harga_special_treatment = this_row.find('.layanan_harga_special_treatment').val() || 0;
-            let total_special_treatment = parseInt(layanan_qty_special_treatment) * parseInt(layanan_harga_special_treatment) || 0;
+        //     let layanan_qty_special_treatment = this_row.find('.layanan_qty_special_treatment').val() || 0;
+        //     let layanan_harga_special_treatment = this_row.find('.layanan_harga_special_treatment').val() || 0;
+        //     let total_special_treatment = parseInt(layanan_qty_special_treatment) * parseInt(layanan_harga_special_treatment) || 0;
 
-            if (layanan_harga_special_treatment >= 0 && quantity >= 0 && layanan_qty_special_treatment >= 0) {
-                let total_harga = parseInt(harga) * parseInt(quantity);
-                let sub_total_harga_this_row = parseInt(total_harga) + parseInt(total_special_treatment) || 0;
+        //     if (layanan_harga_special_treatment >= 0 && quantity >= 0 && layanan_qty_special_treatment >= 0) {
+        //         let total_harga = parseInt(harga) * parseInt(quantity);
+        //         let sub_total_harga_this_row = parseInt(total_harga) + parseInt(total_special_treatment) || 0;
 
-                let sub_total_harga_this_row_label = numberFormater(parseInt(sub_total_harga_this_row));
-                this_row.find('.layanan_total_label').html('Rp. '+sub_total_harga_this_row_label);
-                this_row.find('.layanan_total').val(sub_total_harga_this_row);
+        //         let sub_total_harga_this_row_label = numberFormater(parseInt(sub_total_harga_this_row));
+        //         this_row.find('.layanan_total_label').html('Rp. '+sub_total_harga_this_row_label);
+        //         this_row.find('.layanan_total').val(sub_total_harga_this_row);
 
-                let sum = 0;
-                $(document).find(".layanan_harga_special_treatment").each(function(){
-                    sum += +$(this).val();
-                });
+        //         let sum = 0;
+        //         $(document).find(".layanan_harga_special_treatment").each(function(){
+        //             sum += +$(this).val();
+        //         });
 
-                let sum_total = 0;
-                $(document).find(".layanan_total").each(function(){
-                    sum_total += +$(this).val();
-                });
-                sum_total = numberFormater(sum_total);
-                $(".sub_all_qty_harga").html(sum_total);
+        //         let sum_total = 0;
+        //         $(document).find(".layanan_total").each(function(){
+        //             sum_total += +$(this).val();
+        //         });
+        //         sum_total = numberFormater(sum_total);
+        //         $(".sub_all_qty_harga").html(sum_total);
 
-                sum = numberFormater(sum);
-                $(".sub_special_teatment_qty_harga").html(sum);
-            }
-        });
+        //         sum = numberFormater(sum);
+        //         $(".sub_special_teatment_qty_harga").html(sum);
+        //     }
+        // });
 
         $('.triggerLayanan').on('click', function () {
             getLayanan();

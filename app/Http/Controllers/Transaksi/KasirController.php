@@ -40,9 +40,9 @@ class KasirController extends Controller
 
     public function getDataLayanan(Request $request) {
         if ($request->member == 'member') {
-            $data = Harga::select('id','kode','nama','harga_member')->where('kategori', $request->kategori);
+            $data = Harga::select('id','kode','nama','harga_member', 'jenis_item')->where('kategori', $request->kategori);
         } else {
-            $data = Harga::select('id','kode','nama','harga')->where('kategori', $request->kategori);
+            $data = Harga::select('id','kode','nama','harga','jenis_item')->where('kategori', $request->kategori);
         }
         return DataTables::of($data)
         ->addColumn('harga', function ($data) {
@@ -90,8 +90,8 @@ class KasirController extends Controller
                     "jumlah" => $layanan['qty_satuan'],
                     "harga_satuan" => $layanan['harga'],
                     "harga_jumlah" => $layanan['qty_satuan'] * $layanan['harga'],
-                    'qty_kg' =>  $layanan['qty_kg'],
-                    "special_treatment" => $layanan['special_treatment'],
+                    // 'qty_kg' =>  $layanan['qty_kg'],
+                    // "special_treatment" => $layanan['special_treatment'],
                     "qty_special_treatment" => $layanan['qty_special_treatment'],
                     "harga_special_treatment" => $layanan['harga_special_treatment'],
                     'harga_jumlah_special_treatment' => $layanan['qty_special_treatment'] * $layanan['harga_special_treatment'],
