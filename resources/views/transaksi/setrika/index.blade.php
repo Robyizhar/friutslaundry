@@ -277,22 +277,7 @@
     }
 
     function onScanSuccess(decodedText, decodedResult) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-        Toast.fire({
-            icon: 'success',
-            title: decodedText
-        });
-
+        getRequest(decodedText);
     }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
