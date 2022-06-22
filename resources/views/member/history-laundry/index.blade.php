@@ -20,9 +20,9 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
-                                        <th>Tanggal</th>
-                                        <th>Waktu</th>
-                                        <th>Alamat</th>
+                                        <th>Tanggal Penjemputan</th>
+                                        <th>Waktu Penjemputan</th>
+                                        <th>Alamat Penjemputan</th>
                                         <th>Parfume</th>
                                         <th width="10%">Aksi</th>
                                     </tr>

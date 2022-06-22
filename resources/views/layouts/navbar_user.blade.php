@@ -57,7 +57,7 @@
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="index.html" class="logo logo-light text-center">
+            <a href="{{ route('home') }}" class="logo logo-light text-center">
                 <span class="logo-sm">
                     <img src="../assets/images/laundry/fruits.png" alt="" height="40">
                 </span>

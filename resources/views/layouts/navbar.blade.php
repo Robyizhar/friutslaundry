@@ -123,7 +123,7 @@
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" style="background-color: red ; color:white;">
+                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" style="background-color:      ; color:white;">
                             <i class="fe-log-out"></i>
                             <span>Logout</span>
                         </a>
@@ -134,7 +134,7 @@
         </ul>
 
         <div class="logo-box">
-            <a href="index.html" class="logo logo-light text-center">
+            <a href="{{ route('infogram') }}" class="logo logo-light text-center">
                 <span class="logo-sm">
                     <img src="../assets/images/laundry/fruits.png" alt="" height="40">
                 </span>

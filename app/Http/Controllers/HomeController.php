@@ -56,6 +56,10 @@ class HomeController extends Controller
         return view('infogram');
     }
 
+    public function laporan() {
+        return view('laporan.index');
+    }
+
     public function like($id) {
         
         $like =  DB::update("update transaksis set kepuasan_pelanggan = 'ya' where transaksis.id= " .$id);
