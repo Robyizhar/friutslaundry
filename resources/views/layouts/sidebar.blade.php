@@ -29,7 +29,7 @@
         </div>
         <div id="sidebar-menu">
             <ul id="side-menu">
-                <li class="menu-title">Navigation</li>
+                <li class="menu-title">- Navigation -</li>
                 <li>
                     <a href="{{ route('home') }}">
                         <i class="dripicons-home"></i>
@@ -51,7 +51,7 @@
                         <span>Laporan</span>
                     </a>
                 </li>
-                <li class="menu-title mt-2">Apps</li>
+                <li class="menu-title mt-2">- Apps -</li>
                 <li>
                     <a href="{{ route('kasir') }}">
                         <i class="dripicons-document-edit"></i>

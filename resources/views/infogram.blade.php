@@ -256,5 +256,5 @@
 @endsection
 @push('script')
 <!-- Dashboar 1 init js-->
-<script src="{{ asset('assets/js/pages/dashboard-1.init.js')}}"></script>
+<!-- <script src="{{ asset('assets/js/pages/dashboard-1.init.js')}}"></script> -->
 @endpush
