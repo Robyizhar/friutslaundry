@@ -36,10 +36,10 @@
             </div>
             <!-- end page title -->
 
-                
+
             <div class="row">
 
-                @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan)) 
+                @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan))
 
                 @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral' and $data['transaksi_terakhir']->is_done =='1')
 
@@ -71,7 +71,7 @@
                 @endif
 
                 @endif
-                
+
                 <a class="col-md-6 col-xl-2">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
@@ -280,7 +280,7 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
-                <a class="col-md-6 col-xl-2" href="{{ route('history-laundry.create') }}">
+                <a class="col-md-6 col-xl-2" href="{{ route('history-laundry') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-12">
