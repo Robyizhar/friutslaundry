@@ -42,9 +42,12 @@ class ExpedisiJadwalAntarController extends Controller {
         ->join('members', 'members.id', '=', 'transaksis.member_id', 'left')
         ->join('users', 'users.id', '=', 'members.user_id', 'left')
         ->join('users as users_deliver', 'users_deliver.id', '=', 'transaksis.deliver_by', 'left')
+        ->whereNotNull('transaksis.qc_id')
+        ->whereNotNull('transaksis.cuci_id')
+        ->whereNotNull('transaksis.pengeringan_id')
+        ->whereNotNull('transaksis.setrika_id')
         ->whereNull('transaksis.deleted_at') 
         ->whereNull('transaksis.deliver_at') 
-        ->where('transaksis.is_done','1')
         ->orderBy('transaksis.id', 'ASC')
         ->get();
         return DataTables::of($data)

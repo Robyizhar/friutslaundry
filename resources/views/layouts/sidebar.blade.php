@@ -29,7 +29,7 @@
         </div>
         <div id="sidebar-menu">
             <ul id="side-menu">
-                <li class="menu-title">Navigation</li>
+                <li class="menu-title">- Navigation -</li>
                 <li>
                     <a href="{{ route('home') }}">
                         <i class="dripicons-home"></i>
@@ -46,12 +46,12 @@
                 </li>
                 <li>
                     <a href="{{ route('laporan') }}">
-                        <i class="fe-tv"></i>
+                        <i class="fe-bar-chart-line-"></i>
                         {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Laporan</span>
                     </a>
                 </li>
-                <li class="menu-title mt-2">Apps</li>
+                <li class="menu-title mt-2">- Apps -</li>
                 <li>
                     <a href="{{ route('kasir') }}">
                         <i class="dripicons-document-edit"></i>
@@ -133,12 +133,6 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="dripicons-graph-pie"></i>
-                        <span>Laporan</span>
-                    </a>
                 </li>
                 <li>
                     <a href="{{ route('master-data') }}">

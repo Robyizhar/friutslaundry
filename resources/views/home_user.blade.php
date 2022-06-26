@@ -72,36 +72,20 @@
 
                 @endif
                 
-                <div class="col-md-6 col-xl-3">
+                <a class="col-md-6 col-xl-2">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/money.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate"><u>Total Saldo</u></p>
-                                    <h2 class="mt-1">Rp <span data-plugin="counterup"> {{ number_format($data['saldo'], 0) }}</span></h2>
-                                </div>
-                            </div>
-                        </div> <!-- end row-->
-                    </div> <!-- end widget-rounded-circle-->
-                </div> <!-- end col-->
-            
-                <a class="col-md-6 col-xl-3" href="{{ route('permintaan-laundry.create') }}">
-                    <div class="widget-rounded-circle card-box">
+                        </div>
                         <div class="row">
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <img src="../assets/images/laundry/order.png" style="height:150px;" alt="user-img" />
-                                </div>
-                            </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p>
-                                    <h3 class="mt-1">Buat Permintaan<br>Laundry</h3>
+                                    <p class="text-muted mb-1 text-truncate">Saldo yang dimiliki</p>
+                                    <h4 class="mt-1">Rp <span data-plugin="counterup"> {{ number_format($data['saldo'], 0) }}</span></h4>
                                 </div>
                             </div>
                         </div> <!-- end row-->
@@ -111,19 +95,21 @@
                 @if(isset($data['transaksi_terakhir']) and is_null($data['transaksi_terakhir']->qc_id))
                 <div class="col-md-6 col-xl-3">
                 @else
-                <div class="col-md-6 col-xl-3" style="display: none;">
+                <div class="col-md-6 col-xl-3"  style="display: none;">
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/pickup.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">Status Pengerjaan :</p>
-                                    <h4 class="mt-1">Dalam Proses Penjemputan</h4>
+                                    <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
+                                    <h4 class="mt-1">Dalam Proses Jemput</h4>
                                 </div>
                             </div>
                         </div> <!-- end row-->
@@ -137,12 +123,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/qc.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Dalam Proses QC</h4>
@@ -159,12 +147,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/cuci.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Dalam Proses Cuci</h4>
@@ -181,12 +171,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/kering.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Dalam Proses Pengeringan</h4>
@@ -203,12 +195,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/setrika.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Dalam Proses Setrika</h4>
@@ -218,28 +212,6 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
-               <!--  @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->qc_id > 0 and is_null($data['transaksi_terakhir']->cuci_id))
-                <div class="col-md-6 col-xl-3" style="display: none;">
-                @else
-                <div class="col-md-6 col-xl-3"  style="display: none;">
-                @endif
-                    <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="text-right">
-                                    <img src="../assets/images/laundry/packing.png" style="height:150px;" alt="user-img" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
-                                    <h4 class="mt-1">Dalam Proses Packing</h4>
-                                </div>
-                            </div>
-                        </div> 
-                    </div> 
-                </div> -->
-
                 @if(isset($data['transaksi_terakhir']) and $data['transaksi_terakhir']->deliver_by > 0 and is_null($data['transaksi_terakhir']->deliver_at))
                 <div class="col-md-6 col-xl-3">
                 @else
@@ -247,12 +219,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/antar.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Dalam Proses Antar</h4>
@@ -269,12 +243,14 @@
                 @endif
                     <div class="widget-rounded-circle card-box" data-toggle="modal" data-target="#right-modal">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/diterima.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
                                     <p class="text-muted mb-1 text-truncate">Status Transaksi</p>
                                     <h4 class="mt-1">Telah diterima</h4>
@@ -284,18 +260,40 @@
                     </div> <!-- end widget-rounded-circle-->
                 </div> <!-- end col-->
 
-                <a class="col-md-6 col-xl-3" href="{{ route('history-laundry') }}">
+                <a class="col-md-6 col-xl-2" href="{{ route('permintaan-laundry.create') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
+                                <div class="text-right">
+                                    <img src="../assets/images/laundry/order.png" style="height:150px;" alt="user-img" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-left">
+                                    <p class="text-muted mb-2 text-truncate"><u>&nbsp;</u></p>
+                                    <h4 class="mt-2">Buat Permintaan Laundry</h4>
+                                </div>
+                            </div>
+                        </div> <!-- end row-->
+                    </div> <!-- end widget-rounded-circle-->
+                </a> <!-- end col-->
+
+                <a class="col-md-6 col-xl-2" href="{{ route('history-laundry.create') }}">
+                    <div class="widget-rounded-circle card-box">
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-right">
                                     <img src="../assets/images/laundry/clock.png" style="height:150px;" alt="user-img" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="text-left">
-                                    <p class="text-muted mb-1 text-truncate">&nbsp;</p>
-                                    <h3 class="mt-1">History Pemesanan</h3>
+                                    <p class="text-muted mb-2 text-truncate"><u>&nbsp;</u></p>
+                                    <h4 class="mt-2">History Pemesanan</h4>
                                 </div>
                             </div>
                         </div> <!-- end row-->

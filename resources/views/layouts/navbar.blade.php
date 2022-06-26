@@ -123,7 +123,7 @@
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" style="background-color:      ; color:white;">
+                        <a class="dropdown-item notify-item bg-danger text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                             <i class="fe-log-out"></i>
                             <span>Logout</span>
                         </a>
