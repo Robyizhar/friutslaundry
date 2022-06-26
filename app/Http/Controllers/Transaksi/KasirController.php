@@ -35,7 +35,7 @@ class KasirController extends Controller
         // echo get_class($model_name);
         // die;
         $outlets = Outlet::get();
-        return view('transaksi.kasir.index', compact('outlets'));
+        return view('transaksi.registrasi.index', compact('outlets'));
     }
 
     public function getDataLayanan(Request $request) {
@@ -77,7 +77,7 @@ class KasirController extends Controller
                 'bayar' => $request->bayar,
                 'pembayaran' => $request->pembayaran,
                 'note' => $request->note,
-                'status' => 'kasir',
+                'status' => 'registrasi',
                 'is_done' => '1'
             ];
             DB::beginTransaction();
@@ -104,7 +104,7 @@ class KasirController extends Controller
                 foreach($request->file('images') as $file) {
                     $image = [];
                     $image['transaksi_id'] = $transaksi->id;
-                    $image['image'] = $file->store('transaksi/kasir', 'public');
+                    $image['image'] = $file->store('transaksi/registrasi', 'public');
                     $images [] = $this->images->store($image);
                 }
             }
@@ -126,7 +126,7 @@ class KasirController extends Controller
     public function print($kode_transaksi) {
         try {
             $data = Transaksi::with('TransaksiDetail', 'outlet')->where('kode_transaksi', $kode_transaksi)->first();
-            return view('transaksi.kasir.faktur', compact('data'));
+            return view('transaksi.registrasi.faktur', compact('data'));
         } catch (\Throwable $th) {
             Alert::toast($th->getMessage(), 'error');
             return back();

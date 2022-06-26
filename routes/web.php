@@ -136,11 +136,11 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::prefix('kasir')->group(function () {
-        Route::get('/', [KasirController::class, 'index'])->name('kasir');
-        Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('kasir.get-data-layanan');
-        Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('kasir.print');
-        Route::post('/store', [KasirController::class, 'store'])->name('kasir.store');
+    Route::prefix('registrasi')->group(function () {
+        Route::get('/', [KasirController::class, 'index'])->name('registrasi');
+        Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('registrasi.get-data-layanan');
+        Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('registrasi.print');
+        Route::post('/store', [KasirController::class, 'store'])->name('registrasi.store');
     });
 
     Route::prefix('permintaan-laundry')->group(function () {

@@ -74,7 +74,7 @@
                                 </ul>
                                 <div class="tab-content b-0 mb-0 pt-0">
                                     <div class="tab-pane" id="barang_masuk">
-                                        <form method="POST" id="form-transaksi" enctype="multipart/form-data" action="{{ route('kasir.store') }}">
+                                        <form method="POST" id="form-transaksi" enctype="multipart/form-data" action="{{ route('registrasi.store') }}">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12">
@@ -634,7 +634,7 @@
                 scrollX: true,
                 // bDestroy: true,
                 ajax: {
-                    url: "{!! route('kasir.get-data-layanan') !!}",
+                    url: "{!! route('registrasi.get-data-layanan') !!}",
                     type: "POST",
                     dataType: "JSON",
                     data: ({
@@ -898,14 +898,14 @@
                 $('#loading').css("display", "block");
                 $.ajax({
                     type: "POST",
-                    url: `{{ route('kasir.store') }}`,
+                    url: `{{ route('registrasi.store') }}`,
                     data: formData,
                     processData: false,
                     contentType: false,
                     dataType: "JSON",
                     success: function (response) {
                         if (response.status == true) {
-                            let print_url = `{{ url('kasir/print') }}`;
+                            let print_url = `{{ url('registrasi/print') }}`;
                             let redirect_print_url = print_url+'/'+response.kode_transaksi;
                             // window.open(print_url,'nama window','width=459,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,copyhistory=no');
                             window.open(redirect_print_url, '_blank');

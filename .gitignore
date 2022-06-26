@@ -21,3 +21,4 @@ error_log
 storage/app/public/transaksi/kasir/*
 storage/app/public/transaksi/qc/*
 storage/app/public/dummy_file/
+.env.server

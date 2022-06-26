@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Member;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use DB;
 
@@ -92,9 +93,14 @@ class MemberSeeder extends Seeder
             ["name"=> "Yolanda", "email"=> "Yolanda@gmail.com", "password" => "fruitslaundry$#@!", "status" => "", "is_member" => "1", "phone" => "85255874441", "address" => "Asrama Dinas PUPR"],
 
         ];
+        $id = User::count();
+        $index_id = $id + 1;
+        $index_id = $index_id;
+        $member_role = Role::where('name', 'Member')->first();
 
         foreach ($members as $member) {
             $user = User::create([
+                'id' => $index_id,
                 'name' => $member['name'],
                 'email' =>  $member['email'],
                 'password' => Hash::make($member['password']),
@@ -102,12 +108,14 @@ class MemberSeeder extends Seeder
                 'status' => $member['status'],
                 'is_member' => '1'
             ]);
+            $user->assignRole($member_role);
             Member::create([
                 'user_id' => $user->id,
                 'phone' =>  $member['phone'],
                 'address' => $member['address'],
                 'balance' => 0
             ]);
+            $index_id++;
         }
     }
 }

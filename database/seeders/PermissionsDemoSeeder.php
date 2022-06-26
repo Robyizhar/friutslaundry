@@ -20,53 +20,88 @@ class PermissionsDemoSeeder extends Seeder
     public function run()
     {
         // delete semua data user, role, permission
-        // DB::table('menus')->delete();
         DB::table('users')->delete();
         DB::table('roles')->delete();
         DB::table('permissions')->delete();
         DB::table('model_has_permissions')->delete();
         DB::table('model_has_roles')->delete();
         DB::table('role_has_permissions')->delete();
-
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $index_menus = 0;
+        $index = 0;
         $menus = [
+            'dashboard',
             'infogram',
-            'customer-service',
-            'kasir',
+            'laporan',
+            'registrasi',
+            'data-member',
+            'topup-member',
             'quality-control',
             'cuci',
             'pengeringan',
             'setrika',
-            'expedisi',
-            'laporan',
+            'jadwal-jemput',
+            'jadwal-antar',
+            'jemput-barang',
+            'antar-barang',
             'master-data',
-            'member'
+
+            'home-member',
+            'pesanan-baru',
+            'list-transaksi',
+            'history-transaksi'
         ];
 
-        // buat permission
+        // BUAT PERMISSION
         do {
             Permission::create([
-                'name' => $menus[$index_menus]
+                'name' => $menus[$index]
             ]);
-            $index_menus++;
-        } while ($index_menus < sizeOf($menus));
+            $index++;
+        } while ($index < sizeOf($menus));
 
-        // buat role
-        $owner = Role::create(['name' => 'Owner']);
-        $owner->givePermissionTo(Permission::all());
-
+        // BUAT ROLE
         $dev = Role::create(['name' => 'Maintener']);
-        $dev->givePermissionTo(Permission::all());
+        $dev->givePermissionTo(Permission::all()); //AKSES SEMUA PERMISSION
+
+        $sa = Role::create(['name' => 'Super Admin']);
+        $sa->givePermissionTo([
+            'dashboard',
+            'infogram',
+            'laporan',
+            'registrasi',
+            'data-member',
+            'topup-member',
+            'quality-control',
+            'cuci',
+            'pengeringan',
+            'setrika',
+            'jadwal-jemput',
+            'jadwal-antar',
+            'jemput-barang',
+            'antar-barang',
+            'master-data'
+        ]); // AKSES PERMISSON ADMIN
+        $member = Role::create(['name' => 'Member']);
+        $member->givePermissionTo([
+            'home-member',
+            'list-transaksi',
+            'history-transaksi',
+        ]); // AKSES PERMISSON MEMBER
+        $member_corporate = Role::create(['name' => 'Member-Corporate']);
+        $member_corporate->givePermissionTo([
+            'home-member',
+            'pesanan-baru',
+            'list-transaksi',
+            'history-transaksi',
+        ]); // AKSES PERMISSON MEMBER CORPORATE
 
         Role::create(['name' => 'Manager']);
         Role::create(['name' => 'Supervisior']);
         Role::create(['name' => 'Staff']);
         Role::create(['name' => 'Expedisi']);
 
-        // buat user
-
+        // BUAT USER
         $user = \App\Models\User::factory()->create([
             'id' => 1,
             'name' => 'Maintener',
@@ -78,31 +113,12 @@ class PermissionsDemoSeeder extends Seeder
 
         $user = \App\Models\User::factory()->create([
             'id' => 2,
-            'name' => 'Owner',
-            'email' => 'owner@fruitslaundry.com',
-            'password' => Hash::make('admin1234'),
-            'qr_code' => Hash::make('admin1234')
-        ]);
-        $user->assignRole($owner);
-
-        $user = \App\Models\User::factory()->create([
-            'id' => 3,
-            'name' => 'Expedisi',
-            'email' => 'expedisi@gmail.com',
-            'password' => Hash::make('expedisi'),
-            'qr_code' => Hash::make('expedisi'),
-            'role_id' => '6'
-        ]);
-        $user->assignRole($owner);
-
-        $user = \App\Models\User::factory()->create([
-            'id' => 4,
             'name' => 'Super Admin',
             'email' => 'super_admin@mail.com',
-            'password' => Hash::make('asdw1234'),
-            'qr_code' => Hash::make('asdw1234')
+            'password' => Hash::make('password'),
+            'qr_code' => Hash::make('password')
         ]);
-        $user->assignRole($dev);
+        $user->assignRole($sa);
 
     }
 }

@@ -53,9 +53,9 @@
                 </li>
                 <li class="menu-title mt-2">- Apps -</li>
                 <li>
-                    <a href="{{ route('kasir') }}">
+                    <a href="{{ route('registrasi') }}">
                         <i class="dripicons-document-edit"></i>
-                        <span>Kasir</span>
+                        <span>Registrasi</span>
                     </a>
                 </li>
                 <li>

@@ -29,7 +29,7 @@ class QcController extends Controller {
     }
 
     public function getData() {
-        $data = Transaksi::with('TransaksiDetail', 'outlet')->where('status', 'kasir')->where('is_done', '1')->get();
+        $data = Transaksi::with('TransaksiDetail', 'outlet')->where('status', 'registrasi')->where('is_done', '1')->get();
         return DataTables::of($data)
         ->addColumn('action', function ($data) {
             return view('component.action', [
