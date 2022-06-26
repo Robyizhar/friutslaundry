@@ -136,14 +136,14 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::prefix('registrasi')->group(function () {
+    Route::prefix('registrasi')->middleware(['role_or_permission:Maintener|registrasi'])->group(function () {
         Route::get('/', [KasirController::class, 'index'])->name('registrasi');
         Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('registrasi.get-data-layanan');
         Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('registrasi.print');
         Route::post('/store', [KasirController::class, 'store'])->name('registrasi.store');
     });
 
-    Route::prefix('permintaan-laundry')->group(function () {
+    Route::prefix('permintaan-laundry')->middleware(['role_or_permission:Maintener|pesanan-baru'])->group(function () {
         Route::get('/', [PermintaanLaundryController::class, 'index'])->name('permintaan-laundry');
         Route::post('/get-data', [PermintaanLaundryController::class, 'getData'])->name('permintaan-laundry.get-data');
         Route::get('/create', [PermintaanLaundryController::class, 'create'])->name('permintaan-laundry.create');
@@ -156,7 +156,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-parfume', [PermintaanLaundryController::class, 'getDataParfume'])->name('permintaan-laundry.get-data-parfume');
     });
 
-    Route::prefix('top-up')->group(function () {
+    Route::prefix('top-up')->middleware(['role_or_permission:Maintener|topup-member'])->group(function () {
         Route::get('/', [TopupController::class, 'index'])->name('top-up');
         Route::post('/get-data', [TopupController::class, 'getData'])->name('top-up.get-data');
         Route::get('/create', [TopupController::class, 'create'])->name('top-up.create');
@@ -169,7 +169,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    Route::prefix('expedisi-jadwal-jemput')->group(function () {
+    Route::prefix('expedisi-jadwal-jemput')->middleware(['role_or_permission:Maintener|jadwal-jemput'])->group(function () {
         Route::get('/', [ExpedisiJadwalJemputController::class, 'index'])->name('expedisi-jadwal-jemput');
         Route::post('/get-data', [ExpedisiJadwalJemputController::class, 'getData'])->name('expedisi-jadwal-jemput.get-data');
         Route::get('/create', [ExpedisiJadwalJemputController::class, 'create'])->name('expedisi-jadwal-jemput.create');
@@ -182,7 +182,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-info', [ExpedisiJadwalJemputController::class, 'getDataInfo'])->name('expedisi-jadwal-jemput.get-data-info');
     });
 
-    Route::prefix('expedisi-jemput')->group(function () {
+    Route::prefix('expedisi-jemput')->middleware(['role_or_permission:Maintener|jemput-barang'])->group(function () {
         Route::get('/', [ExpedisiJemputController::class, 'index'])->name('expedisi-jemput');
         Route::post('/get-data', [ExpedisiJemputController::class, 'getData'])->name('expedisi-jemput.get-data');
         Route::get('/create', [ExpedisiJemputController::class, 'create'])->name('expedisi-jemput.create');
@@ -194,7 +194,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-permintaan', [ExpedisiJemputController::class, 'getDataPermintaan'])->name('expedisi-jemput.get-data-permintaan');
     });
 
-    Route::prefix('expedisi-jadwal-antar')->group(function () {
+    Route::prefix('expedisi-jadwal-antar')->middleware(['role_or_permission:Maintener|jadwal-antar'])->group(function () {
         Route::get('/', [ExpedisiJadwalAntarController::class, 'index'])->name('expedisi-jadwal-antar');
         Route::post('/get-data', [ExpedisiJadwalAntarController::class, 'getData'])->name('expedisi-jadwal-antar.get-data');
         Route::get('/create', [ExpedisiJadwalAntarController::class, 'create'])->name('expedisi-jadwal-antar.create');
@@ -207,7 +207,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-info', [ExpedisiJadwalAntarController::class, 'getDataInfo'])->name('expedisi-jadwal-antar.get-data-info');
     });
 
-    Route::prefix('expedisi-antar')->group(function () {
+    Route::prefix('expedisi-antar')->middleware(['role_or_permission:Maintener|antar-barang'])->group(function () {
         Route::get('/', [ExpedisiAntarController::class, 'index'])->name('expedisi-antar');
         Route::post('/get-data', [ExpedisiAntarController::class, 'getData'])->name('expedisi-antar.get-data');
         Route::get('/create', [ExpedisiAntarController::class, 'create'])->name('expedisi-antar.create');
@@ -220,34 +220,35 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-info', [ExpedisiAntarController::class, 'getDataInfo'])->name('expedisi-antar.get-data-info');
     });
 
-    Route::prefix('qc')->group(function () {
+    Route::prefix('qc')->middleware(['role_or_permission:Maintener|quality-control'])->group(function () {
         Route::get('/', [QcController::class, 'index'])->name('qc');
         Route::post('/get-data', [QcController::class, 'getData'])->name('qc.get-data');
         Route::post('/store', [QcController::class, 'store'])->name('qc.store');
     });
 
-    Route::prefix('cuci')->group(function () {
+    Route::prefix('cuci')->middleware(['role_or_permission:Maintener|cuci'])->group(function () {
         Route::get('/', [CuciController::class, 'index'])->name('cuci');
         Route::post('/get-data', [CuciController::class, 'getData'])->name('cuci.get-data');
         Route::post('/get-request', [CuciController::class, 'getRequest'])->name('cuci.request');
         Route::post('/store', [CuciController::class, 'store'])->name('cuci.store');
     });
 
-    Route::prefix('pengeringan')->group(function () {
+    Route::prefix('pengeringan')->middleware(['role_or_permission:Maintener|pengeringan'])->group(function () {
         Route::get('/', [PengeringanController::class, 'index'])->name('pengeringan');
         Route::post('/get-data', [PengeringanController::class, 'getData'])->name('pengeringan.get-data');
         Route::post('/get-request', [PengeringanController::class, 'getRequest'])->name('pengeringan.request');
         Route::post('/store', [PengeringanController::class, 'store'])->name('pengeringan.store');
     });
 
-    Route::prefix('setrika')->group(function () {
+    Route::prefix('setrika')->middleware(['role_or_permission:Maintener|setrika'])->group(function () {
         Route::get('/', [SetrikaController::class, 'index'])->name('setrika');
         Route::post('/get-data', [SetrikaController::class, 'getData'])->name('setrika.get-data');
         Route::post('/get-request', [SetrikaController::class, 'getRequest'])->name('setrika.request');
         Route::post('/store', [SetrikaController::class, 'store'])->name('setrika.store');
     });
 
-    Route::prefix('expedisi-jadwal-antar')->group(function () {
+    // Ada Dua
+    Route::prefix('expedisi-jadwal-antar')->middleware(['role_or_permission:Maintener|jadwal-antar'])->group(function () {
         Route::get('/', [ExpedisiJadwalAntarController::class, 'index'])->name('expedisi-jadwal-antar');
         Route::post('/get-data', [ExpedisiJadwalAntarController::class, 'getData'])->name('expedisi-jadwal-antar.get-data');
         Route::get('/create', [ExpedisiJadwalAntarController::class, 'create'])->name('expedisi-jadwal-antar.create');
@@ -259,7 +260,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
     });
 
-    Route::prefix('history-laundry')->group(function () {
+    Route::prefix('history-laundry')->middleware(['role_or_permission:Maintener|history-transaksi'])->group(function () {
         Route::get('/', [HistoryLaundryController::class, 'index'])->name('history-laundry');
         Route::post('/get-data', [HistoryLaundryController::class, 'getData'])->name('history-laundry.get-data');
         Route::get('/create', [HistoryLaundryController::class, 'create'])->name('history-laundry.create');
@@ -275,12 +276,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    Route::prefix('laporan-member')->group(function () {
+    Route::prefix('laporan-member')->middleware(['role_or_permission:Maintener|laporan'])->group(function () {
         Route::get('/', [LaporanMemberController::class, 'index'])->name('laporan-member');
         Route::post('/get-data', [LaporanMemberController::class, 'getData'])->name('laporan-member.get-data');
     });
 
-    Route::prefix('laporan-outlet')->group(function () {
+    Route::prefix('laporan-outlet')->middleware(['role_or_permission:Maintener|laporan'])->group(function () {
         Route::get('/', [LaporanOutletController::class, 'index'])->name('laporan-outlet');
         Route::post('/get-data', [LaporanOutletController::class, 'getData'])->name('laporan-outlet.get-data');
     });

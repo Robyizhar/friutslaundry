@@ -86,20 +86,36 @@ class PermissionsDemoSeeder extends Seeder
         $member->givePermissionTo([
             'home-member',
             'list-transaksi',
-            'history-transaksi',
+            'history-transaksi'
         ]); // AKSES PERMISSON MEMBER
         $member_corporate = Role::create(['name' => 'Member-Corporate']);
         $member_corporate->givePermissionTo([
             'home-member',
             'pesanan-baru',
             'list-transaksi',
-            'history-transaksi',
+            'history-transaksi'
         ]); // AKSES PERMISSON MEMBER CORPORATE
 
-        Role::create(['name' => 'Manager']);
-        Role::create(['name' => 'Supervisior']);
-        Role::create(['name' => 'Staff']);
-        Role::create(['name' => 'Expedisi']);
+        $Manager = Role::create(['name' => 'Manager']);
+        $Manager->givePermissionTo([
+            'dashboard',
+            'infogram'
+        ]);
+        $Supervisior = Role::create(['name' => 'Supervisior']);
+        $Supervisior->givePermissionTo([
+            'dashboard',
+            'infogram'
+        ]);
+        $Staff = Role::create(['name' => 'Staff']);
+        $Staff->givePermissionTo([
+            'dashboard',
+            'infogram'
+        ]);
+        $Expedisi = Role::create(['name' => 'Expedisi']);
+        $Expedisi->givePermissionTo([
+            'dashboard',
+            'infogram'
+        ]);
 
         // BUAT USER
         $user = \App\Models\User::factory()->create([

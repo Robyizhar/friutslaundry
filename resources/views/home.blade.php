@@ -31,8 +31,9 @@
                 </div>
             </div>
             <div class="row">
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['infogram']))
                 <div class="col-md-6 col-xl-3">
-                    <a href="{{ route('kasir') }}">
+                    <a href="{{ route('infogram') }}">
                         <div class="widget-rounded-circle card-box">
                             <div class="row">
                                 <div class="col-6">
@@ -42,13 +43,35 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="text-right">
-                                        <h3 class="mt-1">Kasir</h3>
+                                        <h3 class="mt-1">INFOGRAM</h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['registrasi']))
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('registrasi') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">REGISTRASI</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['quality-control']))
                 <div class="col-md-6 col-xl-3">
                     <a href="{{ route('qc') }}">
                         <div class="widget-rounded-circle card-box">
@@ -67,6 +90,8 @@
                         </div>
                     </a>
                 </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['cuci']))
                 <div class="col-md-6 col-xl-3">
                     <a href="{{ route('cuci') }}">
                         <div class="widget-rounded-circle card-box">
@@ -85,6 +110,8 @@
                         </div>
                     </a>
                 </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['pengeringan']))
                 <div class="col-md-6 col-xl-3">
                     <a href="{{ route('pengeringan') }}">
                         <div class="widget-rounded-circle card-box">
@@ -103,6 +130,8 @@
                         </div>
                     </a>
                 </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['setrika']))
                 <div class="col-md-6 col-xl-3">
                     <a href="{{ route('setrika') }}">
                         <div class="widget-rounded-circle card-box">
@@ -121,6 +150,87 @@
                         </div>
                     </a>
                 </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['jadwal-jemput']))
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('expedisi-jadwal-jemput') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">JADWAL JEMPUT</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['jadwal-antar']))
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('expedisi-jadwal-antar') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">JADWAL ANTAR</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['jemput-barang']))
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('expedisi-jemput') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">JEMPUT BARANG</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
+                @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['antar-barang']))
+                <div class="col-md-6 col-xl-3">
+                    <a href="{{ route('expedisi-antar') }}">
+                        <div class="widget-rounded-circle card-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                        <i class="fe-book-open font-22 avatar-title text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <h3 class="mt-1">ANTAR BARANG</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </div>
