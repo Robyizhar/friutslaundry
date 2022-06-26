@@ -909,7 +909,7 @@
                             let redirect_print_url = print_url+'/'+response.kode_transaksi;
                             // window.open(print_url,'nama window','width=459,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,resizable=no,copyhistory=no');
                             window.open(redirect_print_url, '_blank');
-                            setTimeout(function () { location.reload(true); }, 500);
+                            setTimeout(function () { window.location.reload(true); }, 500);
                         } else {
                             if (response.err == 'empty_layanan') {
                                 let params = {icon: 'warning', title: response.msg}

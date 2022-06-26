@@ -49,7 +49,9 @@
     </span>
     <hr>
     <br>
-    {!! QrCode::size(150)->generate($data->kode_transaksi); !!}
+    <div style="text-align: center;">
+        {!! QrCode::size(150)->generate($data->kode_transaksi); !!}
+    </div>
     <br><br>
     <table width="100%">
         <tr>
