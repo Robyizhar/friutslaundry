@@ -10,6 +10,8 @@ use App\Models\TransaksiDetail;
 use App\Models\TransaksiImage;
 use App\Models\Harga;
 use App\Models\Outlet;
+use App\Models\Parfume;
+use App\Models\LogActivity;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -31,11 +33,9 @@ class KasirController extends Controller
     }
 
     public function index() {
-        // $model_name = $this->model->find(49);
-        // echo get_class($model_name);
-        // die;
         $outlets = Outlet::get();
-        return view('transaksi.registrasi.index', compact('outlets'));
+        $parfumes = Parfume::get();
+        return view('transaksi.registrasi.index', compact('outlets', 'parfumes'));
     }
 
     public function getDataLayanan(Request $request) {
@@ -90,8 +90,6 @@ class KasirController extends Controller
                     "jumlah" => $layanan['qty_satuan'],
                     "harga_satuan" => $layanan['harga'],
                     "harga_jumlah" => $layanan['qty_satuan'] * $layanan['harga'],
-                    // 'qty_kg' =>  $layanan['qty_kg'],
-                    // "special_treatment" => $layanan['special_treatment'],
                     "qty_special_treatment" => $layanan['qty_special_treatment'],
                     "harga_special_treatment" => $layanan['harga_special_treatment'],
                     'harga_jumlah_special_treatment' => $layanan['qty_special_treatment'] * $layanan['harga_special_treatment'],
@@ -108,6 +106,16 @@ class KasirController extends Controller
                     $images [] = $this->images->store($image);
                 }
             }
+            $outlet_name = Outlet::where('id', $data['outlet_id'])->firstOrFail();
+            LogActivity::create([
+                'user_id'   => Auth::user()->id,
+                'modul'     => 'Registrasi',
+                'model'     => 'Transaksi',
+                'action'    => 'Add',
+                'note'      => Auth::user()->name . ' Telah menambahkan registrasi dengan no ' . $data['kode_transaksi'] . ' di outlet ' . $outlet_name->nama,
+                'old_data'  => null,
+                'new_data'  => json_encode($data),
+            ]);
             DB::commit();
             return response()->json([
                 'status' => true,

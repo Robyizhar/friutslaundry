@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use App\Models\TransaksiImage;
+use App\Models\LogActivity;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\BaseRepository;
+use DB;
 
 class CuciController extends Controller {
 
@@ -71,16 +73,28 @@ class CuciController extends Controller {
                 'is_done' => '0',
                 'cuci_id' => Auth::user()->id
             ];
+            DB::beginTransaction();
             $updated = $this->model->update(
                 ['kode_transaksi' => $request->kode_transaksi, 'cuci_id' => null, 'status' => 'qc', 'is_done' => '1'],
                 $data
             );
             if ($updated) {
+                LogActivity::create([
+                    'user_id'   => Auth::user()->id,
+                    'modul'     => 'CUCI',
+                    'model'     => 'Transaksi',
+                    'action'    => 'Add',
+                    'note'      => Auth::user()->name . ' Telah menambahkan transaksi ' . $updated['kode_transaksi'],
+                    'old_data'  => null,
+                    'new_data'  => json_encode($data),
+                ]);
+                DB::commit();
                 return response()->json([
                     'status' => true,
                     'data' => $request->kode_transaksi,
                 ], 200);
             } else {
+                DB::rollback();
                 return response()->json([
                     'status' => false,
                     'data' => $request->kode_transaksi,
@@ -89,6 +103,7 @@ class CuciController extends Controller {
                 ], 200);
             }
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json([
                 'status' => false,
                 'data' => $request,
@@ -108,15 +123,27 @@ class CuciController extends Controller {
                 'is_done' => '1',
                 'cuci_id' => Auth::user()->id
             ];
-            $this->model->update(
+            DB::beginTransaction();
+            $updated = $this->model->update(
                 ['id' => $request->id, 'status' => 'cuci', 'is_done' => '0'],
                 $data
             );
+            LogActivity::create([
+                'user_id'   => Auth::user()->id,
+                'modul'     => 'CUCI',
+                'model'     => 'Transaksi',
+                'action'    => 'Update',
+                'note'      => Auth::user()->name . ' Telah menyelesaikan transaksi ' . $updated['kode_transaksi'],
+                'old_data'  => null,
+                'new_data'  => json_encode($data),
+            ]);
+            DB::commit();
             return response()->json([
                 'status' => true,
                 'data' => $data
             ], 200);
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json([
                 'status' => false,
                 'err' => 'system_error',

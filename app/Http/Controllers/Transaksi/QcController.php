@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use App\Models\TransaksiImage;
+use App\Models\LogActivity;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\BaseRepository;
+use DB;
 
 class QcController extends Controller {
 
@@ -77,12 +79,24 @@ class QcController extends Controller {
                 'is_done' => '1',
                 'qc_id' => Auth::user()->id
             ];
-            $this->model->update($request->id, $data);
+            DB::beginTransaction();
+            $updated = $this->model->update($request->id, $data);
+            LogActivity::create([
+                'user_id'   => Auth::user()->id,
+                'modul'     => 'QC',
+                'model'     => 'Transaksi',
+                'action'    => 'Update',
+                'note'      => Auth::user()->name . ' Telah memperbaharui transaksi ' . $updated['kode_transaksi'],
+                'old_data'  => null,
+                'new_data'  => json_encode($data),
+            ]);
+            DB::commit();
             return response()->json([
                 'status' => true,
                 'data' => $data
             ], 200);
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json([
                 'status' => false,
                 'err' => 'system_error',

@@ -65,12 +65,12 @@
                                             <span class="d-none d-sm-inline">Barang Masuk</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="#barang_keluar" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2" style="border: 1px solid #c9c1c1;">
                                             <i class="fas fa-sign-out-alt"></i>
                                             <span class="d-none d-sm-inline">Barang Keluar</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <div class="tab-content b-0 mb-0 pt-0">
                                     <div class="tab-pane" id="barang_masuk">
@@ -148,31 +148,25 @@
                                                             <input readonly type="text" class="form-control data-pelanggan first-outlet" id="no_handphone" name="no_handphone">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row mb-3">
+                                                    {{-- <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="parfume">Parfume</label>
                                                         <div class="col-md-9">
                                                             <input readonly type="text" class="form-control first-outlet" id="parfume" name="parfume">
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group row mb-3">
-                                                        <label class="col-md-3 col-form-label">Pembayaran</label>
+                                                        <label class="col-md-3 col-form-label">Parfume</label>
                                                         <div class="col-md-9">
                                                             <div class="selectize-control multi">
-                                                                <div class="selectize-input items not-full has-options has-items">
-                                                                    <div class="select-input item-pembayaran" data-value="tunai">TUNAI</div>
-                                                                    <div class="select-input item-pembayaran" data-value="non_tunai">NON TUNAI</div>
-                                                                    <div class="select-input item-pembayaran" data-value="pot_deposit">POT DEPOSIT</div>
-                                                                    <input type="text" autocomplete="off" tabindex="" id="selectize-pembayaran-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
+                                                                <div style="height: auto;" class="selectize-input items not-full has-options has-items">
+                                                                    @foreach ($parfumes as $parfume)
+                                                                        <div class="select-input item-parfume" data-value="{{ $parfume->id }}">{{ $parfume->nama }}</div>
+                                                                    @endforeach
+                                                                    <input type="text" autocomplete="off" tabindex="" id="selectize-parfume-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
                                                                     <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
                                                                 </div>
                                                             </div>
-                                                            <input type="text" name="pembayaran" id="selectize-pembayaran" tabindex="-1" class="selectized" style="display: none;">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="bayar">Bayar</label>
-                                                        <div class="col-md-9">
-                                                            <input readonly type="text" class="form-control first-outlet" id="bayar" name="bayar" autocomplete="off" onkeypress="return isNumber(event)">
+                                                            <input type="text" name="parfume" id="selectize-parfume" tabindex="-1" class="selectized" style="display: none;">
                                                         </div>
                                                     </div>
                                                     <div class="form-group mb-3">
@@ -202,39 +196,59 @@
                                                                     <th class="text-center" width="15%">Nama Layanan</th>
                                                                     <th class="text-center" width="15%">Harga Satuan</th>
                                                                     <th class="text-center">Quantity</th>
-                                                                    {{-- <th class="text-center">Quantity KG</th> --}}
-                                                                    {{-- <th class="text-center">Special Treatment</th> --}}
                                                                     <th class="text-center">Quantity Special Treatment</th>
-                                                                    {{-- <th class="text-center">Harga Special Treatment</th> --}}
                                                                     <th class="text-center" width="15%">Total</th>
                                                                     <th class="text-center action-buton" width="4%">Aksi</th>
                                                                 </tr>
                                                             </thead>
                                                         </table>
-
                                                         <table class="table activate-select dt-responsive nowrap w-100" id="table-data-layanan-subtotal">
                                                             <tbody>
                                                                 <tr>
                                                                     <th class="text-right" width="15%">Sub Total</th>
                                                                     <th class="text-right" width="15%">Rp. <span class="sub_layanan_harga_satuan">0</span></th>
                                                                     <th class="text-right"><span class="sub_layanan_qty_satuan">0</span></th>
-                                                                    {{-- <th class="text-right"><span class="sub_layanan_qty_kg">0</span></th> --}}
                                                                     <th class="text-right"></th>
                                                                     <th class="text-right"><span class="sub_special_teatment_qty_satuan">0</span></th>
-                                                                    {{-- <th class="text-right">Rp. <span class="sub_special_teatment_qty_harga">0</span></th> --}}
                                                                     <th class="text-right" width="15%">Rp. <span class="sub_all_qty_harga">0</span></th>
-                                                                    <th class="text-right action-buton" width="4%">
-                                                                        {{-- <a class='btn btn-sm btn-success' type='button'><i class="fas fa-circle-notch"></i></a> --}}
-                                                                    </th>
+                                                                    <th class="text-right action-buton" width="4%"></th>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="float: left;" class="row">
-                                                <div class="col sm 3">
+                                            <div style="float: right;" class="row">
+                                                <div class="col-md-6">
                                                     <button type="button" class="btn btn-dark btn-square triggerLayanan">Tambah Layanan</button>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-md-3 col-form-label">Pembayaran</label>
+                                                        <div class="col-md-9">
+                                                            <div class="selectize-control multi">
+                                                                <div class="selectize-input items not-full has-options has-items">
+                                                                    <div class="select-input item-pembayaran" data-value="tunai">TUNAI</div>
+                                                                    <div class="select-input item-pembayaran" data-value="non_tunai">NON TUNAI</div>
+                                                                    <div class="select-input item-pembayaran" data-value="pot_deposit">POT DEPOSIT</div>
+                                                                    <input type="text" autocomplete="off" tabindex="" id="selectize-pembayaran-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;"></div>
+                                                                    <div class="selectize-dropdown multi" style="display: none;"><div class="selectize-dropdown-content"></div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" name="pembayaran" id="selectize-pembayaran" tabindex="-1" class="selectized" style="display: none;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="bayar">Bayar</label>
+                                                        <div class="col-md-9">
+                                                            <input readonly type="text" class="form-control first-outlet" id="bayar" name="bayar" autocomplete="off" onkeypress="return isNumber(event)">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div style="float: right;" class="row mt-5">
@@ -246,7 +260,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="tab-pane" id="barang_keluar">
+                                    {{-- <div class="tab-pane" id="barang_keluar">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group row mb-3">
@@ -269,7 +283,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -297,18 +311,10 @@
 		<td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_qty_satuan" required readonly style="background-color: #f5f5f5;" maxlength="9" type="text" name="layanan[0][qty_satuan]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-		{{-- <td class="text-center no-padding">
-			<input class="form-control text-left no-padding layanan_qty_kg" required step=".01" readonly style="background-color: #f5f5f5;" maxlength="9" type="number" name="layanan[0][qty_kg]" autocomplete="off" />
-        </td> --}}
-		{{-- <td class="text-center no-padding">
-			<input class="form-control text-left no-padding layanan_special_treatment" readonly style="background-color: #f5f5f5;" type="text" name="layanan[0][special_treatment]" autocomplete="off" />
-        </td> --}}
 		<td class="text-center no-padding">
 			<input class="form-control text-left no-padding layanan_qty_special_treatment" readonly style="background-color: #f5f5f5;" type="text" maxlength="9" name="layanan[0][qty_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
         </td>
-        {{-- <td class="text-center no-padding"> --}}
 			<input class="form-control text-left no-padding layanan_harga_special_treatment" readonly style="background-color: #f5f5f5;" value="25000" type="hidden" maxlength="9" name="layanan[0][harga_special_treatment]" autocomplete="off" onkeypress="return isNumber(event)" />
-        {{-- </td> --}}
         <td class="text-left" width="15%">
             <span class="layanan_total_label">
             </span>
@@ -413,7 +419,6 @@
         return number_value;
     }
 
-
     $(document).ready(function () {
 
         $('.item').click(function (e) {
@@ -469,6 +474,17 @@
             $(this).css("background-color", "#6c757d");
             $('#selectize-outlet').val(value);
             $(".first-outlet").prop('readonly', false);
+        });
+
+        $('.item-parfume').click(function (e) {
+            e.preventDefault();
+            let value = $(this).data('value');
+            $('.item-parfume').not(this).each(function(){
+                $(this).css("background-color", "#edeff1");
+            });
+            $(this).css("background-color", "#6c757d");
+            $('#selectize-parfume').val(value);
+            // $(".first-parfume").prop('readonly', false);
         });
 
         $('.item-pembayaran').click(function (e) {
@@ -835,7 +851,7 @@
             $("#table-data-layanan").append(tr_clone);
             renderDataLayanan();
         }
-        // layanan_nama
+
         function renderDataLayanan (){
             var index = 0;
             $(".layanan-selected-list").each(function () {

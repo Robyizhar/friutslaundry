@@ -48,10 +48,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
-    // Route::get('/infogram', function() {
-    //     return redirect('/home');
-    // })->name('infogram');
-
     Route::prefix('master-data')->middleware(['role_or_permission:Maintener|master-data'])->group(function () {
 
         Route::get('/', [MasterDataController::class, 'index'])->name('master-data');
@@ -132,8 +128,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/destroy/{id}', [ParfumeController::class, 'destroy'])->name('parfume.destroy');
         });
 
-
-
     });
 
     Route::prefix('registrasi')->middleware(['role_or_permission:Maintener|registrasi'])->group(function () {
@@ -141,19 +135,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('registrasi.get-data-layanan');
         Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('registrasi.print');
         Route::post('/store', [KasirController::class, 'store'])->name('registrasi.store');
-    });
-
-    Route::prefix('permintaan-laundry')->middleware(['role_or_permission:Maintener|pesanan-baru'])->group(function () {
-        Route::get('/', [PermintaanLaundryController::class, 'index'])->name('permintaan-laundry');
-        Route::post('/get-data', [PermintaanLaundryController::class, 'getData'])->name('permintaan-laundry.get-data');
-        Route::get('/create', [PermintaanLaundryController::class, 'create'])->name('permintaan-laundry.create');
-        Route::post('/store', [PermintaanLaundryController::class, 'store'])->name('permintaan-laundry.store');
-        Route::get('/detail/{id}', [PermintaanLaundryController::class, 'detail'])->name('permintaan-laundry.detail');
-        Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
-        Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
-        Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
-        Route::post('/get-data-layanan', [PermintaanLaundryController::class, 'getDataLayanan'])->name('permintaan-laundry.get-data-layanan');
-        Route::post('/get-data-parfume', [PermintaanLaundryController::class, 'getDataParfume'])->name('permintaan-laundry.get-data-parfume');
     });
 
     Route::prefix('top-up')->middleware(['role_or_permission:Maintener|topup-member'])->group(function () {
@@ -260,6 +241,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-user', [ExpedisiJadwalAntarController::class, 'getDataUser'])->name('expedisi-jadwal-antar.get-data-user');
     });
 
+    //MEMBER
     Route::prefix('history-laundry')->middleware(['role_or_permission:Maintener|history-transaksi'])->group(function () {
         Route::get('/', [HistoryLaundryController::class, 'index'])->name('history-laundry');
         Route::post('/get-data', [HistoryLaundryController::class, 'getData'])->name('history-laundry.get-data');
@@ -275,6 +257,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dislike/{id}', [HistoryLaundryController::class, 'dislike'])->name('history-laundry.dislike');
     });
 
+    // MEMBER
+    Route::prefix('permintaan-laundry')->middleware(['role_or_permission:Maintener|history-transaksi'])->group(function () {
+        Route::get('/', [PermintaanLaundryController::class, 'index'])->name('permintaan-laundry');
+        Route::post('/get-data', [PermintaanLaundryController::class, 'getData'])->name('permintaan-laundry.get-data');
+        Route::get('/create', [PermintaanLaundryController::class, 'create'])->name('permintaan-laundry.create');
+        Route::post('/store', [PermintaanLaundryController::class, 'store'])->name('permintaan-laundry.store');
+        Route::get('/detail/{id}', [PermintaanLaundryController::class, 'detail'])->name('permintaan-laundry.detail');
+        Route::get('/edit/{id}', [PermintaanLaundryController::class, 'edit'])->name('permintaan-laundry.edit');
+        Route::put('/update', [PermintaanLaundryController::class, 'update'])->name('permintaan-laundry.update');
+        Route::get('/destroy/{id}', [PermintaanLaundryController::class, 'destroy'])->name('permintaan-laundry.destroy');
+        Route::post('/get-data-layanan', [PermintaanLaundryController::class, 'getDataLayanan'])->name('permintaan-laundry.get-data-layanan');
+        Route::post('/get-data-parfume', [PermintaanLaundryController::class, 'getDataParfume'])->name('permintaan-laundry.get-data-parfume');
+    });
 
     Route::prefix('laporan-member')->middleware(['role_or_permission:Maintener|laporan'])->group(function () {
         Route::get('/', [LaporanMemberController::class, 'index'])->name('laporan-member');
