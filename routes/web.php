@@ -24,6 +24,7 @@ use App\Http\Controllers\Transaksi\QcController;
 use App\Http\Controllers\Transaksi\CuciController;
 use App\Http\Controllers\Transaksi\PengeringanController;
 use App\Http\Controllers\Transaksi\SetrikaController;
+use App\Http\Controllers\Transaksi\RequestLaundryController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
@@ -43,8 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
     Route::get('/laporan', [App\Http\Controllers\HomeController::class, 'laporan'])->name('laporan');
-    Route::get('/like', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
-    Route::get('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
+    Route::post('/like/{id}', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
+    Route::put('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
@@ -135,6 +136,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-layanan', [KasirController::class, 'getDataLayanan'])->name('registrasi.get-data-layanan');
         Route::get('/print/{kode_transaksi}', [KasirController::class, 'print'])->name('registrasi.print');
         Route::post('/store', [KasirController::class, 'store'])->name('registrasi.store');
+    });
+
+    Route::prefix('request-laundry')->middleware(['role_or_permission:Maintener|registrasi'])->group(function () {
+        Route::get('/', [RequestLaundryController::class, 'index'])->name('request-laundry');
+        Route::post('/get-layanan', [RequestLaundryController::class, 'getDataLayanan'])->name('request-laundry.get-data-layanan');
+        Route::get('/print/{kode_transaksi}', [RequestLaundryController::class, 'print'])->name('request-laundry.print');
+        Route::post('/store', [RequestLaundryController::class, 'store'])->name('request-laundry.store');
+        Route::post('/get-data', [RequestLaundryController::class, 'getData'])->name('request-laundry.get-data');
+        Route::get('/create/{id}', [RequestLaundryController::class, 'create'])->name('request-laundry.create');
     });
 
     Route::prefix('top-up')->middleware(['role_or_permission:Maintener|topup-member'])->group(function () {

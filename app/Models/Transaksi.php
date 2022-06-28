@@ -20,6 +20,7 @@ class Transaksi extends Authenticatable
      */
     protected $fillable = [
         'kode_transaksi',
+        'permintaan_laundry_id',
         'kasir_id',
         'member_id',
         'qc_id',

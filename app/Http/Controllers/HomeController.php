@@ -61,10 +61,10 @@ class HomeController extends Controller
     }
 
     public function like($id) {
-        
+
         $like =  DB::update("update transaksis set kepuasan_pelanggan = 'ya' where transaksis.id= " .$id);
                          
-        return Response()->json($like);
+        return view('home');
     }
 
     public function dislike($id) {

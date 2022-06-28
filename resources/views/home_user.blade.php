@@ -41,7 +41,7 @@
 
                 @if(isset($data['transaksi_terakhir']->kepuasan_pelanggan))
 
-                @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral' and $data['transaksi_terakhir']->is_done =='1')
+                @if($data['transaksi_terakhir']->kepuasan_pelanggan =='netral' and isset($data['transaksi_terakhir']->deliver_at))
 
                 <div class="col-md-12 col-xl-3">
                     <div class="widget-rounded-circle card-box">
@@ -417,14 +417,22 @@
 @push('script')
 <script type="text/javascript">
     function like(id){
+        // alert(id);
+
+        // let print_home          = `{{ url('request-laundry') }}`;
+        let print_url           = `{{ url('like') }}`;
+        let redirect_print_url  = print_url+'/'+id;
+        // alert(redirect_print_url);
+
         $.ajax({
             type:'POST',
-            url: "{!! route('like') !!}",
-            data: id,
+            url: redirect_print_url,
+            // data: { id: id },
             cache:false,
             contentType: false,
             processData: false,
             success: (data) => {
+                window.location.reload(true);
             },
             error: function(data){
             console.log(data);
@@ -432,4 +440,6 @@
         });
     }
 </script>
+
+
 @endpush

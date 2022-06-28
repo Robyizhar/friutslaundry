@@ -63,6 +63,12 @@
                 <li class="menu-title mt-2">- Apps -</li>
                 @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['registrasi']))
                 <li>
+                    <a href="{{ route('request-laundry') }}">
+                        <i class="dripicons-download"></i>
+                        <span>Terima Penjemputan</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('registrasi') }}">
                         <i class="dripicons-document-edit"></i>
                         <span>Registrasi</span>

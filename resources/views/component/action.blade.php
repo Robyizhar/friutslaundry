@@ -71,4 +71,10 @@
         </a>
     @endif
 
+    @if (isset($url_accept))
+        <a href="{{ $url_accept }}" class="btn btn-sm btn-success waves-effect waves-light" title="Terima">
+            <i class="fe-check-circle"></i>
+        </a>
+    @endif
+
 </div>
