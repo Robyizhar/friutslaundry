@@ -33,6 +33,10 @@ use App\Http\Controllers\Member\HistoryLaundryController;
 //Laporan
 use App\Http\Controllers\Laporan\LaporanMemberController;
 use App\Http\Controllers\Laporan\LaporanOutletController;
+use App\Http\Controllers\Laporan\LaporanExpedisiController;
+
+use App\Http\Controllers\Infogram\InfogramExpedisiController;
+use App\Http\Controllers\Infogram\InfogramOutletController;
 
 Route::get('/', function() {
     return redirect('/login');
@@ -41,11 +45,16 @@ Route::post('login-qr', [LoginController::class, 'loginQR'])->name('login-qr');
 Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
 
+    // infogram general
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/infogram', [App\Http\Controllers\HomeController::class, 'infogram'])->name('infogram');
     Route::get('/laporan', [App\Http\Controllers\HomeController::class, 'laporan'])->name('laporan');
     Route::post('/like/{id}', [App\Http\Controllers\HomeController::class, 'like'])->name('like');
-    Route::put('/dislike', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
+    Route::post('/dislike/{id}', [App\Http\Controllers\HomeController::class, 'dislike'])->name('dislike');
+
+    //infogram expedisi
+    Route::get('/infogram-outlet', [App\Http\Controllers\HomeController::class, 'infogramExpedisi'])->name('infogram-outlet');
+    Route::post('/infogram-data-outlet', [LaporanMemberController::class, 'getData'])->name('infogram-data-outlet');
 
     Route::get('/home-user', [App\Http\Controllers\HomeController::class, 'indexuser'])->name('home-user');
 
@@ -290,6 +299,22 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [LaporanOutletController::class, 'index'])->name('laporan-outlet');
         Route::post('/get-data', [LaporanOutletController::class, 'getData'])->name('laporan-outlet.get-data');
     });
+
+    Route::prefix('laporan-expedisi')->middleware(['role_or_permission:Maintener|laporan'])->group(function () {
+        Route::get('/', [LaporanExpedisiController::class, 'index'])->name('laporan-expedisi');
+        Route::post('/get-data', [LaporanExpedisiController::class, 'getData'])->name('laporan-expedisi.get-data');
+    });
+
+    Route::prefix('infogram-expedisi')->middleware(['role_or_permission:Maintener|infogram'])->group(function () {
+        Route::get('/', [InfogramExpedisiController::class, 'index'])->name('infogram-expedisi');
+        Route::post('/get-data', [InfogramExpedisiController::class, 'getData'])->name('infogram-expedisi.get-data');
+    });
+
+    Route::prefix('infogram-outlet')->middleware(['role_or_permission:Maintener|infogram'])->group(function () {
+        Route::get('/', [InfogramOutletController::class, 'index'])->name('infogram-outlet');
+        Route::post('/get-data', [InfogramOutletController::class, 'getData'])->name('infogram-outlet.get-data');
+    });
+
 
 });
 

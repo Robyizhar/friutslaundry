@@ -32,8 +32,8 @@
                             </form>
                         </div> -->
                         <br>
-                        <h4 class="text-center">CASH FLOW & LALU LINTAS BARANG</h4>
-                        <h4 class="text-center">HARI SENIN 30 AGUSTUS 2022</h4>
+                        <h4 class="text-center">Cash Flow & Lalu Lintas Barang</h4>
+                        <h4 class="text-center">{{ date('l d F Y') }}</h4>
                         <h4 class="text-center">&nbsp;</h4>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">250 Kg</h4>
+                                <h4 class="text-info text-center">{{ $data['total']->total_kiloan }} Kg</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -69,7 +69,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">506 Pcs</h4>
+                                <h4 class="text-info text-center">{{ $data['total']->total_satuan }} Pcs</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -86,7 +86,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">Rp 4.125.600</h4>
+                                <h4 class="text-info text-center">Rp {{ $data['total']->harga_cuci }}</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -103,7 +103,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">55 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['nota_masuk'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -120,7 +120,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">45 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['nota_keluar'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -137,7 +137,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">Rp 4.125.600</h4>
+                                <h4 class="text-info text-center">Rp {{ $data['total']->harga_bayar }}</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -154,7 +154,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">22 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['total_regis'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -171,7 +171,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">19 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['total_cuci'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -188,7 +188,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">16 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['total_kering'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -205,7 +205,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">22 Nota</h4>
+                                <h4 class="text-info text-center">{{ $data['total_setrika'] }} Nota</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -222,7 +222,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">19 Titik</h4>
+                                <h4 class="text-info text-center">{{ $data['total_antar'] }} Titik</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->
@@ -239,7 +239,7 @@
                         </div>
                         <div id="cardCollpase7" class="collapse show">
                             <div class="card-body">
-                                <h4 class="text-info text-center">16 Titik</h4>
+                                <h4 class="text-info text-center">{{ $data['total_jemput'] }} Titik</h4>
                             </div>
                         </div>
                     </div> <!-- end card-->

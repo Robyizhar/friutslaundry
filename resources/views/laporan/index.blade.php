@@ -43,7 +43,7 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
-                <a class="col-md-4 col-xl-3" href="{{ route('laporan') }}">
+                <a class="col-md-4 col-xl-3" href="{{ route('laporan-expedisi') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-12">
@@ -63,7 +63,7 @@
                     </div> <!-- end widget-rounded-circle-->
                 </a> <!-- end col-->
 
-                <a class="col-md-4 col-xl-3" href="{{ route('laporan') }}">
+                <a class="col-md-4 col-xl-3" href="{{ route('laporan-member') }}">
                     <div class="widget-rounded-circle card-box">
                         <div class="row">
                             <div class="col-12">

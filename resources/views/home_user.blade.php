@@ -59,7 +59,7 @@
                                     <a onClick="like({{ $data['transaksi_terakhir']->id }})" class="btn btn-lg btn-outline-success waves-effect waves-light" title="Like">
                                         <i class="fe-thumbs-up"></i>
                                     </a>
-                                    <a href="" class="btn btn-lg btn-outline-danger waves-effect waves-light" title="Hapus">
+                                    <a onClick="dislike({{ $data['transaksi_terakhir']->id }})" class="btn btn-lg btn-outline-danger waves-effect waves-light" title="Dislike">
                                         <i class="fe-thumbs-down"></i>
                                     </a>
                                 </div>
@@ -421,6 +421,30 @@
 
         // let print_home          = `{{ url('request-laundry') }}`;
         let print_url           = `{{ url('like') }}`;
+        let redirect_print_url  = print_url+'/'+id;
+        // alert(redirect_print_url);
+
+        $.ajax({
+            type:'POST',
+            url: redirect_print_url,
+            // data: { id: id },
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                window.location.reload(true);
+            },
+            error: function(data){
+            console.log(data);
+            }
+        });
+    }
+
+    function dislike(id){
+        // alert(id);
+
+        // let print_home          = `{{ url('request-laundry') }}`;
+        let print_url           = `{{ url('dislike') }}`;
         let redirect_print_url  = print_url+'/'+id;
         // alert(redirect_print_url);
 

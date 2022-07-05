@@ -42,11 +42,30 @@
 
                 @if( Auth::user()->getRoleNames()[0] == 'Developer' || Auth::user()->hasAnyPermission(['infogram']))
                 <li>
-                    <a href="{{ route('infogram') }}">
+                    <a href="#infogram" data-toggle="collapse">
                         <i class="fe-tv"></i>
-                        {{-- <span class="badge badge-success badge-pill float-right">4</span> --}}
                         <span>Infogram</span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="infogram">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('infogram') }}">
+                                    <span>General</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('infogram-expedisi') }}">
+                                    <span>Expedisi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('infogram-outlet') }}">
+                                    <span>Outlet</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 @endif
 
