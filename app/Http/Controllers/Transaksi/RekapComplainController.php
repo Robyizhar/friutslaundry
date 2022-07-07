@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\Transaksi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\HistoryLaundryRequest;
-use App\Http\Requests\HistoryLaundryRequestUpdate;
+// use App\Http\Requests\HistoryLaundryRequest;
+// use App\Http\Requests\HistoryLaundryRequestUpdate;
 use App\Models\HistoryLaundry;
-use App\Models\Member;
+// use App\Models\Member;
 use App\Repositories\BaseRepository;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\Permission\Models\Role;
@@ -19,7 +19,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use DB;
 use Auth;
 
-class HistoryLaundryController extends Controller {
+class RekapComplainController extends Controller {
 
     protected $model, $role;
 
@@ -29,27 +29,26 @@ class HistoryLaundryController extends Controller {
     }
 
     public function index() {
-        return view('member.history-laundry.index');
+        return view('transaksi.rekap-complain.index');
     }
 
     public function getData() {
 
-        $member_id = DB::table('members')->where('user_id', Auth::user()->id)->first()->id;
-
         $data = DB::table('transaksis')
-            ->select('transaksis.*', 'parfumes.nama as nama_parfume', 'parfumes.id as parfume_id', 'permintaan_laundries.tanggal', 'permintaan_laundries.waktu')
+            ->select('transaksis.*')
             ->join('permintaan_laundries', 'permintaan_laundries.id', '=', 'transaksis.permintaan_laundry_id','left')
             ->join('parfumes', 'parfumes.id', '=', 'permintaan_laundries.parfume_id','left')
-            ->where('transaksis.member_id',$member_id);
+            ->where('transaksis.kepuasan_pelanggan','=','tidak');
+
             
         return DataTables::of($data)
 
         ->addColumn('action', function ($data) {
             return view('component.action', [
                 'model' => $data,
-                'url_like' => route('history-laundry.like', $data->id),
-                'url_dislike' => route('history-laundry.dislike', $data->id),
-                'url_catatan' => $data->id
+                // 'url_like' => route('history-laundry.like', $data->id),
+                // 'url_dislike' => route('history-laundry.dislike', $data->id),
+                // 'url_catatan' => $data->id
             ]);
         })
         ->addIndexColumn()

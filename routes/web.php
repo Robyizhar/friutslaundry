@@ -25,6 +25,7 @@ use App\Http\Controllers\Transaksi\CuciController;
 use App\Http\Controllers\Transaksi\PengeringanController;
 use App\Http\Controllers\Transaksi\SetrikaController;
 use App\Http\Controllers\Transaksi\RequestLaundryController;
+use App\Http\Controllers\Transaksi\RekapComplainController;
 
 //Member
 use App\Http\Controllers\Member\PermintaanLaundryController;
@@ -274,6 +275,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/get-data-parfume', [HistoryLaundryController::class, 'getDataParfume'])->name('history-laundry.get-data-parfume');
         Route::get('/like/{id}', [HistoryLaundryController::class, 'like'])->name('history-laundry.like');
         Route::get('/dislike/{id}', [HistoryLaundryController::class, 'dislike'])->name('history-laundry.dislike');
+        Route::post('/get-data-info', [HistoryLaundryController::class, 'getDataInfo'])->name('history-laundry.get-data-info');
     });
 
     // MEMBER
@@ -313,6 +315,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('infogram-outlet')->middleware(['role_or_permission:Maintener|infogram'])->group(function () {
         Route::get('/', [InfogramOutletController::class, 'index'])->name('infogram-outlet');
         Route::post('/get-data', [InfogramOutletController::class, 'getData'])->name('infogram-outlet.get-data');
+    });
+
+    Route::prefix('rekap-complain')->middleware(['role_or_permission:Maintener|rekap-complain'])->group(function () {
+        Route::get('/', [RekapComplainController::class, 'index'])->name('rekap-complain');
+        Route::post('/get-data', [RekapComplainController::class, 'getData'])->name('rekap-complain.get-data');
+        Route::get('/detail/{id}', [RekapComplainController::class, 'detail'])->name('rekap-complain.detail');
+        Route::post('/get-data-info', [RekapComplainController::class, 'getDataInfo'])->name('rekap-complain.get-data-info');
     });
 
 

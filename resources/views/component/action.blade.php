@@ -66,7 +66,7 @@
     @endif
 
     @if (isset($url_catatan))
-        <a href="" class="btn btn-sm btn-info btn_pop waves-effect waves-light" onClick="tambah_catatan({{ $url_catatan }})" title="Tambah Catatan" data-toggle="modal">
+        <a href="" class="btn btn-sm btn-info btn_pop waves-effect waves-light" onClick="open_modal({{ $url_catatan }})" title="Tambah Catatan" data-toggle="modal">
             <i class="fe-message-circle"></i>
         </a>
     @endif

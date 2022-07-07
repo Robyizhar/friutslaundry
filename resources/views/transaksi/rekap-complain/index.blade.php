@@ -7,11 +7,11 @@
     <div class="content">
         <div class="container-fluid">
             @include('component.breadcrumb')
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12">
                     <a href="{{ route('history-laundry.create') }}" class="btn btn-primary waves-effect waves-light mb-3">Add</a>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -20,11 +20,9 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
-                                        <th>Tanggal Penjemputan</th>
-                                        <th>Waktu Penjemputan</th>
-                                        <th>Alamat Penjemputan</th>
-                                        <th>Parfume</th>
-                                        <th width="10%">Aksi</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Catatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,69 +84,26 @@
             method: "POST",
             scrollX: true,
             ajax: {
-                url: "{!! route('history-laundry.get-data') !!}",
+                url: "{!! route('rekap-complain.get-data') !!}",
                 type: "POST",
                 dataType: "JSON"
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
-                {data: 'tanggal', name: 'tanggal'},
-                {data: 'waktu', name: 'waktu'},
+                {data: 'nama', name: 'nama'},
                 {data: 'alamat', name: 'alamat'},
-                {data: 'nama_parfume', name: 'nama_parfume'},
-                {data: 'action', name: 'action'}
+                {data: 'catatan_pelanggan', name: 'catatan_pelanggan'}
             ]
         });
     });
 </script>
 
 <script>
-    function like(id){
-     
-        let print_url           = `{{ url('like') }}`;
-        let redirect_print_url  = print_url+'/'+id;
-        
-        $.ajax({
-            type:'POST',
-            url: redirect_print_url,
-            // data: { id: id },
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-                window.location.reload(true);
-            },
-            error: function(data){
-            console.log(data);
-            }
-        });
-    }
-
-    function dislike(id){
-     
-        let print_url           = `{{ url('dislike') }}`;
-        let redirect_print_url  = print_url+'/'+id;
-     
-        $.ajax({
-            type:'POST',
-            url: redirect_print_url,
-            // data: { id: id },
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-                window.location.reload(true);
-            },
-            error: function(data){
-            console.log(data);
-            }
-        });
-    }
 
     function open_modal(id){
         $.ajax({
             type:"POST",
-            url: "{!! route('history-laundry.get-data-info') !!}",
+            url: "{!! route('rekap-complain.get-data-info') !!}",
             data: { id: id },
             dataType: 'json',
             success: function(res){
@@ -161,26 +116,6 @@
             }
         });
     } 
-
-    $('#modalForm').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type:'POST',
-            url: "{!! route('history-laundry.store') !!}",
-            data: formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: (data) => {$("#input-modal").modal('hide');
-                var oTable = $('#state-saving-datatable').dataTable();
-                oTable.fnDraw(false);
-            },
-            error: function(data){
-            console.log(data);
-            }
-        });
-    });
 
 </script>
 @endpush
